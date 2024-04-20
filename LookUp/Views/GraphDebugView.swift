@@ -18,7 +18,7 @@ struct GraphDebugView: View {
             Text("Links:")
             
             ForEach(Array(graph.links), id: \.self) { link in
-                let array = Array(link.s)
+                let array = Array(link)
                 Text("\(array[0]) <> \(array[1])")
             }
         }

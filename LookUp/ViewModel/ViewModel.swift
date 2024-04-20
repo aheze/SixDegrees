@@ -27,7 +27,7 @@ class ViewModel: ObservableObject {
             self.authorizationStatus = CNContactStore.authorizationStatus(for: .contacts)
         }
         
-        let graph = DummyData.generateGraph(ownContactMetadata: ownContactMetadata, targetDepth: 3)
-        print("graph: \(graph)")
+//        let graph = DummyData.generateGraph(phoneNumber: Strin, targetDepth: <#T##Int#>: ownContactMetadata, targetDepth: 3)
+//        print("graph: \(graph)")
     }
 }

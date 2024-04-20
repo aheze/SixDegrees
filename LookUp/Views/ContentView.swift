@@ -27,8 +27,8 @@ struct ContentView: View {
             
             GraphDebugView(
                 graph: DummyData.generateGraph(
-                    ownContactMetadata: model.ownContactMetadata,
-                    targetDepth: 2
+                    phoneNumber: model.ownPhoneNumber,
+                    targetDepth: 3
                 )
             )
         }

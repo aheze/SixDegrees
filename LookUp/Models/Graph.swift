@@ -11,31 +11,13 @@ import Foundation
 struct Graph: Codable {
     // how many levels of connections there are
     var depth: Int
-    
-    var rootNode: Node
-    
-    // links that violate the top-down tree structure.
-    // for example, lynn to rachel, or rachel to andrew.
-    
-    // all links
-    var links: Set<Link>
-}
 
-struct Link: Codable, Hashable {
-//    var a: String
-//    var b: String
-    
-    var s: Set<String>
-    
-//    func hash(into hasher: inout Hasher) {
-//        hasher.combine(a)
-//        hasher.combine(b)
-//    }
-    
-//    static func == (lhs: Link, rhs: Link) -> Bool {
-//        // order doesn't matter
-//        (lhs.a == rhs.a && lhs.b == rhs.b) || (lhs.a == rhs.b && lhs.b == rhs.a)
-//    }
+    // the root node
+    var rootNode: Node
+
+    // links between nodes
+    // (9252149133, 3102513864), (9252149133, 911), (911, 3102513864)
+    var links: Set<Set<String>>
 }
 
 struct Node: Codable {
