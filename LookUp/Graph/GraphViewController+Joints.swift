@@ -10,8 +10,7 @@ import SpriteKit
 
 extension GraphViewController {
     func drawLines() {
-        let bridgeSize = CGSize(width: 6, height: 2)
-        let numberOfComponents = 10
+        let bridgeSize = CGSize(width: 10, height: 3)
         
         for link in graphViewModel.graph.links {
             let arr = Array(link).sorted()
@@ -21,39 +20,48 @@ extension GraphViewController {
             let aNode = phoneNumberToNode[a]!
             let bNode = phoneNumberToNode[b]!
             
+            let distance = CGPointDistance(from: aNode.position, to: bNode.position)
+            let numberOfComponents = Int(distance / 20)
+            
             let angle = atan2(bNode.position.y - aNode.position.y, bNode.position.x - aNode.position.x)
             
-            let xDistance = bNode.position.x - aNode.position.x
-            let yDistance = bNode.position.y - aNode.position.y
+            let circleRadius = CGFloat(20)
+            
+            let physicsCircleRadius = circleRadius * GraphConstants.physicsCircleBorderMultiplier
+            let aPosition = CGPoint(x: aNode.position.x + cos(angle) * physicsCircleRadius, y: aNode.position.y + sin(angle) * physicsCircleRadius)
+            let bPosition = CGPoint(x: bNode.position.x - cos(angle) * physicsCircleRadius, y: bNode.position.y - sin(angle) * physicsCircleRadius)
+            
+            let xDistance = bPosition.x - aPosition.x
+            let yDistance = bPosition.y - aPosition.y
             
             let dx = xDistance / Double(numberOfComponents)
             let dy = yDistance / Double(numberOfComponents)
             
-            print("a: \(aNode.position), \(bNode.position) -> \(angle)")
-            
             var shapes = [SKShapeNode]()
             for i in 0 ..< numberOfComponents {
-                let shape = SKShapeNode(rectOf: bridgeSize, cornerRadius: 1)
-                shape.fillColor = .green
+                let shape = SKShapeNode(rectOf: bridgeSize, cornerRadius: 1.5)
+                shape.fillColor = .label.withAlphaComponent(0.15)
                 shape.strokeColor = .clear
                 
                 let position = CGPoint(
-                    x: aNode.position.x + dx * Double(i),
-                    y: aNode.position.y + dy * Double(i)
+                    x: aPosition.x + dx * Double(i),
+                    y: aPosition.y + dy * Double(i)
                 )
                 
                 shape.position = position
                 shape.zRotation = angle
                 
                 let physicsBody = SKPhysicsBody(rectangleOf: bridgeSize)
+                physicsBody.categoryBitMask = CollisionTypes.bridge.rawValue
+                physicsBody.collisionBitMask = CollisionTypes.node.rawValue
                 shape.physicsBody = physicsBody
                 shapes.append(shape)
                 scene.addChild(shape)
                 
                 if i >= 1 {
                     let point = CGPoint(
-                        x: aNode.position.x + dx * Double(i - 1),
-                        y: aNode.position.y + dy * Double(i - 1)
+                        x: aPosition.x + dx * Double(i - 1),
+                        y: aPosition.y + dy * Double(i - 1)
                     )
                     
                     let spring = SKPhysicsJointSpring.joint(
@@ -66,20 +74,6 @@ extension GraphViewController {
                     scene.physicsWorld.add(spring)
                 }
             }
-//
-//            for index in 1..<10 {
-//                let previous = shapes[index - 1]
-//                let current = shapes[index]
-//
-//                let spring = SKPhysicsJointSpring.joint(
-//                    withBodyA: previous.physicsBody!,
-//                    bodyB: current.physicsBody!,
-//                    anchorA: CGPoint(x: previous.position.x + bridgeSize.width, y: previous.position.y),
-//                    anchorB: CGPoint(x: current.position.x - bridgeSize.width, y: current.position.y)
-//                )
-//
-//                scene.physicsWorld.add(spring)
-//            }
         }
     }
 }

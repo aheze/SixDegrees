@@ -18,9 +18,9 @@ struct ContentView: View {
         VStack {
             Text("LookUp")
                 .bold()
-            
+
             Text("Find connections between people.")
-            
+
             Button("Initiate Graph") {
                 showingPermissions = true
             }
@@ -28,10 +28,10 @@ struct ContentView: View {
             .buttonStyle(.borderedProminent)
 
             Spacer()
-                
+
             VStack {
                 Text("Debug!")
-                    
+
                 GraphDebugView(
                     graph: DummyData.generateGraph(
                         phoneNumber: model.ownPhoneNumber,
@@ -39,6 +39,7 @@ struct ContentView: View {
                     )
                 )
             }
+            .foregroundColor(.white)
             .font(.caption2)
             .padding()
             .background {
@@ -47,14 +48,14 @@ struct ContentView: View {
                     .environment(\.colorScheme, .dark)
             }
         }
-        .foregroundColor(.white)
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background {
-            Rectangle()
-                .fill(
-                    LinearGradient(colors: [.blue, .green], startPoint: .top, endPoint: .bottom)
-                )
+            Color.clear
+//                .fill(
+//                    LinearGradient(colors: [.blue, .green], startPoint: .top, endPoint: .bottom)
+//                        .opacity(0.1)
+//                )
                 .overlay {
                     GraphViewControllerRepresentable(graphViewModel: graphViewModel)
                 }

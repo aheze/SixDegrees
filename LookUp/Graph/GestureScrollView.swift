@@ -34,8 +34,6 @@ class GestureScrollViewController: UIViewController {
         scrollView.alwaysBounceVertical = true
         scrollView.alwaysBounceHorizontal = true
         scrollView.delegate = self
-
-        contentView.addDebugBorders(.red)
     }
 
     override func viewDidAppear(_ animated: Bool) {

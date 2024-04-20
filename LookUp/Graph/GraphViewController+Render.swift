@@ -33,8 +33,7 @@ enum Positioning {
 extension GraphViewController {
     func render() {
         render(node: graphViewModel.graph.rootNode, level: 0, point: CGPoint(x: canvasLength / 2, y: canvasLength / 2))
-        
-        
+
         drawLines()
     }
 
@@ -60,15 +59,17 @@ extension GraphViewController {
     }
 
     func renderCircle(phoneNumber: String, point: CGPoint, circleRadius: Double, color: UIColor) {
-        let shape = SKShapeNode(circleOfRadius: circleRadius)
+        let shape = CircleNode(circleRadius: circleRadius)
         shape.fillColor = color
         shape.strokeColor = .clear
         shape.position = point
 
-        let physicsBody = SKPhysicsBody(circleOfRadius: circleRadius)
+        let physicsBody = SKPhysicsBody(circleOfRadius: circleRadius * GraphConstants.physicsCircleBorderMultiplier)
+        physicsBody.categoryBitMask = CollisionTypes.node.rawValue
+        physicsBody.collisionBitMask = CollisionTypes.bridge.rawValue
         shape.physicsBody = physicsBody
         scene.addChild(shape)
-        
+
         phoneNumberToNode[phoneNumber] = shape
     }
 }
