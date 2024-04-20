@@ -1,0 +1,21 @@
+{
+  "name": "LookUp-AI-Backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/aheze/LookUp",
+  "author": "Neel Redkar <neel.redkar@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/index.js",
+    "bs": "yarn build && yarn start",
+    "dev": "nodemon src/index.ts"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.7",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "typescript": "^5.4.5"
+  }
+}
