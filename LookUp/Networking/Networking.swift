@@ -30,7 +30,7 @@ enum Networking {
             throw NetworkingError.couldNotGetString
         }
         
-        print(string)
+//        print(string)
 
         var request = URLRequest(url: baseURL.appendingPathComponent("/user/signup"))
         request.httpMethod = "POST"

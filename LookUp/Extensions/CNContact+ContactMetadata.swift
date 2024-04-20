@@ -37,12 +37,11 @@ extension CNContact {
         phoneNumber = String(phoneNumber.unicodeScalars.filter { characterSet.contains($0) })
 
         if phoneNumber.hasPrefix("+") {
-            let components = phoneNumber.components(separatedBy: " ")
-            guard components.count >= 2 else {
+            if phoneNumber.hasPrefix("+1") {
+                phoneNumber = String(phoneNumber.dropFirst(2))
+            } else {
                 return nil
             }
-
-            phoneNumber = components.dropLast().joined(separator: "")
         }
 
         let name: String? = {
@@ -53,7 +52,7 @@ extension CNContact {
             string.append(familyName)
 
             string = string.trimmingCharacters(in: .whitespacesAndNewlines)
-            
+
             if !string.isEmpty {
                 return string
             } else {
