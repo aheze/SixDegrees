@@ -14,7 +14,6 @@ struct ContentView: View {
 
     @State var showingPermissions = false
 
-    @State var started = false
     var body: some View {
         VStack {
             Text("LookUp")
@@ -23,31 +22,28 @@ struct ContentView: View {
             Text("Find connections between people.")
             
             Button("Initiate Graph") {
-//                showingPermissions = true
-                started = true
+                showingPermissions = true
             }
             .buttonBorderShape(.capsule)
             .buttonStyle(.borderedProminent)
 
-            if started {
-                Spacer()
+            Spacer()
                 
-                VStack {
-                    Text("Debug!")
+            VStack {
+                Text("Debug!")
                     
-                    GraphDebugView(
-                        graph: DummyData.generateGraph(
-                            phoneNumber: model.ownPhoneNumber,
-                            targetDepth: 3
-                        )
+                GraphDebugView(
+                    graph: DummyData.generateGraph(
+                        phoneNumber: model.ownPhoneNumber,
+                        targetDepth: 3
                     )
-                }
-                .padding()
-                .background {
-                    RoundedRectangle(cornerRadius: 36)
-                        .fill(.regularMaterial)
-                        .environment(\.colorScheme, .dark)
-                }
+                )
+            }
+            .padding()
+            .background {
+                RoundedRectangle(cornerRadius: 36)
+                    .fill(.regularMaterial)
+                    .environment(\.colorScheme, .dark)
             }
         }
         .foregroundColor(.white)
@@ -59,9 +55,7 @@ struct ContentView: View {
                     LinearGradient(colors: [.blue, .green], startPoint: .top, endPoint: .bottom)
                 )
                 .overlay {
-                    if started {
-                        GraphViewControllerRepresentable(graphViewModel: graphViewModel)
-                    }
+                    GraphViewControllerRepresentable(graphViewModel: graphViewModel)
                 }
                 .ignoresSafeArea()
         }
@@ -74,7 +68,6 @@ struct ContentView: View {
                 }
         }
         .environmentObject(model)
-        .animation(.spring(response: 0.9, dampingFraction: 1, blendDuration: 1), value: started)
     }
 }
 

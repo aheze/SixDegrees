@@ -38,31 +38,37 @@ extension GraphViewController {
 //        shape.position = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
 //        scene.addChild(shape)
 //    }
-    
+
     func render() {
-        render(node: graphViewModel.graph.rootNode, level: 0, angle: 0)
+        render(node: graphViewModel.graph.rootNode, level: 0, point: CGPoint(x: view.bounds.midX, y: view.bounds.midY))
     }
 
-    func render(node: Node, level: Int, angle: Double) {
-        
-        let s = Double(level) * self.spacing
-        renderCircle(distanceFromCenter: s, angle: angle, circleRadius: 20)
-        
+    func render(node: Node, level: Int, point: CGPoint) {
+        let levelDouble = Double(level)
+
+        renderCircle(point: point, circleRadius: 20, color: .red.withAlphaComponent(Double(1) - levelDouble * 0.3))
+
+        let newLevel = level + 1
         let angles = Positioning.getAngles(count: node.connections.count)
         for index in node.connections.indices {
+            let angle = angles[index]
+
+            let distanceFromCenter = Double(newLevel) * spacing
+            let newPoint = CGPoint(
+                x: point.x + cos(angle) * distanceFromCenter,
+                y: point.y + sin(angle) * distanceFromCenter
+            )
+
             let child = node.connections[index]
-            render(node: child, level: level + 1, angle: angles[index])
+            render(node: child, level: newLevel, point: newPoint)
         }
     }
 
-    func renderCircle(distanceFromCenter: Double, angle: Double, circleRadius: Double) {
+    func renderCircle(point: CGPoint, circleRadius: Double, color: UIColor) {
         let shape = SKShapeNode(circleOfRadius: circleRadius)
-        shape.fillColor = .red
+        shape.fillColor = color
         shape.strokeColor = .clear
-        shape.position = CGPoint(
-            x: view.bounds.midX + cos(angle) * distanceFromCenter,
-            y: view.bounds.midY + sin(angle) * distanceFromCenter
-        )
+        shape.position = point
         scene.addChild(shape)
     }
 }
