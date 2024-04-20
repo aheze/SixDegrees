@@ -18,9 +18,9 @@ class CircleNode: SKShapeNode {
 
     convenience init(phoneNumber: String, circleRadius: CGFloat) {
         self.init()
+        self.init(circleOfRadius: circleRadius)
         self.phoneNumber = phoneNumber
         self.circleRadius = circleRadius
-        self.init(circleOfRadius: circleRadius)
     }
 
     @available(*, unavailable)

@@ -94,6 +94,7 @@ extension GestureScrollViewController {
 
 class GestureScrollView: UIScrollView {
     var checkShouldForwardTouch: ((CGPoint) -> Bool)?
+    var began: ((CGPoint) -> Void)?
     var moved: ((CGPoint) -> Void)?
     var ended: (() -> Void)?
 
@@ -105,6 +106,14 @@ class GestureScrollView: UIScrollView {
         }
 
         return false
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        if let first = touches.first {
+            began?(first.location(in: nil))
+        }
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {

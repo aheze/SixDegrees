@@ -25,9 +25,24 @@ extension GraphViewController {
             } else {
                 if let first = nodes.first(where: { $0 is CircleNode }) {
                     let first = first as! CircleNode
+
+                    let scaleUp = SKAction.scale(to: 1.5, duration: 0.5)
+                    first.run(scaleUp)
                     self.graphViewModel.selectedPhoneNumber = first.phoneNumber
+                    self.graphViewModel.tappedPhoneNumber = nil
                 }
                 return true
+            }
+        }
+
+        gestureScrollViewController.scrollView.began = { [weak self] point in
+            guard let self else { return }
+
+            let nodes = self.hitTest(location: point)
+            if let first = nodes.first(where: { $0 is CircleNode }) {
+                let first = first as! CircleNode
+
+                self.graphViewModel.tappedPhoneNumber = first.phoneNumber
             }
         }
 
@@ -38,6 +53,18 @@ extension GraphViewController {
         gestureScrollViewController.scrollView.ended = { [weak self] in
             guard let self else { return }
 
+            if let tappedPhoneNumber = self.graphViewModel.tappedPhoneNumber {
+                print("Tapped: \(tappedPhoneNumber)")
+            }
+
+            if let selectedPhoneNumber = self.graphViewModel.selectedPhoneNumber {
+                print("Ended: \(selectedPhoneNumber)")
+
+                let scaleDown = SKAction.scale(to: 1, duration: 0.5)
+                self.phoneNumberToNode[selectedPhoneNumber]?.run(scaleDown)
+            }
+
+            self.graphViewModel.tappedPhoneNumber = nil
             self.graphViewModel.selectedPhoneNumber = nil
         }
     }

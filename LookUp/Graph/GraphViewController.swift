@@ -6,6 +6,7 @@
 //  Copyright © 2024 Andrew Zheng. All rights reserved.
 //
 
+import Combine
 import SpriteKit
 import SwiftUI
 
@@ -34,6 +35,8 @@ class GraphViewController: UIViewController {
     var scene = SKScene(size: .zero)
 
     let canvasLength = CGFloat(2000)
+
+    var cancellables = Set<AnyCancellable>()
 
     // MARK: - Maps
 

@@ -14,4 +14,5 @@ class GraphViewModel: ObservableObject {
     @Published var graph = DummyData.generateGraph(phoneNumber: "9252149133", targetDepth: 3)
     
     @Published var selectedPhoneNumber: String?
+    @Published var tappedPhoneNumber: String?
 }
