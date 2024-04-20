@@ -22,6 +22,8 @@ struct GraphViewControllerRepresentable: UIViewControllerRepresentable {
 class GraphViewController: UIViewController {
     var graphViewModel: GraphViewModel
 
+    var spacing = Double(40)
+    
     var spriteView = SKView()
     var scene = SKScene(size: .zero)
 
@@ -40,6 +42,12 @@ class GraphViewController: UIViewController {
         scene.backgroundColor = .clear
         scene.size = view.bounds.size
         spriteView.presentScene(scene)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        render()
     }
     
     override func viewWillLayoutSubviews() {
