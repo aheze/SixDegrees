@@ -1,5 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { BioData } from "./userSchema";
+import fetch from "node-fetch";
 import { fetchWebsite } from "./fetchWebsite";
 import dotenv from "dotenv";
 dotenv.config();
@@ -26,8 +27,6 @@ interface BioInput {
 const fetchGemini = async (input: BioInput): Promise<BioData> => {
   let dumps = "";
 
-  console.log(input.links);
-
   for (let link of input.links) {
     dumps += await fetchWebsite(link);
   }
@@ -40,17 +39,29 @@ const fetchGemini = async (input: BioInput): Promise<BioData> => {
     dumps.replaceAll(imageLink, "");
   }
 
-  let prompt_content = [
-    `input: Fill in everything with as much as possible as a json
+  const images = [];
 
-    interface BioData {
-        bio: string;
-        tags: string[];
-        hobbies: string[];
-        potential_friends: string;
-        links: string[];
-      }
-    
+  for (let link of uniqueImageLinks) {
+    const response = await fetch(link);
+    const buffer = await response.buffer();
+
+    const mimeType = response.headers.get("content-type") || "image/jpeg";
+
+    // limit buffer to 5mb
+    if (buffer.byteLength > 5 * 1024 * 1024) {
+      continue;
+    }
+
+    images.push({
+      inlineData: {
+        data: buffer.toString("base64"),
+        mimeType: mimeType,
+      },
+    });
+  }
+
+  let prompt_content = [
+    `input:
     name: ${input.name}
     email: ${input.email}
     bio (optional): ${input.bio}
@@ -59,10 +70,27 @@ const fetchGemini = async (input: BioInput): Promise<BioData> => {
     ${input.links.map((link) => `\n${link}`).join("")}
     =====
     Dumps:
-    ${dumps}`,
-    ...uniqueImageLinks,
+    ${dumps}
+    =====
+    Images:
+    `,
+    ...images,
+    `
+    
+    Fill in everything with as much as possible as a json. NO COMMENTS OR OTHER TEXT.
+
+    interface BioData {
+        bio: string;
+        tags: string[];
+        hobbies: string[];
+        potential_friends: string;
+        links: string[];
+      }
+    `,
     "output: ",
   ];
+
+  console.log(uniqueImageLinks);
 
   const result = await model.generateContent([
     ...GLOBAL_PROMPT_EXAMPLE_PARTS,

@@ -19,8 +19,12 @@
     "@types/node-fetch": "^2.6.11",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "generativeai-js-wrapper": "https://github.com/google-gemini/generative-ai-js",
+    "innertext": "^1.0.3",
     "jsdom": "^24.0.0",
     "node-fetch": "2",
+    "puppeteer": "^22.6.5",
+    "styleless-innertext": "^1.1.5",
     "typescript": "^5.4.5"
   }
 }
