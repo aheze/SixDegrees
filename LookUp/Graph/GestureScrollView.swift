@@ -29,18 +29,28 @@ class GestureScrollViewController: UIViewController {
             contentView.heightAnchor.constraint(equalToConstant: scrollableLength)
         ])
 
-        
         scrollView.scrollsToTop = false
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.alwaysBounceVertical = true
         scrollView.alwaysBounceHorizontal = true
         scrollView.delegate = self
-        
+
         contentView.addDebugBorders(.red)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        let offset = CGPoint(
+            x: (scrollView.contentSize.width - scrollView.bounds.width) / 2,
+            y: (scrollView.contentSize.height - scrollView.bounds.height) / 2
+        )
+
+        scrollView.contentOffset = offset
+    }
+
     override func viewWillLayoutSubviews() {
-        scrollView.minimumZoomScale = min(view.bounds.width, view.bounds.height) / scrollableLength
+        scrollView.minimumZoomScale = min(scrollView.bounds.width, scrollView.bounds.height) / scrollableLength
         scrollView.maximumZoomScale = 4
         centerContent()
     }
@@ -54,14 +64,12 @@ class GestureScrollViewController: UIViewController {
 extension GestureScrollViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         centerContent()
-        
-        
+
         let offset = CGPoint(
             x: scrollView.contentOffset.x + (scrollView.bounds.width - scrollView.contentSize.width) / 2,
             y: scrollView.contentOffset.y + (scrollView.bounds.height - scrollView.contentSize.height) / 2
         )
-        
-        
+
         scrolled?(offset, scrollView.zoomScale)
     }
 
@@ -72,8 +80,11 @@ extension GestureScrollViewController: UIScrollViewDelegate {
 
 extension GestureScrollViewController {
     func centerContent() {
-        let leftMargin = (scrollView.bounds.width - scrollView.contentSize.width) * 0.5
-        let topMargin = (scrollView.bounds.height - scrollView.contentSize.height) * 0.5
+        var leftMargin = (scrollView.bounds.width - scrollView.contentSize.width) * 0.5
+        var topMargin = (scrollView.bounds.height - scrollView.contentSize.height) * 0.5
+
+        leftMargin = max(leftMargin, 0)
+        topMargin = max(topMargin, 0)
 
         scrollView.contentInset = UIEdgeInsets(top: topMargin, left: leftMargin, bottom: topMargin, right: leftMargin)
     }
