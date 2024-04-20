@@ -12,7 +12,16 @@ struct GraphDebugView: View {
     var graph: Graph
     
     var body: some View {
-        NodeDebugView(node: graph.rootNode)
+        VStack {
+            NodeDebugView(node: graph.rootNode)
+         
+            Text("Links:")
+            
+            ForEach(Array(graph.links), id: \.self) { link in
+                let array = Array(link.s)
+                Text("\(array[0]) <> \(array[1])")
+            }
+        }
     }
 }
 

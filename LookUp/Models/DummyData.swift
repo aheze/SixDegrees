@@ -14,10 +14,10 @@ enum DummyData {
         "3100000000": ["9252149133", "99999"],
         "123456789": ["9252149133", "3100000000"],
         "4123123123": ["9252149133"],
-        "99999": ["3100000000"],
-        "696969": ["9252149133", "99999"]
+        "99999": ["3100000000", "9252149133"],
+        "696969": ["9252149133", "99999"],
     ]
-    
+
     static let storage: [String: ContactMetadata] = [
         "9252149133": andy,
         "3100000000": brandon,
@@ -26,50 +26,65 @@ enum DummyData {
         "99999": rachel,
         "696969": lynn,
     ]
-    
+
     static let andy = ContactMetadata(phoneNumber: "9252149133", name: "andy")
     static let brandon = ContactMetadata(phoneNumber: "3100000000", name: "brandon")
     static let brayden = ContactMetadata(phoneNumber: "123456789", name: "brayden")
     static let neel = ContactMetadata(phoneNumber: "4123123123", name: "neel")
     static let rachel = ContactMetadata(phoneNumber: "99999", name: "rachel")
     static let lynn = ContactMetadata(phoneNumber: "696969", name: "lynn")
-    
+
     static func generateGraph(ownContactMetadata: ContactMetadata, targetDepth: Int) -> Graph {
         var visitedPhoneNumbers = Set<String>()
-        let rootNode = ownContactMetadata.getNode(targetDepth: targetDepth, currentDepth: 0, visitedPhoneNumbers: &visitedPhoneNumbers)
-        
-        let graph = Graph(depth: targetDepth, rootNode: rootNode)
+        var links = Set<Link>()
+        let rootNode = ownContactMetadata.getNode(
+            targetDepth: targetDepth,
+            currentDepth: 0,
+            visitedPhoneNumbers: &visitedPhoneNumbers,
+            links: &links
+        )
+
+        let graph = Graph(depth: targetDepth, rootNode: rootNode, links: links)
         return graph
-    }
-    
-    static func getContactMetadatas(phoneNumber: String) -> [ContactMetadata] {
-        let connections = userToConnections[phoneNumber]!
-        let metadatas = connections.map { storage[$0]! }
-        return metadatas
     }
 }
 
 extension ContactMetadata {
-    func getNode(targetDepth: Int, currentDepth: Int, visitedPhoneNumbers: inout Set<String>) -> Node {
+    func getNode(targetDepth: Int, currentDepth: Int, visitedPhoneNumbers: inout Set<String>, links: inout Set<Link>) -> Node {
         var node = Node(contactMetadata: self, connections: [])
         visitedPhoneNumbers.insert(phoneNumber)
-        
+
         if currentDepth >= targetDepth {
             return node
         }
-        
+
         for metadata in DummyData.getContactMetadatas(phoneNumber: phoneNumber) {
-            
+            let link = Link(s: [phoneNumber, metadata.phoneNumber])
+            links.insert(link)
+
             // prevent overlaps when graph loops back to itself
             if visitedPhoneNumbers.contains(metadata.phoneNumber) {
                 continue
             }
-            
-            let child = metadata.getNode(targetDepth: targetDepth, currentDepth: currentDepth + 1, visitedPhoneNumbers: &visitedPhoneNumbers)
+
+            let child = metadata.getNode(
+                targetDepth: targetDepth,
+                currentDepth: currentDepth + 1,
+                visitedPhoneNumbers: &visitedPhoneNumbers,
+                links: &links
+            )
             node.connections.append(child)
         }
-        
+
         return node
+    }
+}
+
+extension DummyData {
+    static func getContactMetadatas(phoneNumber: String) -> [ContactMetadata] {
+        let connections = userToConnections[phoneNumber]!
+        let metadatas = connections.map { storage[$0]! }
+        return metadatas
     }
 }
 
