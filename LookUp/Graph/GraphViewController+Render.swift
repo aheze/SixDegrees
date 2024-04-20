@@ -40,7 +40,7 @@ extension GraphViewController {
 //    }
 
     func render() {
-        render(node: graphViewModel.graph.rootNode, level: 0, point: CGPoint(x: view.bounds.midX, y: view.bounds.midY))
+        render(node: graphViewModel.graph.rootNode, level: 0, point: CGPoint(x: canvasLength / 2, y: canvasLength / 2))
     }
 
     func render(node: Node, level: Int, point: CGPoint) {

@@ -16,5 +16,7 @@ extension GraphViewController {
         scene.backgroundColor = .clear
 
         scene.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
+        
+        scene.camera = cameraNode
     }
 }

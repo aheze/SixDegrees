@@ -28,6 +28,7 @@ class GraphViewController: UIViewController {
 
     var gestureView = UIView()
     var gestureScrollViewController = GestureScrollViewController()
+    var cameraNode = SKCameraNode()
 
     var spriteView = SKView()
     var scene = SKScene(size: .zero)
@@ -54,7 +55,7 @@ class GraphViewController: UIViewController {
         // MARK: - Setup
 
         spriteView.backgroundColor = .clear
-        scene.size = CGSize(width: canvasLength, height: canvasLength)
+        scene.size = view.bounds.size
         spriteView.presentScene(scene)
     }
 
@@ -63,6 +64,17 @@ class GraphViewController: UIViewController {
 
         setup()
         render()
+        
+        gestureScrollViewController.scrolled = { [weak self] offset, scale in
+            guard let self else { return }
+            self.adjustCamera(offset: offset, scale: scale)
+        }
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        scene.size = view.bounds.size
     }
 
     @available(*, unavailable)

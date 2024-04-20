@@ -12,6 +12,8 @@ class GestureScrollViewController: UIViewController {
     var scrollView = UIScrollView()
     var contentView = UIView()
 
+    var scrolled: ((CGPoint, CGFloat) -> Void)?
+
     let scrollableLength = CGFloat(2000)
 
     init() {
@@ -24,15 +26,17 @@ class GestureScrollViewController: UIViewController {
         contentView.pinEdgesToSuperview()
         NSLayoutConstraint.activate([
             contentView.widthAnchor.constraint(equalToConstant: scrollableLength),
-            contentView.heightAnchor.constraint(equalToConstant: scrollableLength),
+            contentView.heightAnchor.constraint(equalToConstant: scrollableLength)
         ])
 
+        
         scrollView.scrollsToTop = false
         scrollView.contentInsetAdjustmentBehavior = .never
-
-        contentView.addDebugBorders(.red)
-
+        scrollView.alwaysBounceVertical = true
+        scrollView.alwaysBounceHorizontal = true
         scrollView.delegate = self
+        
+        contentView.addDebugBorders(.red)
     }
 
     override func viewWillLayoutSubviews() {
@@ -50,6 +54,15 @@ class GestureScrollViewController: UIViewController {
 extension GestureScrollViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         centerContent()
+        
+        
+        let offset = CGPoint(
+            x: scrollView.contentOffset.x + (scrollView.bounds.width - scrollView.contentSize.width) / 2,
+            y: scrollView.contentOffset.y + (scrollView.bounds.height - scrollView.contentSize.height) / 2
+        )
+        
+        
+        scrolled?(offset, scrollView.zoomScale)
     }
 
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
