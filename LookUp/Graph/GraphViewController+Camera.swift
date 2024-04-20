@@ -10,14 +10,16 @@ import UIKit
 
 extension GraphViewController {
     func adjustCamera(offset: CGPoint, scale: CGFloat) {
+        let newScale = 1 / scale
+
+        let adjustedOffset = CGPoint(x: offset.x * newScale, y: offset.y * newScale)
+
         let position = CGPoint(
-            x: offset.x + canvasLength / 2,
-            y: -offset.y + canvasLength / 2
+            x: adjustedOffset.x + canvasLength / 2,
+            y: -adjustedOffset.y + canvasLength / 2
         )
 
         cameraNode.position = position
-        
-        let newScale = 1 / scale
         cameraNode.setScale(newScale)
     }
 }

@@ -65,10 +65,17 @@ extension GestureScrollViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         centerContent()
 
+//        let offset = CGPoint(
+//            x: scrollView.contentOffset.x + (scrollView.bounds.width - scrollView.contentSize.width) / 2,
+//            y: scrollView.contentOffset.y + (scrollView.bounds.height - scrollView.contentSize.height) / 2
+//        )
+
         let offset = CGPoint(
             x: scrollView.contentOffset.x + (scrollView.bounds.width - scrollView.contentSize.width) / 2,
             y: scrollView.contentOffset.y + (scrollView.bounds.height - scrollView.contentSize.height) / 2
         )
+
+//        let new = CGPoint(x: offset.x * zoomScale, y: <#T##Int#>)
 
         scrolled?(offset, scrollView.zoomScale)
     }
