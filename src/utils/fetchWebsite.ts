@@ -2,7 +2,7 @@
 import puppeteer from "puppeteer";
 import fs from "fs/promises";
 
-export async function fetchWebsite(url: string): Promise<string> {
+export async function fetchWebsite(url: string) {
   const browser = await puppeteer.launch({
     headless: false,
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
@@ -26,7 +26,7 @@ export async function fetchWebsite(url: string): Promise<string> {
 
   await browser.close();
 
-  return `${text}\n${allImageLinks.join("\n")}`;
+  return [text, allImageLinks];
 }
 
 /* export async function fetchWebsite(url: string): Promise<string> {

@@ -26,31 +26,25 @@ interface BioInput {
 
 const fetchGemini = async (input: BioInput): Promise<BioData> => {
   let dumps = "";
+  const images = [];
 
   for (let link of input.links) {
-    dumps += await fetchWebsite(link);
+    const [text, links] = await fetchWebsite(link);
+    dumps += text;
+    images.push(...links);
   }
 
-  // regex to fetch all image links & remove duplicates
-  let imageLinks = dumps.match(/https?:\/\/[^'"\s]+?\.(png|jpe?g|gif)/g);
-  let uniqueImageLinks = Array.from(new Set(imageLinks));
+  const uniqueImageLinks = [...new Set(images)];
 
   for (let imageLink of uniqueImageLinks) {
     dumps.replaceAll(imageLink, "");
   }
-
-  const images = [];
 
   for (let link of uniqueImageLinks) {
     const response = await fetch(link);
     const buffer = await response.buffer();
 
     const mimeType = response.headers.get("content-type") || "image/jpeg";
-
-    // limit buffer to 5mb
-    if (buffer.byteLength > 5 * 1024 * 1024) {
-      continue;
-    }
 
     images.push({
       inlineData: {
