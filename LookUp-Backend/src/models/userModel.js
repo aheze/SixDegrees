@@ -9,17 +9,20 @@ const userSchema = new Schema({
     lowercase: true,
     trim: true,
   },
+  contacts: {
+    type: [String]
+  }
 });
 
-userSchema.statics.signup = async function (phoneNumber) {
+userSchema.statics.signup = async function (phoneNumber, contacts) {
   if (!phoneNumber) {
     throw Error("All fields must be filled");
   }
     const existsInDB = await this.findOne({ phoneNumber });
     if (existsInDB) {
-        throw Error("Username already in use");
+        throw Error("Number already in use");
     }
-  const user = await this.create({ phoneNumber });
+  const user = await this.create({ phoneNumber, contacts });
   return user;
 };
 
