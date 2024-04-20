@@ -118,6 +118,21 @@ extension Color {
     }
 }
 
+extension UIColor {
+    convenience init(hex: Int, opacity: CGFloat = 1) {
+        self.init(hex: UInt(hex), opacity: opacity)
+    }
+    
+    convenience init(hex: UInt, opacity: CGFloat = 1) {
+        self.init(
+            red: Double((hex & 0xFF0000) >> 16) / 255,
+            green: Double((hex & 0x00FF00) >> 8) / 255,
+            blue: Double(hex & 0x0000FF) / 255,
+            alpha: opacity
+        )
+    }
+}
+
 /// from https://stackoverflow.com/a/68555127/14351818
 extension View {
     func overlay<Target: View>(align originAlignment: Alignment, to targetAlignment: Alignment, @ViewBuilder of target: () -> Target) -> some View {

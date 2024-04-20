@@ -6,6 +6,7 @@
 //  Copyright © 2024 Andrew Zheng. All rights reserved.
 //
 
+import UIKit
 import SpriteKit
 
 extension GraphViewController {
@@ -40,7 +41,7 @@ extension GraphViewController {
             var shapes = [SKShapeNode]()
             for i in 0 ..< numberOfComponents {
                 let shape = SKShapeNode(rectOf: bridgeSize, cornerRadius: 1.5)
-                shape.fillColor = .label.withAlphaComponent(0.15)
+                shape.fillColor = UIColor(hex: 0xD2D2D2)
                 shape.strokeColor = .clear
                 
                 let position = CGPoint(
