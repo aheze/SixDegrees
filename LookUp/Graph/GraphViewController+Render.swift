@@ -33,6 +33,9 @@ enum Positioning {
 extension GraphViewController {
     func render() {
         render(node: graphViewModel.graph.rootNode, level: 0, point: CGPoint(x: canvasLength / 2, y: canvasLength / 2))
+        
+        
+        drawLines()
     }
 
     func render(node: Node, level: Int, point: CGPoint) {

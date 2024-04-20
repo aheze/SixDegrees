@@ -45,9 +45,9 @@ extension ViewModel {
                 print("Error: \(error)")
             }
             
-            print("how many: \(cnContacts.count)")
+            print("original: \(cnContacts.count)")
             let contactsDictionary = cnContacts.makeDictionary()
-            print("now: \(contactsDictionary.count)")
+            print("cleaned dictionary: \(contactsDictionary.count)")
             
             DispatchQueue.main.async {
                 self.cnContacts = cnContacts

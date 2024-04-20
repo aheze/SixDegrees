@@ -12,6 +12,6 @@ extension GraphViewController: SKSceneDelegate {
     func didSimulatePhysics(for scene: SKScene) {
         
         
-        drawLines()
+        
     }
 }
