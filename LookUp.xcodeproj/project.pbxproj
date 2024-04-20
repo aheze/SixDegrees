@@ -18,6 +18,9 @@
 		3C433F8D2BD3770F007D335F /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F8C2BD3770F007D335F /* Contact.swift */; };
 		3C433F8F2BD37727007D335F /* ContactMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F8E2BD37727007D335F /* ContactMetadata.swift */; };
 		3C433F922BD377D3007D335F /* CNContact+ContactMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F912BD377D3007D335F /* CNContact+ContactMetadata.swift */; };
+		3C433F972BD37BAB007D335F /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F962BD37BAB007D335F /* Networking.swift */; };
+		3C433F992BD37C1F007D335F /* ContactDump.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F982BD37C1F007D335F /* ContactDump.swift */; };
+		3C433F9B2BD37F86007D335F /* ViewModel+Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F9A2BD37F86007D335F /* ViewModel+Upload.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +36,9 @@
 		3C433F8C2BD3770F007D335F /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		3C433F8E2BD37727007D335F /* ContactMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactMetadata.swift; sourceTree = "<group>"; };
 		3C433F912BD377D3007D335F /* CNContact+ContactMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CNContact+ContactMetadata.swift"; sourceTree = "<group>"; };
+		3C433F962BD37BAB007D335F /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		3C433F982BD37C1F007D335F /* ContactDump.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDump.swift; sourceTree = "<group>"; };
+		3C433F9A2BD37F86007D335F /* ViewModel+Upload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewModel+Upload.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				3C433F712BD35CDB007D335F /* LookUpApp.swift */,
+				3C433F952BD37BA7007D335F /* Networking */,
 				3C433F8B2BD37709007D335F /* Models */,
 				3C433F892BD376F1007D335F /* ViewModel */,
 				3C433F8A2BD376F5007D335F /* Views */,
@@ -82,6 +89,7 @@
 			children = (
 				3C433F7F2BD35DE7007D335F /* ViewModel.swift */,
 				3C433F812BD35DFE007D335F /* ViewModel+Contacts.swift */,
+				3C433F9A2BD37F86007D335F /* ViewModel+Upload.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -110,6 +118,15 @@
 				3C433F912BD377D3007D335F /* CNContact+ContactMetadata.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		3C433F952BD37BA7007D335F /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				3C433F962BD37BAB007D335F /* Networking.swift */,
+				3C433F982BD37C1F007D335F /* ContactDump.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,13 +199,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C433F922BD377D3007D335F /* CNContact+ContactMetadata.swift in Sources */,
+				3C433F972BD37BAB007D335F /* Networking.swift in Sources */,
 				3C433F8F2BD37727007D335F /* ContactMetadata.swift in Sources */,
 				3C433F862BD360AE007D335F /* Utilities.swift in Sources */,
 				3C433F742BD35CDB007D335F /* ContentView.swift in Sources */,
 				3C433F822BD35DFE007D335F /* ViewModel+Contacts.swift in Sources */,
+				3C433F992BD37C1F007D335F /* ContactDump.swift in Sources */,
 				3C433F802BD35DE7007D335F /* ViewModel.swift in Sources */,
 				3C433F8D2BD3770F007D335F /* Contact.swift in Sources */,
 				3C433F842BD36059007D335F /* PermissionsView.swift in Sources */,
+				3C433F9B2BD37F86007D335F /* ViewModel+Upload.swift in Sources */,
 				3C433F722BD35CDB007D335F /* LookUpApp.swift in Sources */,
 				3C433F882BD360B2007D335F /* Utilities+Toolbar.swift in Sources */,
 			);

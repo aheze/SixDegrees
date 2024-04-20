@@ -45,12 +45,13 @@ extension ViewModel {
                 print("Error: \(error)")
             }
             
-            self.cnContacts = cnContacts
-            
             let contactsDictionary = cnContacts.makeDictionary()
-            self.contactsDictionary = contactsDictionary
             
-//            print("contactsDictionary: \(contactsDictionary)")
+            DispatchQueue.main.async {
+                self.cnContacts = cnContacts
+                self.contactsDictionary = contactsDictionary
+                self.upload()
+            }
         }
     }
 }

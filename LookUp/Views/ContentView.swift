@@ -25,6 +25,7 @@ struct ContentView: View {
                 showingPermissions = true
             }
         }
+        .foregroundColor(.white)
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background {

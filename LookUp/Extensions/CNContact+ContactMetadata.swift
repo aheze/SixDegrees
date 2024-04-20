@@ -45,11 +45,25 @@ extension CNContact {
             phoneNumber = components.dropLast().joined(separator: "")
         }
 
+        let name: String? = {
+            var string = ""
+
+            string.append(givenName)
+            string.append(" ")
+            string.append(familyName)
+
+            string = string.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            if !string.isEmpty {
+                return string
+            } else {
+                return nil
+            }
+        }()
+
         let contact = ContactMetadata(
             phoneNumber: phoneNumber,
-            firstName: givenName,
-            middleName: middleName,
-            lastName: familyName,
+            name: name,
             email: emailAddresses.first.map { String($0.value) },
             birthdayMonth: birthday?.month,
             birthdayDay: birthday?.day,

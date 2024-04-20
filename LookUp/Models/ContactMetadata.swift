@@ -8,12 +8,10 @@
 
 import Foundation
 
-struct ContactMetadata {
+struct ContactMetadata: Codable {
     // MARK: - Properties from Contacts
     var phoneNumber: String
-    var firstName: String?
-    var middleName: String?
-    var lastName: String?
+    var name: String?
     var email: String?
     var birthdayMonth: Int?
     var birthdayDay: Int?
