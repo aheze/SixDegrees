@@ -36,22 +36,29 @@ const fetchGemini = async (input: BioInput): Promise<BioData> => {
 
   const uniqueImageLinks = [...new Set(images)];
 
+  console.log(uniqueImageLinks);
+
   for (let imageLink of uniqueImageLinks) {
     dumps.replaceAll(imageLink, "");
   }
 
   for (let link of uniqueImageLinks) {
-    const response = await fetch(link);
-    const buffer = await response.buffer();
+    console.log(link);
+    try {
+      const response = await fetch(link);
+      const buffer = await response.buffer();
 
-    const mimeType = response.headers.get("content-type") || "image/jpeg";
+      const mimeType = response.headers.get("content-type") || "image/jpeg";
 
-    images.push({
-      inlineData: {
-        data: buffer.toString("base64"),
-        mimeType: mimeType,
-      },
-    });
+      images.push({
+        inlineData: {
+          data: buffer.toString("base64"),
+          mimeType: mimeType,
+        },
+      });
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   let prompt_content = [

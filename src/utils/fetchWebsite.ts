@@ -26,7 +26,12 @@ export async function fetchWebsite(url: string) {
 
   await browser.close();
 
-  return [text, allImageLinks];
+  // remove image data:image/png;base64
+  const filteredImages = allImageLinks.filter(
+    (link) => !link.includes("data:image/png;base64")
+  );
+
+  return [text, filteredImages];
 }
 
 /* export async function fetchWebsite(url: string): Promise<string> {
