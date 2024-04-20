@@ -76,8 +76,8 @@ const fetchGemini = async (input: BioInput): Promise<BioData> => {
     `,
     ...images,
     `
-    
-    Fill in everything with as much as possible as a json. NO COMMENTS OR OTHER TEXT.
+
+    Fill in everything with as much as possible as a json. NO COMMENTS OR OTHER TEXT. add comments about the images in the bio/tags/hobbies
 
     interface BioData {
         bio: string;

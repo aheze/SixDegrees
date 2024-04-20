@@ -1,8 +1,6 @@
 // export a ts function that fetches the website and returns the html content w/ node-fetch
-import fetch from "node-fetch";
-import { JSDOM } from "jsdom";
-import innerTextExport from "styleless-innertext";
 import puppeteer from "puppeteer";
+import fs from "fs/promises";
 
 export async function fetchWebsite(url: string): Promise<string> {
   const browser = await puppeteer.launch({
@@ -10,6 +8,10 @@ export async function fetchWebsite(url: string): Promise<string> {
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
   const page = await browser.newPage();
+  const cookiesString = await fs.readFile("./cookies.json");
+  const cookies = JSON.parse(cookiesString.toString());
+  await page.setCookie(...cookies);
+
   await page.goto(url, { waitUntil: "load" });
   await page.goto(url, { waitUntil: "domcontentloaded" });
   await page.goto(url, { waitUntil: "networkidle0" });
