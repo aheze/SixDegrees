@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
+const graphRoutes = require("./routes/graphRoutes");
 
 const app = express();
 
@@ -8,10 +9,10 @@ mongoose
   .connect("mongodb+srv://lookup:iwanttolookup@cluster0.3sjbfru.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
   .then(() => {
     if (process.env.NODE_ENV !== "test") {
-      app.listen(4000, () => {
+      app.listen(80, () => {
         console.log(
           "connected to db & listening on port",
-          4000
+          80
         );
       });
       app.get("/", (req, res) => res.json("LookUp Server Online"));
@@ -29,6 +30,7 @@ app.use((req, res, next) => {
 })
 
 app.use("/user", userRoutes);
+app.use("/graph", graphRoutes);
 app.get("/", (req, res) => res.json("LookUp Server Online"));
 
 module.exports = app;

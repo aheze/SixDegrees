@@ -10,6 +10,7 @@ const signupUser = async (req, res) => {
             const { birthdayMonth, birthdayDay, name, email, birthdayYear, phoneNumber } = contactsDictionary[number];
             const profile = Metadata.createMetadata(phoneNumber, name, email, birthdayMonth, birthdayDay, birthdayYear);
         }
+        Metadata.createMetadata(ownPhoneNumber);
         res.status(200).json({ user });
     } catch (error) {
         res.status(400).json({ error: error.message });
