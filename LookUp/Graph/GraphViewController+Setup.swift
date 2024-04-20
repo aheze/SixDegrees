@@ -10,13 +10,23 @@ import SpriteKit
 
 extension GraphViewController {
     func setup() {
-        print("Setting up")
         spriteView.showsPhysics = true
 
         scene.backgroundColor = .clear
 
-        scene.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
-        
+        scene.physicsWorld.gravity = CGVector(dx: 0, dy: -3)
+
         scene.camera = cameraNode
+
+        let edge = SKPhysicsBody(
+            edgeLoopFrom: CGRect(
+                x: 0,
+                y: 0,
+                width: canvasLength,
+                height: canvasLength
+            )
+        )
+
+        scene.physicsBody = edge
     }
 }

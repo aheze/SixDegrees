@@ -49,7 +49,9 @@ class GestureScrollViewController: UIViewController {
         scrollView.contentOffset = offset
     }
 
-    override func viewWillLayoutSubviews() {
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
         scrollView.minimumZoomScale = min(scrollView.bounds.width, scrollView.bounds.height) / scrollableLength
         scrollView.maximumZoomScale = 4
         centerContent()
