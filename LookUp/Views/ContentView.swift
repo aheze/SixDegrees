@@ -11,27 +11,44 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var model = ViewModel()
     @StateObject var graphViewModel = GraphViewModel()
-    
+
     @State var showingPermissions = false
-    
+
+    @State var started = false
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
+            Text("LookUp")
+                .bold()
             
-            Text("Hello, world!")
+            Text("Find connections between people.")
             
-            Button("Start") {
-                showingPermissions = true
+            Button("Initiate Graph") {
+//                showingPermissions = true
+                started = true
             }
-            
-            GraphDebugView(
-                graph: DummyData.generateGraph(
-                    phoneNumber: model.ownPhoneNumber,
-                    targetDepth: 3
-                )
-            )
+            .buttonBorderShape(.capsule)
+            .buttonStyle(.borderedProminent)
+
+            if started {
+                Spacer()
+                
+                VStack {
+                    Text("Debug!")
+                    
+                    GraphDebugView(
+                        graph: DummyData.generateGraph(
+                            phoneNumber: model.ownPhoneNumber,
+                            targetDepth: 3
+                        )
+                    )
+                }
+                .padding()
+                .background {
+                    RoundedRectangle(cornerRadius: 36)
+                        .fill(.regularMaterial)
+                        .environment(\.colorScheme, .dark)
+                }
+            }
         }
         .foregroundColor(.white)
         .padding()
@@ -42,7 +59,9 @@ struct ContentView: View {
                     LinearGradient(colors: [.blue, .green], startPoint: .top, endPoint: .bottom)
                 )
                 .overlay {
-                    GraphViewControllerRepresentable(graphViewModel: graphViewModel)
+                    if started {
+                        GraphViewControllerRepresentable(graphViewModel: graphViewModel)
+                    }
                 }
                 .ignoresSafeArea()
         }
@@ -55,6 +74,7 @@ struct ContentView: View {
                 }
         }
         .environmentObject(model)
+        .animation(.spring(response: 0.9, dampingFraction: 1, blendDuration: 1), value: started)
     }
 }
 
