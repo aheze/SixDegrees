@@ -37,7 +37,7 @@ class GraphViewController: UIViewController {
 
     // MARK: - Maps
 
-    var phoneNumberToNode = [String: SKNode]()
+    var phoneNumberToNode = [String: CircleNode]()
 
     init(graphViewModel: GraphViewModel) {
         self.graphViewModel = graphViewModel
@@ -68,24 +68,8 @@ class GraphViewController: UIViewController {
         super.viewDidLoad()
 
         setup()
+        listen()
         render()
-
-        gestureScrollViewController.scrolled = { [weak self] offset, scale in
-            guard let self else { return }
-            self.adjustCamera(offset: offset, scale: scale)
-        }
-
-        gestureScrollViewController.scrollView.checkShouldForwardTouch = { [weak self] point in
-            guard let self else { return false }
-
-            let nodes = self.hitTest(location: point)
-
-            if nodes.isEmpty {
-                return false
-            } else {
-                return true
-            }
-        }
     }
 
     override func viewWillLayoutSubviews() {

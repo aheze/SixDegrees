@@ -94,6 +94,8 @@ extension GestureScrollViewController {
 
 class GestureScrollView: UIScrollView {
     var checkShouldForwardTouch: ((CGPoint) -> Bool)?
+    var moved: ((CGPoint) -> Void)?
+    var ended: (() -> Void)?
 
     override func touchesShouldCancel(in view: UIView) -> Bool {
         let location = panGestureRecognizer.location(in: nil)
@@ -103,5 +105,25 @@ class GestureScrollView: UIScrollView {
         }
 
         return false
+    }
+
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
+
+        if let first = touches.first {
+            moved?(first.location(in: nil))
+        }
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+
+        ended?()
+    }
+
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+
+        ended?()
     }
 }

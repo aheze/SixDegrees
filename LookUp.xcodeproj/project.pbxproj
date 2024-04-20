@@ -35,6 +35,7 @@
 		3CA7011D2BD474470063771C /* CircleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA7011C2BD474470063771C /* CircleNode.swift */; };
 		3CA7011F2BD475D80063771C /* GraphConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA7011E2BD475D80063771C /* GraphConstants.swift */; };
 		3CA701212BD47DE60063771C /* GraphViewController+Hit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA701202BD47DE60063771C /* GraphViewController+Hit.swift */; };
+		3CA701232BD47F380063771C /* GraphViewController+Listen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA701222BD47F380063771C /* GraphViewController+Listen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		3CA7011C2BD474470063771C /* CircleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleNode.swift; sourceTree = "<group>"; };
 		3CA7011E2BD475D80063771C /* GraphConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphConstants.swift; sourceTree = "<group>"; };
 		3CA701202BD47DE60063771C /* GraphViewController+Hit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphViewController+Hit.swift"; sourceTree = "<group>"; };
+		3CA701222BD47F380063771C /* GraphViewController+Listen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphViewController+Listen.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,10 +169,11 @@
 			isa = PBXGroup;
 			children = (
 				3CA7011E2BD475D80063771C /* GraphConstants.swift */,
-				3C433FA22BD3ADB1007D335F /* GraphViewModel.swift */,
 				3C433FAB2BD435C7007D335F /* GestureScrollView.swift */,
+				3C433FA22BD3ADB1007D335F /* GraphViewModel.swift */,
 				3C433FA42BD3ADEE007D335F /* GraphViewController.swift */,
 				3C433FA92BD4255C007D335F /* GraphViewController+Setup.swift */,
+				3CA701222BD47F380063771C /* GraphViewController+Listen.swift */,
 				3C335DA02BD4451F00BA314F /* GraphViewController+Delegate.swift */,
 				3C433FA62BD3AFD4007D335F /* GraphViewController+Render.swift */,
 				3C335DA22BD4457900BA314F /* GraphViewController+Joints.swift */,
@@ -270,6 +273,7 @@
 				3C433F842BD36059007D335F /* PermissionsView.swift in Sources */,
 				3C433FAE2BD4389B007D335F /* GraphViewController+Camera.swift in Sources */,
 				3CA7011D2BD474470063771C /* CircleNode.swift in Sources */,
+				3CA701232BD47F380063771C /* GraphViewController+Listen.swift in Sources */,
 				3C433F9B2BD37F86007D335F /* ViewModel+Upload.swift in Sources */,
 				3CA7011F2BD475D80063771C /* GraphConstants.swift in Sources */,
 				3C335DA12BD4451F00BA314F /* GraphViewController+Delegate.swift in Sources */,

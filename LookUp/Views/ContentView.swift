@@ -38,6 +38,10 @@ struct ContentView: View {
                         targetDepth: 3
                     )
                 )
+                
+                if let selectedPhoneNumber = graphViewModel.selectedPhoneNumber {
+                    Text("Selected: \(selectedPhoneNumber)")
+                }
             }
             .foregroundColor(.white)
             .font(.caption2)

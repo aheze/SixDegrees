@@ -59,7 +59,7 @@ extension GraphViewController {
     }
 
     func renderCircle(phoneNumber: String, point: CGPoint, circleRadius: Double, color: UIColor) {
-        let shape = CircleNode(circleRadius: circleRadius)
+        let shape = CircleNode(phoneNumber: phoneNumber, circleRadius: circleRadius)
         shape.fillColor = color
         shape.strokeColor = .clear
         shape.position = point
