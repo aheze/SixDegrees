@@ -24,6 +24,8 @@
 		3C433F9D2BD38741007D335F /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F9C2BD38741007D335F /* Graph.swift */; };
 		3C433F9F2BD3894C007D335F /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F9E2BD3894C007D335F /* DummyData.swift */; };
 		3C433FA12BD3A44F007D335F /* GraphDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433FA02BD3A44F007D335F /* GraphDebugView.swift */; };
+		3C433FA32BD3ADB1007D335F /* GraphViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433FA22BD3ADB1007D335F /* GraphViewModel.swift */; };
+		3C433FA52BD3ADEE007D335F /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433FA42BD3ADEE007D335F /* GraphViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		3C433F9C2BD38741007D335F /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
 		3C433F9E2BD3894C007D335F /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		3C433FA02BD3A44F007D335F /* GraphDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphDebugView.swift; sourceTree = "<group>"; };
+		3C433FA22BD3ADB1007D335F /* GraphViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewModel.swift; sourceTree = "<group>"; };
+		3C433FA42BD3ADEE007D335F /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				3C433F732BD35CDB007D335F /* ContentView.swift */,
 				3C433F832BD36059007D335F /* PermissionsView.swift */,
 				3C433FA02BD3A44F007D335F /* GraphDebugView.swift */,
+				3C433FA22BD3ADB1007D335F /* GraphViewModel.swift */,
+				3C433FA42BD3ADEE007D335F /* GraphViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -216,7 +222,9 @@
 				3C433F862BD360AE007D335F /* Utilities.swift in Sources */,
 				3C433F742BD35CDB007D335F /* ContentView.swift in Sources */,
 				3C433F822BD35DFE007D335F /* ViewModel+Contacts.swift in Sources */,
+				3C433FA32BD3ADB1007D335F /* GraphViewModel.swift in Sources */,
 				3C433F992BD37C1F007D335F /* ContactDump.swift in Sources */,
+				3C433FA52BD3ADEE007D335F /* GraphViewController.swift in Sources */,
 				3C433F802BD35DE7007D335F /* ViewModel.swift in Sources */,
 				3C433F8D2BD3770F007D335F /* Contact.swift in Sources */,
 				3C433F842BD36059007D335F /* PermissionsView.swift in Sources */,

@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var model = ViewModel()
+    @StateObject var graphViewModel = GraphViewModel()
     
     @State var showingPermissions = false
     
@@ -40,6 +41,9 @@ struct ContentView: View {
                 .fill(
                     LinearGradient(colors: [.blue, .green], startPoint: .top, endPoint: .bottom)
                 )
+                .overlay {
+                    GraphViewControllerRepresentable(graphViewModel: graphViewModel)
+                }
                 .ignoresSafeArea()
         }
         .sheet(isPresented: $showingPermissions) {
