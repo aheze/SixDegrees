@@ -12,6 +12,9 @@ import SwiftUI
 class ViewModel: ObservableObject {
     @Published var authorizationStatus = CNAuthorizationStatus.notDetermined
     
+    @Published var cnContacts = [CNContact]()
+    @Published var contactsDictionary = [String: ContactMetadata]()
+    
     init() {
         authorizationStatus = CNContactStore.authorizationStatus(for: .contacts)
     }

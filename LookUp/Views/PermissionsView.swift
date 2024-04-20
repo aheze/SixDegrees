@@ -63,6 +63,8 @@ struct PermissionsView: View {
             .toolbarCloseButton()
             .onChange(of: finished) { newValue in
                 if finished {
+                    model.getContacts()
+                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                         dismiss()
                     }

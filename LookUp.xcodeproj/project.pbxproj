@@ -10,12 +10,14 @@
 		3C433F722BD35CDB007D335F /* LookUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F712BD35CDB007D335F /* LookUpApp.swift */; };
 		3C433F742BD35CDB007D335F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F732BD35CDB007D335F /* ContentView.swift */; };
 		3C433F762BD35CDC007D335F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C433F752BD35CDC007D335F /* Assets.xcassets */; };
-		3C433F792BD35CDC007D335F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C433F782BD35CDC007D335F /* Preview Assets.xcassets */; };
 		3C433F802BD35DE7007D335F /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F7F2BD35DE7007D335F /* ViewModel.swift */; };
 		3C433F822BD35DFE007D335F /* ViewModel+Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F812BD35DFE007D335F /* ViewModel+Contacts.swift */; };
 		3C433F842BD36059007D335F /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F832BD36059007D335F /* PermissionsView.swift */; };
 		3C433F862BD360AE007D335F /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F852BD360AE007D335F /* Utilities.swift */; };
 		3C433F882BD360B2007D335F /* Utilities+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F872BD360B2007D335F /* Utilities+Toolbar.swift */; };
+		3C433F8D2BD3770F007D335F /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F8C2BD3770F007D335F /* Contact.swift */; };
+		3C433F8F2BD37727007D335F /* ContactMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F8E2BD37727007D335F /* ContactMetadata.swift */; };
+		3C433F922BD377D3007D335F /* CNContact+ContactMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F912BD377D3007D335F /* CNContact+ContactMetadata.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,12 +25,14 @@
 		3C433F712BD35CDB007D335F /* LookUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookUpApp.swift; sourceTree = "<group>"; };
 		3C433F732BD35CDB007D335F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3C433F752BD35CDC007D335F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3C433F782BD35CDC007D335F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3C433F7F2BD35DE7007D335F /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		3C433F812BD35DFE007D335F /* ViewModel+Contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewModel+Contacts.swift"; sourceTree = "<group>"; };
 		3C433F832BD36059007D335F /* PermissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsView.swift; sourceTree = "<group>"; };
 		3C433F852BD360AE007D335F /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		3C433F872BD360B2007D335F /* Utilities+Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utilities+Toolbar.swift"; sourceTree = "<group>"; };
+		3C433F8C2BD3770F007D335F /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		3C433F8E2BD37727007D335F /* ContactMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactMetadata.swift; sourceTree = "<group>"; };
+		3C433F912BD377D3007D335F /* CNContact+ContactMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CNContact+ContactMetadata.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,24 +66,50 @@
 			isa = PBXGroup;
 			children = (
 				3C433F712BD35CDB007D335F /* LookUpApp.swift */,
-				3C433F7F2BD35DE7007D335F /* ViewModel.swift */,
-				3C433F812BD35DFE007D335F /* ViewModel+Contacts.swift */,
-				3C433F732BD35CDB007D335F /* ContentView.swift */,
-				3C433F832BD36059007D335F /* PermissionsView.swift */,
+				3C433F8B2BD37709007D335F /* Models */,
+				3C433F892BD376F1007D335F /* ViewModel */,
+				3C433F8A2BD376F5007D335F /* Views */,
+				3C433F902BD377C9007D335F /* Extensions */,
 				3C433F852BD360AE007D335F /* Utilities.swift */,
 				3C433F872BD360B2007D335F /* Utilities+Toolbar.swift */,
 				3C433F752BD35CDC007D335F /* Assets.xcassets */,
-				3C433F772BD35CDC007D335F /* Preview Content */,
 			);
 			path = LookUp;
 			sourceTree = "<group>";
 		};
-		3C433F772BD35CDC007D335F /* Preview Content */ = {
+		3C433F892BD376F1007D335F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				3C433F782BD35CDC007D335F /* Preview Assets.xcassets */,
+				3C433F7F2BD35DE7007D335F /* ViewModel.swift */,
+				3C433F812BD35DFE007D335F /* ViewModel+Contacts.swift */,
 			);
-			path = "Preview Content";
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3C433F8A2BD376F5007D335F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3C433F732BD35CDB007D335F /* ContentView.swift */,
+				3C433F832BD36059007D335F /* PermissionsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3C433F8B2BD37709007D335F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3C433F8C2BD3770F007D335F /* Contact.swift */,
+				3C433F8E2BD37727007D335F /* ContactMetadata.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3C433F902BD377C9007D335F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3C433F912BD377D3007D335F /* CNContact+ContactMetadata.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,7 +170,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C433F792BD35CDC007D335F /* Preview Assets.xcassets in Resources */,
 				3C433F762BD35CDC007D335F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -152,10 +181,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C433F922BD377D3007D335F /* CNContact+ContactMetadata.swift in Sources */,
+				3C433F8F2BD37727007D335F /* ContactMetadata.swift in Sources */,
 				3C433F862BD360AE007D335F /* Utilities.swift in Sources */,
 				3C433F742BD35CDB007D335F /* ContentView.swift in Sources */,
 				3C433F822BD35DFE007D335F /* ViewModel+Contacts.swift in Sources */,
 				3C433F802BD35DE7007D335F /* ViewModel.swift in Sources */,
+				3C433F8D2BD3770F007D335F /* Contact.swift in Sources */,
 				3C433F842BD36059007D335F /* PermissionsView.swift in Sources */,
 				3C433F722BD35CDB007D335F /* LookUpApp.swift in Sources */,
 				3C433F882BD360B2007D335F /* Utilities+Toolbar.swift in Sources */,
@@ -291,7 +323,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"LookUp/Preview Content\"";
 				DEVELOPMENT_TEAM = WV6XDLHK3W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -321,7 +352,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"LookUp/Preview Content\"";
 				DEVELOPMENT_TEAM = WV6XDLHK3W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
