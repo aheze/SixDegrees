@@ -15,6 +15,10 @@ class ViewModel: ObservableObject {
     @Published var ownPhoneNumber = "9252149133"
     @Published var ownName = "Andrew Zheng"
     
+    var ownContactMetadata: ContactMetadata {
+        ContactMetadata(phoneNumber: ownPhoneNumber, name: ownName)
+    }
+    
     @Published var cnContacts = [CNContact]()
     @Published var contactsDictionary = [String: ContactMetadata]()
     
@@ -22,5 +26,8 @@ class ViewModel: ObservableObject {
         DispatchQueue.main.async {
             self.authorizationStatus = CNContactStore.authorizationStatus(for: .contacts)
         }
+        
+        let graph = DummyData.generateGraph(ownContactMetadata: ownContactMetadata, targetDepth: 3)
+        print("graph: \(graph)")
     }
 }

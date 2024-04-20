@@ -10,10 +10,12 @@ import Foundation
 
 enum DummyData {
     static let userToConnections: [String: [String]] = [
-        "9252149133": ["3100000000", "4123123123"],
-        "3100000000": ["9252149133"],
+        "9252149133": ["3100000000", "4123123123", "696969"],
+        "3100000000": ["9252149133", "99999"],
         "123456789": ["9252149133", "3100000000"],
         "4123123123": ["9252149133"],
+        "99999": ["3100000000"],
+        "696969": ["9252149133", "99999"]
     ]
     
     static let storage: [String: ContactMetadata] = [
@@ -21,12 +23,16 @@ enum DummyData {
         "3100000000": brandon,
         "123456789": brayden,
         "4123123123": neel,
+        "99999": rachel,
+        "696969": lynn,
     ]
     
-    static let andy = ContactMetadata(phoneNumber: "9252149133")
-    static let brandon = ContactMetadata(phoneNumber: "3100000000")
-    static let brayden = ContactMetadata(phoneNumber: "123456789")
-    static let neel = ContactMetadata(phoneNumber: "4123123123")
+    static let andy = ContactMetadata(phoneNumber: "9252149133", name: "andy")
+    static let brandon = ContactMetadata(phoneNumber: "3100000000", name: "brandon")
+    static let brayden = ContactMetadata(phoneNumber: "123456789", name: "brayden")
+    static let neel = ContactMetadata(phoneNumber: "4123123123", name: "neel")
+    static let rachel = ContactMetadata(phoneNumber: "99999", name: "rachel")
+    static let lynn = ContactMetadata(phoneNumber: "696969", name: "lynn")
     
     static func generateGraph(ownContactMetadata: ContactMetadata, targetDepth: Int) -> Graph {
         var visitedPhoneNumbers = Set<String>()
@@ -45,10 +51,10 @@ enum DummyData {
 
 extension ContactMetadata {
     func getNode(targetDepth: Int, currentDepth: Int, visitedPhoneNumbers: inout Set<String>) -> Node {
-        var node = Node(ownContactMetadata: self, connections: [])
+        var node = Node(contactMetadata: self, connections: [])
         visitedPhoneNumbers.insert(phoneNumber)
         
-        if targetDepth == currentDepth {
+        if currentDepth >= targetDepth {
             return node
         }
         
@@ -59,7 +65,7 @@ extension ContactMetadata {
                 continue
             }
             
-            let child = metadata.getNode(targetDepth: targetDepth, currentDepth: currentDepth, visitedPhoneNumbers: &visitedPhoneNumbers)
+            let child = metadata.getNode(targetDepth: targetDepth, currentDepth: currentDepth + 1, visitedPhoneNumbers: &visitedPhoneNumbers)
             node.connections.append(child)
         }
         

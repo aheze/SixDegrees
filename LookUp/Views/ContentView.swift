@@ -24,6 +24,13 @@ struct ContentView: View {
             Button("Start") {
                 showingPermissions = true
             }
+            
+            GraphDebugView(
+                graph: DummyData.generateGraph(
+                    ownContactMetadata: model.ownContactMetadata,
+                    targetDepth: 2
+                )
+            )
         }
         .foregroundColor(.white)
         .padding()

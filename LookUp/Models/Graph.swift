@@ -17,6 +17,6 @@ struct Graph: Codable {
 }
 
 struct Node: Codable {
-    var ownContactMetadata: ContactMetadata
+    var contactMetadata: ContactMetadata
     var connections: [Node]
 }

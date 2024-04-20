@@ -23,6 +23,7 @@
 		3C433F9B2BD37F86007D335F /* ViewModel+Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F9A2BD37F86007D335F /* ViewModel+Upload.swift */; };
 		3C433F9D2BD38741007D335F /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F9C2BD38741007D335F /* Graph.swift */; };
 		3C433F9F2BD3894C007D335F /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F9E2BD3894C007D335F /* DummyData.swift */; };
+		3C433FA12BD3A44F007D335F /* GraphDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433FA02BD3A44F007D335F /* GraphDebugView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		3C433F9A2BD37F86007D335F /* ViewModel+Upload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewModel+Upload.swift"; sourceTree = "<group>"; };
 		3C433F9C2BD38741007D335F /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
 		3C433F9E2BD3894C007D335F /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
+		3C433FA02BD3A44F007D335F /* GraphDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphDebugView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 			children = (
 				3C433F732BD35CDB007D335F /* ContentView.swift */,
 				3C433F832BD36059007D335F /* PermissionsView.swift */,
+				3C433FA02BD3A44F007D335F /* GraphDebugView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 				3C433F922BD377D3007D335F /* CNContact+ContactMetadata.swift in Sources */,
 				3C433F972BD37BAB007D335F /* Networking.swift in Sources */,
 				3C433F9D2BD38741007D335F /* Graph.swift in Sources */,
+				3C433FA12BD3A44F007D335F /* GraphDebugView.swift in Sources */,
 				3C433F9F2BD3894C007D335F /* DummyData.swift in Sources */,
 				3C433F8F2BD37727007D335F /* ContactMetadata.swift in Sources */,
 				3C433F862BD360AE007D335F /* Utilities.swift in Sources */,
