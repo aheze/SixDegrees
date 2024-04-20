@@ -9,7 +9,7 @@
 import SwiftUI
 
 class GestureScrollViewController: UIViewController {
-    var scrollView = UIScrollView()
+    var scrollView = GestureScrollView()
     var contentView = UIView()
 
     var scrolled: ((CGPoint, CGFloat) -> Void)?
@@ -34,6 +34,8 @@ class GestureScrollViewController: UIViewController {
         scrollView.alwaysBounceVertical = true
         scrollView.alwaysBounceHorizontal = true
         scrollView.delegate = self
+
+        scrollView.delaysContentTouches = false
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -65,17 +67,10 @@ extension GestureScrollViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         centerContent()
 
-//        let offset = CGPoint(
-//            x: scrollView.contentOffset.x + (scrollView.bounds.width - scrollView.contentSize.width) / 2,
-//            y: scrollView.contentOffset.y + (scrollView.bounds.height - scrollView.contentSize.height) / 2
-//        )
-
         let offset = CGPoint(
             x: scrollView.contentOffset.x + (scrollView.bounds.width - scrollView.contentSize.width) / 2,
             y: scrollView.contentOffset.y + (scrollView.bounds.height - scrollView.contentSize.height) / 2
         )
-
-//        let new = CGPoint(x: offset.x * zoomScale, y: <#T##Int#>)
 
         scrolled?(offset, scrollView.zoomScale)
     }
@@ -94,5 +89,19 @@ extension GestureScrollViewController {
         topMargin = max(topMargin, 0)
 
         scrollView.contentInset = UIEdgeInsets(top: topMargin, left: leftMargin, bottom: topMargin, right: leftMargin)
+    }
+}
+
+class GestureScrollView: UIScrollView {
+    var checkShouldForwardTouch: ((CGPoint) -> Bool)?
+
+    override func touchesShouldCancel(in view: UIView) -> Bool {
+        let location = panGestureRecognizer.location(in: nil)
+
+        if let checkShouldForwardTouch {
+            return !checkShouldForwardTouch(location)
+        }
+
+        return false
     }
 }

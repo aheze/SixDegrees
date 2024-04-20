@@ -34,6 +34,7 @@
 		3C433FAE2BD4389B007D335F /* GraphViewController+Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433FAD2BD4389B007D335F /* GraphViewController+Camera.swift */; };
 		3CA7011D2BD474470063771C /* CircleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA7011C2BD474470063771C /* CircleNode.swift */; };
 		3CA7011F2BD475D80063771C /* GraphConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA7011E2BD475D80063771C /* GraphConstants.swift */; };
+		3CA701212BD47DE60063771C /* GraphViewController+Hit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA701202BD47DE60063771C /* GraphViewController+Hit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		3CA7011B2BD4674F0063771C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3CA7011C2BD474470063771C /* CircleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleNode.swift; sourceTree = "<group>"; };
 		3CA7011E2BD475D80063771C /* GraphConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphConstants.swift; sourceTree = "<group>"; };
+		3CA701202BD47DE60063771C /* GraphViewController+Hit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphViewController+Hit.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 				3C433FA62BD3AFD4007D335F /* GraphViewController+Render.swift */,
 				3C335DA22BD4457900BA314F /* GraphViewController+Joints.swift */,
 				3C433FAD2BD4389B007D335F /* GraphViewController+Camera.swift */,
+				3CA701202BD47DE60063771C /* GraphViewController+Hit.swift */,
 				3CA7011C2BD474470063771C /* CircleNode.swift */,
 			);
 			path = Graph;
@@ -257,6 +260,7 @@
 				3C433F8F2BD37727007D335F /* ContactMetadata.swift in Sources */,
 				3C433F862BD360AE007D335F /* Utilities.swift in Sources */,
 				3C433F742BD35CDB007D335F /* ContentView.swift in Sources */,
+				3CA701212BD47DE60063771C /* GraphViewController+Hit.swift in Sources */,
 				3C433F822BD35DFE007D335F /* ViewModel+Contacts.swift in Sources */,
 				3C433FA32BD3ADB1007D335F /* GraphViewModel.swift in Sources */,
 				3C433F992BD37C1F007D335F /* ContactDump.swift in Sources */,
