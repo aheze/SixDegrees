@@ -6,8 +6,8 @@
 //  Copyright © 2024 Andrew Zheng. All rights reserved.
 //
 
-import UIKit
 import SpriteKit
+import UIKit
 
 extension GraphViewController {
     func drawLines() {
@@ -71,10 +71,12 @@ extension GraphViewController {
                         anchorA: point,
                         anchorB: point
                     )
-
+                    
                     scene.physicsWorld.add(spring)
                 }
             }
+            
+            linkToLines[link] = shapes
         }
     }
 }

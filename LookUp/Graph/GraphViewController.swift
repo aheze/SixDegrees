@@ -41,6 +41,7 @@ class GraphViewController: UIViewController {
     // MARK: - Maps
 
     var phoneNumberToNode = [String: CircleNode]()
+    var linkToLines = [Set<String>: [SKNode]]()
 
     init(graphViewModel: GraphViewModel) {
         self.graphViewModel = graphViewModel

@@ -26,7 +26,7 @@ extension GraphViewController {
                 if let first = nodes.first(where: { $0 is CircleNode }) {
                     let first = first as! CircleNode
 
-                    let scaleUp = SKAction.scale(to: 1.5, duration: 0.5)
+                    let scaleUp = SKAction.scale(to: 1.2, duration: 0.2)
                     first.run(scaleUp)
                     self.graphViewModel.selectedPhoneNumber = first.phoneNumber
                     self.graphViewModel.tappedPhoneNumber = nil
@@ -46,8 +46,28 @@ extension GraphViewController {
             }
         }
 
-        gestureScrollViewController.scrollView.moved = { [weak self] _ in
+        scene.physicsBody?.friction = 0.95
+        gestureScrollViewController.scrollView.moved = { [weak self] point in
             guard let self else { return }
+
+            if let selectedPhoneNumber = self.graphViewModel.selectedPhoneNumber {
+                let node = self.phoneNumberToNode[selectedPhoneNumber]!
+                let convertedPoint = self.spriteView.convert(point, to: self.scene)
+                node.position = convertedPoint
+                
+//                let dx = convertedPoint.x - node.position.x
+//                let dy = convertedPoint.y - node.position.y
+//                node.physicsBody?.applyForce(CGVector(dx: dx, dy: dy))
+
+                for l in linkToLines.values {
+                    for n in l {
+                        n.removeFromParent()
+                    }
+                }
+
+                scene.physicsWorld.removeAllJoints()
+                drawLines()
+            }
         }
 
         gestureScrollViewController.scrollView.ended = { [weak self] in
@@ -60,12 +80,22 @@ extension GraphViewController {
             if let selectedPhoneNumber = self.graphViewModel.selectedPhoneNumber {
                 print("Ended: \(selectedPhoneNumber)")
 
-                let scaleDown = SKAction.scale(to: 1, duration: 0.5)
+                let scaleDown = SKAction.scale(to: 1, duration: 0.2)
                 self.phoneNumberToNode[selectedPhoneNumber]?.run(scaleDown)
+                self.phoneNumberToNode[selectedPhoneNumber]?.physicsBody?.velocity = .zero
             }
 
             self.graphViewModel.tappedPhoneNumber = nil
             self.graphViewModel.selectedPhoneNumber = nil
+
+            for l in linkToLines.values {
+                for n in l {
+                    n.removeFromParent()
+                }
+            }
+
+            scene.physicsWorld.removeAllJoints()
+            drawLines()
         }
     }
 }
