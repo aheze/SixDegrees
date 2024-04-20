@@ -31,14 +31,6 @@ enum Positioning {
 }
 
 extension GraphViewController {
-//    func render() {
-//        let shape = SKShapeNode(circleOfRadius: 30)
-//        shape.fillColor = .red
-//        shape.strokeColor = .clear
-//        shape.position = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
-//        scene.addChild(shape)
-//    }
-
     func render() {
         render(node: graphViewModel.graph.rootNode, level: 0, point: CGPoint(x: canvasLength / 2, y: canvasLength / 2))
     }
@@ -46,7 +38,7 @@ extension GraphViewController {
     func render(node: Node, level: Int, point: CGPoint) {
         let levelDouble = Double(level)
 
-        renderCircle(point: point, circleRadius: 20, color: .red.withAlphaComponent(Double(1) - levelDouble * 0.3))
+        renderCircle(phoneNumber: node.contactMetadata.phoneNumber, point: point, circleRadius: 20, color: .red.withAlphaComponent(Double(1) - levelDouble * 0.3))
 
         let newLevel = level + 1
         let angles = Positioning.getAngles(count: node.connections.count)
@@ -64,7 +56,7 @@ extension GraphViewController {
         }
     }
 
-    func renderCircle(point: CGPoint, circleRadius: Double, color: UIColor) {
+    func renderCircle(phoneNumber: String, point: CGPoint, circleRadius: Double, color: UIColor) {
         let shape = SKShapeNode(circleOfRadius: circleRadius)
         shape.fillColor = color
         shape.strokeColor = .clear
@@ -73,5 +65,7 @@ extension GraphViewController {
         let physicsBody = SKPhysicsBody(circleOfRadius: circleRadius)
         shape.physicsBody = physicsBody
         scene.addChild(shape)
+        
+        phoneNumberToNode[phoneNumber] = shape
     }
 }

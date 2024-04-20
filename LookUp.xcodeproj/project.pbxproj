@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C335DA12BD4451F00BA314F /* GraphViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C335DA02BD4451F00BA314F /* GraphViewController+Delegate.swift */; };
+		3C335DA32BD4457900BA314F /* GraphViewController+Joints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C335DA22BD4457900BA314F /* GraphViewController+Joints.swift */; };
 		3C433F722BD35CDB007D335F /* LookUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F712BD35CDB007D335F /* LookUpApp.swift */; };
 		3C433F742BD35CDB007D335F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433F732BD35CDB007D335F /* ContentView.swift */; };
 		3C433F762BD35CDC007D335F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C433F752BD35CDC007D335F /* Assets.xcassets */; };
@@ -33,6 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3C335DA02BD4451F00BA314F /* GraphViewController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphViewController+Delegate.swift"; sourceTree = "<group>"; };
+		3C335DA22BD4457900BA314F /* GraphViewController+Joints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphViewController+Joints.swift"; sourceTree = "<group>"; };
 		3C433F6E2BD35CDB007D335F /* LookUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LookUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C433F712BD35CDB007D335F /* LookUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookUpApp.swift; sourceTree = "<group>"; };
 		3C433F732BD35CDB007D335F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -57,6 +61,7 @@
 		3C433FA92BD4255C007D335F /* GraphViewController+Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphViewController+Setup.swift"; sourceTree = "<group>"; };
 		3C433FAB2BD435C7007D335F /* GestureScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureScrollView.swift; sourceTree = "<group>"; };
 		3C433FAD2BD4389B007D335F /* GraphViewController+Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphViewController+Camera.swift"; sourceTree = "<group>"; };
+		3CA7011B2BD4674F0063771C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +94,7 @@
 		3C433F702BD35CDB007D335F /* LookUp */ = {
 			isa = PBXGroup;
 			children = (
+				3CA7011B2BD4674F0063771C /* Info.plist */,
 				3C433F712BD35CDB007D335F /* LookUpApp.swift */,
 				3C433F952BD37BA7007D335F /* Networking */,
 				3C433F8B2BD37709007D335F /* Models */,
@@ -158,7 +164,9 @@
 				3C433FAB2BD435C7007D335F /* GestureScrollView.swift */,
 				3C433FA42BD3ADEE007D335F /* GraphViewController.swift */,
 				3C433FA92BD4255C007D335F /* GraphViewController+Setup.swift */,
+				3C335DA02BD4451F00BA314F /* GraphViewController+Delegate.swift */,
 				3C433FA62BD3AFD4007D335F /* GraphViewController+Render.swift */,
+				3C335DA22BD4457900BA314F /* GraphViewController+Joints.swift */,
 				3C433FAD2BD4389B007D335F /* GraphViewController+Camera.swift */,
 			);
 			path = Graph;
@@ -237,6 +245,7 @@
 				3C433F972BD37BAB007D335F /* Networking.swift in Sources */,
 				3C433F9D2BD38741007D335F /* Graph.swift in Sources */,
 				3C433FA12BD3A44F007D335F /* GraphDebugView.swift in Sources */,
+				3C335DA32BD4457900BA314F /* GraphViewController+Joints.swift in Sources */,
 				3C433FA72BD3AFD4007D335F /* GraphViewController+Render.swift in Sources */,
 				3C433F9F2BD3894C007D335F /* DummyData.swift in Sources */,
 				3C433F8F2BD37727007D335F /* ContactMetadata.swift in Sources */,
@@ -251,6 +260,7 @@
 				3C433F842BD36059007D335F /* PermissionsView.swift in Sources */,
 				3C433FAE2BD4389B007D335F /* GraphViewController+Camera.swift in Sources */,
 				3C433F9B2BD37F86007D335F /* ViewModel+Upload.swift in Sources */,
+				3C335DA12BD4451F00BA314F /* GraphViewController+Delegate.swift in Sources */,
 				3C433FAC2BD435C7007D335F /* GestureScrollView.swift in Sources */,
 				3C433F722BD35CDB007D335F /* LookUpApp.swift in Sources */,
 				3C433F882BD360B2007D335F /* Utilities+Toolbar.swift in Sources */,
@@ -390,6 +400,7 @@
 				DEVELOPMENT_TEAM = WV6XDLHK3W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LookUp/Info.plist;
 				INFOPLIST_KEY_NSContactsUsageDescription = "See your social graph!";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -419,6 +430,7 @@
 				DEVELOPMENT_TEAM = WV6XDLHK3W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LookUp/Info.plist;
 				INFOPLIST_KEY_NSContactsUsageDescription = "See your social graph!";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

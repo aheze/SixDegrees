@@ -34,6 +34,9 @@ class GraphViewController: UIViewController {
     var scene = SKScene(size: .zero)
 
     let canvasLength = CGFloat(2000)
+    
+    // MARK: - Maps
+    var phoneNumberToNode = [String: SKNode]()
 
     init(graphViewModel: GraphViewModel) {
         self.graphViewModel = graphViewModel
@@ -57,6 +60,7 @@ class GraphViewController: UIViewController {
         spriteView.backgroundColor = .clear
         scene.size = view.bounds.size
         spriteView.presentScene(scene)
+        scene.delegate = self
     }
 
     override func viewDidLoad() {
