@@ -28,6 +28,7 @@
 		3C433FA52BD3ADEE007D335F /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433FA42BD3ADEE007D335F /* GraphViewController.swift */; };
 		3C433FA72BD3AFD4007D335F /* GraphViewController+Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433FA62BD3AFD4007D335F /* GraphViewController+Render.swift */; };
 		3C433FAA2BD4255C007D335F /* GraphViewController+Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433FA92BD4255C007D335F /* GraphViewController+Setup.swift */; };
+		3C433FAC2BD435C7007D335F /* GestureScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433FAB2BD435C7007D335F /* GestureScrollView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		3C433FA42BD3ADEE007D335F /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		3C433FA62BD3AFD4007D335F /* GraphViewController+Render.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphViewController+Render.swift"; sourceTree = "<group>"; };
 		3C433FA92BD4255C007D335F /* GraphViewController+Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphViewController+Setup.swift"; sourceTree = "<group>"; };
+		3C433FAB2BD435C7007D335F /* GestureScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureScrollView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				3C433FA22BD3ADB1007D335F /* GraphViewModel.swift */,
+				3C433FAB2BD435C7007D335F /* GestureScrollView.swift */,
 				3C433FA42BD3ADEE007D335F /* GraphViewController.swift */,
 				3C433FA92BD4255C007D335F /* GraphViewController+Setup.swift */,
 				3C433FA62BD3AFD4007D335F /* GraphViewController+Render.swift */,
@@ -244,6 +247,7 @@
 				3C433F8D2BD3770F007D335F /* Contact.swift in Sources */,
 				3C433F842BD36059007D335F /* PermissionsView.swift in Sources */,
 				3C433F9B2BD37F86007D335F /* ViewModel+Upload.swift in Sources */,
+				3C433FAC2BD435C7007D335F /* GestureScrollView.swift in Sources */,
 				3C433F722BD35CDB007D335F /* LookUpApp.swift in Sources */,
 				3C433F882BD360B2007D335F /* Utilities+Toolbar.swift in Sources */,
 				3C433FAA2BD4255C007D335F /* GraphViewController+Setup.swift in Sources */,

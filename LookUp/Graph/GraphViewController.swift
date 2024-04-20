@@ -23,9 +23,16 @@ class GraphViewController: UIViewController {
     var graphViewModel: GraphViewModel
 
     var spacing = Double(80)
-    
+
+    var containerView = UIView()
+
+    var gestureView = UIView()
+    var gestureScrollViewController = GestureScrollViewController()
+
     var spriteView = SKView()
     var scene = SKScene(size: .zero)
+
+    let canvasLength = CGFloat(2000)
 
     init(graphViewModel: GraphViewModel) {
         self.graphViewModel = graphViewModel
@@ -34,29 +41,30 @@ class GraphViewController: UIViewController {
 
     override func viewIsAppearing(_ animated: Bool) {
         super.viewIsAppearing(animated)
-        
-        view.addSubview(spriteView)
+
+        view.addSubview(containerView)
+        containerView.pinEdgesToSuperview()
+        containerView.addSubview(spriteView)
         spriteView.pinEdgesToSuperview()
+
+        view.addSubview(gestureView)
+        gestureView.pinEdgesToSuperview()
+        addChildViewController(gestureScrollViewController, in: gestureView)
+
+        // MARK: - Setup
+
         spriteView.backgroundColor = .clear
-        
-        scene.size = view.bounds.size
-        scene.backgroundColor = .clear
+        scene.size = CGSize(width: canvasLength, height: canvasLength)
         spriteView.presentScene(scene)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setup()
         render()
     }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        scene.size = view.bounds.size
-    }
-    
+
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -69,6 +69,9 @@ extension GraphViewController {
         shape.fillColor = color
         shape.strokeColor = .clear
         shape.position = point
+
+        let physicsBody = SKPhysicsBody(circleOfRadius: circleRadius)
+        shape.physicsBody = physicsBody
         scene.addChild(shape)
     }
 }

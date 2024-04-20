@@ -12,7 +12,9 @@ extension GraphViewController {
     func setup() {
         print("Setting up")
         spriteView.showsPhysics = true
-        
-        
+
+        scene.backgroundColor = .clear
+
+        scene.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
     }
 }
