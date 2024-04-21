@@ -91,11 +91,6 @@ struct ContentView: View {
         .environmentObject(model)
         .environmentObject(graphViewModel)
         .environmentObject(multipeerViewModel)
-        .onChange(of: model.finishedOnboarding) { newValue in
-            if newValue {
-                multipeerViewModel.startup(phoneNumber: model.phoneNumber)
-            }
-        }
         .onChange(of: multipeerViewModel.distanceToPeer) { newValue in
             if let newValue {
                 if newValue < 0.2 {

@@ -1,7 +1,7 @@
 //
 //  PermissionsView.swift
 //  LookUp
-//  
+//
 //  Created by Andrew Zheng (github.com/aheze) on 4/20/24.
 //  Copyright © 2024 Andrew Zheng. All rights reserved.
 //
@@ -14,6 +14,12 @@ struct PermissionsView: View {
     var goNext: () -> Void
 
     var body: some View {
+        Color.clear.overlay {
+            content
+        }
+    }
+
+    var content: some View {
         VStack(spacing: 30) {
             Text("First, let's get\npermissions set up.")
                 .font(.title2)

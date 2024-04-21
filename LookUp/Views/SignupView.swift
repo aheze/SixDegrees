@@ -64,10 +64,14 @@ struct SignupView: View {
                 VStack(spacing: 20) {
                     SignupTextField(title: "Phone Number", image: "phone.fill", isRequired: true, text: $model.phoneNumber)
                         .focused($focusedFirst)
+                        .opacity(shown ? 1 : 0)
+                        .animation(.spring().delay(0.3), value: shown)
 
                     SignupTextField(title: "Your Name", image: "person.fill", isRequired: true, text: $model.name)
                         .textInputAutocapitalization(.words)
-                    
+                        .opacity(shown ? 1 : 0)
+                        .animation(.spring().delay(0.4), value: shown)
+
                     SignupTextField(
                         title: "Short Bio",
                         image: "info.bubble.fill",
@@ -75,13 +79,20 @@ struct SignupView: View {
                         multiline: true,
                         text: $model.bio
                     )
+                    .opacity(shown ? 1 : 0)
+                    .animation(.spring().delay(0.5), value: shown)
+
                     SignupTextField(title: "Email", image: "at", isRequired: false, text: $model.email)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
+                        .opacity(shown ? 1 : 0)
+                        .animation(.spring().delay(0.6), value: shown)
 
                     SignupTextField(title: "Insta", customImage: "InstaLogo", isRequired: false, text: $model.instagram)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
+                        .opacity(shown ? 1 : 0)
+                        .animation(.spring().delay(0.7), value: shown)
                 }
 
                 Button {
@@ -195,10 +206,12 @@ struct SignupView: View {
         .onAppear {
             animating = true
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 shown = true
 
-                focusedFirst = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    focusedFirst = true
+                }
             }
         }
     }
