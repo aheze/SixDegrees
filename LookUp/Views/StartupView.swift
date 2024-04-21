@@ -1,5 +1,5 @@
 //
-//  PermissionsView.swift
+//  StartupView.swift
 //  LookUp
 //
 //  Created by Andrew Zheng (github.com/aheze) on 4/19/24.
@@ -8,69 +8,119 @@
 
 import SwiftUI
 
-struct PermissionsView: View {
+enum PageType {
+    case signup
+}
+
+struct StartupView: View {
     @Environment(\.dismiss) var dismiss
-    
+
     @EnvironmentObject var model: ViewModel
-    @State var finished = false
+    @State var finishedPermissions = false
+
+    @State var path = NavigationPath()
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
+            PermissionsView(finishedPermissions: $finishedPermissions) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                    path.append(PageType.signup)
+                }
+            }
+            .toolbarTitleDisplayMode(.inline)
+            .toolbarCloseButton()
+            .onChange(of: finishedPermissions) { newValue in
+                if newValue {
+                    model.getContacts()
+
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+//                            dismiss()
+//                        }
+                }
+            }
+            .navigationDestination(for: PageType.self) { pageType in
+                switch pageType {
+                case .signup:
+                    SignupView()
+                }
+            }
+        }
+    }
+}
+
+struct SignupView: View {
+    @State var phoneNumber = ""
+    @State var name = ""
+    @State var bio = ""
+    @State var email = ""
+    @State var links = [String]()
+
+    var body: some View {
+        ScrollView {
             VStack(spacing: 30) {
                 Text("First, let's get\npermissions set up.")
                     .font(.title2)
                     .fontWeight(.medium)
                     .opacity(0.5)
                     .multilineTextAlignment(.center)
-
-                let subtitle: String = {
-                    switch model.authorizationStatus {
-                    case .notDetermined:
-                        return "Tap to grant permission"
-                    case .authorized:
-                        return "Tap to grant permission"
-                    default:
-                        return "Go to Settings"
-                    }
-                }()
-
-                PermissionView(
-                    title: "Contacts",
-                    subtitle: subtitle,
-                    image: "person.crop.circle",
-                    finished: finished
-                ) {
-                    if model.authorizationStatus == .authorized {
-                        finished = true
-                    } else if model.authorizationStatus == .notDetermined {
-                        model.requestAccess {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                finished = true
-                            }
-                        }
-                    } else {
-                        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
-                        if UIApplication.shared.canOpenURL(settingsUrl) {
-                            UIApplication.shared.open(settingsUrl)
-                        }
-                    }
-                }
             }
-            .offset(y: -20)
             .padding(.horizontal, 20)
             .padding(.vertical, 24)
-            .toolbarTitleDisplayMode(.inline)
-            .toolbarCloseButton()
-            .onChange(of: finished) { newValue in
-                if finished {
-                    model.getContacts()
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                        dismiss()
+        }
+    }
+}
+
+struct PermissionsView: View {
+    @EnvironmentObject var model: ViewModel
+    @Binding var finishedPermissions: Bool
+    var goNext: () -> Void
+
+    var body: some View {
+        VStack(spacing: 30) {
+            Text("First, let's get\npermissions set up.")
+                .font(.title2)
+                .fontWeight(.medium)
+                .opacity(0.5)
+                .multilineTextAlignment(.center)
+
+            let subtitle: String = {
+                switch model.authorizationStatus {
+                case .notDetermined:
+                    return "Tap to grant permission"
+                case .authorized:
+                    return "Tap to grant permission"
+                default:
+                    return "Go to Settings"
+                }
+            }()
+
+            PermissionView(
+                title: "Contacts",
+                subtitle: subtitle,
+                image: "person.crop.circle",
+                finished: finishedPermissions
+            ) {
+                if model.authorizationStatus == .authorized {
+                    finishedPermissions = true
+                    goNext()
+                } else if model.authorizationStatus == .notDetermined {
+                    model.requestAccess {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            finishedPermissions = true
+                            goNext()
+                        }
+                    }
+                } else {
+                    guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
+                    if UIApplication.shared.canOpenURL(settingsUrl) {
+                        UIApplication.shared.open(settingsUrl)
                     }
                 }
             }
         }
+        .offset(y: -20)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 24)
     }
 }
 

@@ -94,7 +94,7 @@ struct ContentView: View {
                 .ignoresSafeArea()
         }
         .sheet(isPresented: $showingPermissions) {
-            PermissionsView()
+            StartupView()
                 .presentationDetents([.medium, .large])
                 .presentationBackground {
                     Rectangle()
