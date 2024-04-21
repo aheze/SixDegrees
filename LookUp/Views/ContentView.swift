@@ -97,10 +97,34 @@ struct ContentView: View {
                 if newValue < 0.2 {
                     print("CONNECT!")
                     model.isConnecting = true
+                    
+                    graphViewModel.recenter.send()
+
+                    Task {
+                        do {
+                            let path = try await Networking.getPath(source: "9252149133", destination: "4244096978")
+
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                model.connectedPath = path
+                            }
+
+                            print("path? \(path)")
+                        } catch {
+                            print("Error: \(error)")
+                        }
+                    }
                 }
             }
         }
         .onAppear {
+//            Task {
+//                do {
+//                    let analysis = try await Networking.getAnalysis(phoneNumber: "3234")
+//                } catch {
+//                    print("Error: \(error)")
+//                }
+//            }
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
                 graphViewModel.gravityStrength = -20
 
@@ -109,7 +133,7 @@ struct ContentView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
                     multipeerViewModel.distanceToPeer = 0.3
 
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.9) {
                         multipeerViewModel.distanceToPeer = 0.1
                     }
                 }

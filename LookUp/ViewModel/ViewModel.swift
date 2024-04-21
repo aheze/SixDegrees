@@ -28,6 +28,8 @@ class ViewModel: ObservableObject {
     
     @Published var isConnecting = false
     
+    @Published var connectedPath: [String]?
+    
     init() {
         DispatchQueue.main.async {
             self.authorizationStatus = CNContactStore.authorizationStatus(for: .contacts)

@@ -26,7 +26,6 @@ struct Graph: Codable {
 
 extension Graph {
     init(from decoder: Decoder) throws {
-        
         print("Custom decoder!")
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -43,10 +42,6 @@ extension Graph {
         rootNode = try container.decode(Node.self, forKey: .rootNode)
         links = try container.decode(Set<Set<String>>.self, forKey: .links)
     }
-}
-
-struct GraphContainer: Codable {
-    var graph: Graph
 }
 
 struct Node: Codable {

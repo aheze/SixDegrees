@@ -13,20 +13,72 @@ struct Wave: Identifiable {
     var zIndex: Int
 }
 
+struct Connection {
+    var phoneNumber: String
+    var shown: Bool
+}
+
 struct ConnectionView: View {
     @EnvironmentObject var model: ViewModel
     @EnvironmentObject var multipeerViewModel: MultipeerViewModel
     
     @State var waves = [Wave]()
+    @State var path = [Connection]()
     
     var body: some View {
-        wavesView
-            .onChange(of: multipeerViewModel.distanceToPeer) { newValue in
-                
-                print("newValue: \(newValue)")
-                if let newValue {
-                    animateWave()
+        Color.clear
+            .background {
+                VStack(spacing: 0) {
+                    Rectangle()
+                        .fill(Color.purple)
+                        .frame(width: 2)
+                        .overlay {
+                            VStack {
+                                ForEach(Array(zip(path.indices, path)), id: \.1.phoneNumber) { index, connection in
+                                    Circle()
+                                        .fill(Color.purple)
+                                        .frame(width: 18, height: 18)
+                                        .frame(maxHeight: .infinity)
+                                        .scaleEffect(connection.shown ? 1 : 0.1)
+                                        .opacity(connection.shown ? 1 : 0)
+                                        .animation(.spring(response: 0.3, dampingFraction: 1, blendDuration: 1).delay(Double(path.count - index - 1) * 0.4), value: connection.shown)
+                                }
+                            }
+                            .padding(.top, 50)
+                            .padding(.bottom, 30)
+                        }
+                        .onChange(of: model.connectedPath) { newValue in
+                            if let newValue {
+                                path = newValue.map { Connection(phoneNumber: $0, shown: false) }
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    for index in path.indices {
+                                        path[index].shown = true
+                                    }
+                                }
+                                
+                            } else {
+                                path = []
+                            }
+                        }
+                        
+                    Rectangle()
+                        .frame(width: 8)
+                        .opacity(0)
                 }
+                .ignoresSafeArea()
+                .opacity(model.connectedPath != nil ? 1 : 0)
+                .animation(.spring(response: 0.3, dampingFraction: 1, blendDuration: 1), value: model.connectedPath)
+            }
+            .background {
+                wavesView
+                    .ignoresSafeArea()
+                    .onChange(of: multipeerViewModel.distanceToPeer) { newValue in
+                        
+                        if let newValue {
+                            animateWave()
+                        }
+                    }
             }
     }
     
@@ -69,7 +121,7 @@ struct ConnectionView: View {
                     Circle()
                         .fill(Color.yellow)
                         .blur(radius: 100)
-                        .opacity(0.4)
+                        .opacity(0.75)
                         .zIndex(Double(wave.zIndex))
                         .transition(
                             .asymmetric(

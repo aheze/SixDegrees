@@ -34,7 +34,7 @@ class CircleNode: SKShapeNode {
         let phoneNumberNode = SKLabelNode(text: initials)
         phoneNumberNode.fontName = "SF Pro"
         phoneNumberNode.fontSize = fontSize
-        phoneNumberNode.position = CGPoint(x: -fontSize * 0.03, y: -fontSize * 0.3)
+        phoneNumberNode.position = CGPoint(x: -fontSize * 0.03, y: -fontSize * 0.36)
         addChild(phoneNumberNode)
     }
 

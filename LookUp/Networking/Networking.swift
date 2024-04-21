@@ -84,7 +84,6 @@ enum Networking {
         
         let string = String(data: responseData, encoding: .utf8)
         
-        
 //        print("got: \(string)")
 //        print("responseData: \(responseData).. response: \(response) -> \(string)")
         
@@ -99,9 +98,98 @@ enum Networking {
         
         return graph.graph
     }
+    
+    static func getPath(source: String, destination: String) async throws -> [String] {
+        var request = URLRequest(url: baseURL.appendingPathComponent("/graph/getPath"))
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        let data = try encoder.encode(GetPathStruct(source: source, destination: destination))
+        request.httpBody = data
+        
+        let (responseData, response) = try await URLSession.shared.data(for: request)
+        
+        guard let r = response as? HTTPURLResponse, r.statusCode == 200 else {
+            throw "Error: \(response)"
+        }
+        
+        let decoder = JSONDecoder()
+        let path = try decoder.decode(PathContainer.self, from: responseData)
+        
+        return path.path
+    }
+    
+    static func getAnalysis(phoneNumber: String) async throws -> Analysis? {
+        var request = URLRequest(url: baseURL.appendingPathComponent("/user/getAnalysis"))
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        let data = try encoder.encode(GetAnalysisStruct(phoneNumber: phoneNumber))
+        request.httpBody = data
+        
+        let (responseData, response) = try await URLSession.shared.data(for: request)
+        
+        let string = String(data: responseData, encoding: .utf8)
+        print(string)
+        
+        guard let r = response as? HTTPURLResponse, r.statusCode == 200 else {
+            throw "Error: \(response)"
+        }
+        
+        let decoder = JSONDecoder()
+        let analysis = try decoder.decode(AnalysisContainer.self, from: responseData)
+        
+        return analysis.analysis
+    }
+}
+
+struct GetPathStruct: Codable {
+    var source: String
+    var destination: String
 }
 
 struct GetGraphStruct: Codable {
     var phoneNumber: String
     var targetDepth: String
+}
+
+struct GetAnalysisStruct: Codable {
+    var phoneNumber: String
+}
+
+struct GraphContainer: Codable {
+    var graph: Graph
+}
+
+struct PathContainer: Codable {
+    var path: [String]
+}
+
+struct Analysis: Codable {
+    var phoneNumber: String
+    var bio: String
+    var hobbies: [String]
+}
+
+struct AnalysisContainer: Codable {
+    var analysis: Analysis?
+    
+    enum CodingKeys: String, CodingKey {
+           case analysis
+       }
+
+       init(from decoder: Decoder) throws {
+           let container = try decoder.container(keyedBy: CodingKeys.self)
+           // Check if the value is a string and equals "none"
+           if let analysisString = try? container.decode(String.self, forKey: .analysis), analysisString == "none" {
+               analysis = nil
+           } else {
+               // Try to decode Analysis object
+               analysis = try? container.decode(Analysis.self, forKey: .analysis)
+           }
+       }
 }
