@@ -33,13 +33,17 @@ const signupUser = async (req, res) => {
         res.status(200).json({ user });
         if(!email || !bio || !links) return;
         await Promise.all([analysisReq(ownPhoneNumber, ownName, email, bio, links)]);
-        console.log("calling AI server");
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 };
 
 const analysisReq = async (ownPhoneNumber, ownName, email, bio, links) => {
+    let user = await Analysis.findOne({phoneNumber: ownPhoneNumber});
+    if(user) {
+        console.log("analysis exists")
+        return;
+    }
     var options = {
         'method': 'GET',
         'url': 'http://209.38.175.25:8888/api/generateDescription',
