@@ -118,6 +118,24 @@ struct ContentView: View {
             }
         }
         .onAppear {
+            model.phoneNumber = "9252149133"
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                model.finishedOnboarding = true
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+                    graphViewModel.gravityStrength = -20
+
+                    multipeerViewModel.distanceToPeer = 0.5
+
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+                        multipeerViewModel.distanceToPeer = 0.3
+
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.9) {
+                            multipeerViewModel.distanceToPeer = 0.1
+                        }
+                    }
+                }
+            }
 //            Task {
 //                do {
 //                    let analysis = try await Networking.getAnalysis(phoneNumber: "3234")

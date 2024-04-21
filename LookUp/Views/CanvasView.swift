@@ -138,7 +138,7 @@ struct CanvasView: View {
 
                     Task {
                         do {
-                            let graph = try await Networking.getGraph(phoneNumber: "9252149133", targetDepth: 2)
+                            let graph = try await Networking.getGraph(phoneNumber: model.phoneNumber.trimmingCharacters(in: .whitespacesAndNewlines), targetDepth: 2)
 
                             print("got graph!")
 

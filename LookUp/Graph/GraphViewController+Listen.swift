@@ -17,6 +17,29 @@ extension GraphViewController {
         }
         .store(in: &cancellables)
 
+        model.$connectedPath.sink { [weak self] path in
+            guard let self else { return }
+
+            if path != nil {
+                let fadeOutAction = SKAction.fadeAlpha(to: 0.2, duration: 0.75)
+
+                for node in self.phoneNumberToNode.values {
+                    if node != self.mainNode {
+                        node.run(fadeOutAction)
+                    }
+                }
+            } else {
+                let fadeInAction = SKAction.fadeAlpha(to: 1, duration: 0.75)
+
+                for node in self.phoneNumberToNode.values {
+                    if node != self.mainNode {
+                        node.run(fadeInAction)
+                    }
+                }
+            }
+        }
+        .store(in: &cancellables)
+
         graphViewModel.addAdditionalAnalysis.sink { [weak self] analysis in
             guard let self else { return }
 

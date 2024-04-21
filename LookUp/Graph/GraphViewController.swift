@@ -33,6 +33,8 @@ class GraphViewController: UIViewController {
 
     var spriteView = SKView()
     var scene = SKScene(size: .zero)
+    
+    var mainNode: CircleNode?
 
     let canvasLength = CGFloat(2000)
 

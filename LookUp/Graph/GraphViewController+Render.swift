@@ -41,6 +41,7 @@ extension GraphViewController {
             self.phoneNumberToNode = [:]
             self.scene.removeAllChildren()
             self.scene.physicsWorld.removeAllJoints()
+            self.mainNode = nil
             
             guard let graph else { return }
 
@@ -59,13 +60,16 @@ extension GraphViewController {
     func render(node: Node, level: Int, point: CGPoint, circleRadius: CGFloat) {
         let levelDouble = Double(level)
 
-        renderCircle(
+        let n = renderCircle(
             contactMetadata: node.contactMetadata,
             level: level,
             point: point,
             circleRadius: circleRadius,
             color: .systemPurple.withAlphaComponent(Double(1) - levelDouble * 0.4)
         )
+        if level == 0 {
+            mainNode = n
+        }
 
         let newLevel = level + 1
         let angles = Positioning.getAngles(count: node.children.count)

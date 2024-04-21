@@ -25,52 +25,94 @@ struct ConnectionView: View {
     @State var waves = [Wave]()
     @State var path = [Connection]()
     
+    @State var animatingRotation = false
+    
     var body: some View {
         Color.clear
             .background {
                 VStack(spacing: 0) {
-                    LineShape()
-                        .trim(from: 0, to: model.connectedPath != nil ? 1 : 0)
-                        .stroke(Color.purple, lineWidth: 2)
-                        .frame(width: 2)
-                        .opacity(model.connectedPath != nil ? 1 : 0)
-                        .overlay {
-                            VStack {
-                                ForEach(Array(zip(path.indices, path)), id: \.1.phoneNumber) { index, connection in
+                    ZStack {
+                        ZStack {
+                            Color.clear
+                                .overlay(align: .center, to: .leading) {
                                     Circle()
-                                        .fill(Color.purple)
-                                        .frame(width: 18, height: 18)
-                                        .frame(maxHeight: .infinity)
-                                        .scaleEffect(connection.shown ? 1 : 0.1)
-                                        .opacity(connection.shown ? 1 : 0)
-                                        .animation(.spring(response: 0.3, dampingFraction: 1, blendDuration: 1).delay(Double(path.count - index - 1) * 0.4), value: connection.shown)
+                                        .fill(
+                                            AngularGradient(
+                                                colors: [
+                                                    .white,
+                                                    .yellow.opacity(0.2),
+                                                    .white,
+                                                    .white,
+                                                    .yellow.opacity(0.2),
+                                                    .white,
+                                                ],
+                                                center: .center
+                                            )
+                                        )
+                                        .rotationEffect(.degrees(animatingRotation ? 360 : 0))
+                                        .scaleEffect(y: 2)
+                                        .animation(.linear(duration: 1.5).repeatForever(autoreverses: false), value: animatingRotation)
+                                        .frame(width: 600, height: 600)
+                                        .offset(x: -40)
                                 }
-                            }
-                            .padding(.top, 60)
-                            .padding(.bottom, 50)
+                                .mask {
+                                    Rectangle()
+                                }
+                                .frame(width: 20)
+                            
+                            Rectangle()
+                                .fill(.yellow)
+                                .frame(width: 2)
                         }
-                        .onChange(of: model.connectedPath) { newValue in
-                            if let newValue {
-                                path = newValue.dropFirst().map { Connection(phoneNumber: $0, shown: false) }
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                    for index in path.indices {
-                                        path[index].shown = true
+                        .onAppear {
+                            animatingRotation = true
+                        }
+                        .opacity(multipeerViewModel.distanceToPeer != nil ? 1 : 0)
+                        .animation(.spring(response: 0.5, dampingFraction: 1, blendDuration: 1), value: multipeerViewModel.distanceToPeer != nil)
+                        
+                        LineShape()
+                            .trim(from: 0, to: model.connectedPath != nil ? 1 : 0)
+                            .stroke(Color.purple, lineWidth: 2)
+                            .frame(width: 2)
+                            .opacity(model.connectedPath != nil ? 1 : 0)
+                            .overlay {
+                                VStack {
+                                    ForEach(Array(zip(path.indices, path)), id: \.1.phoneNumber) { index, connection in
+                                        Circle()
+                                            .fill(Color.purple)
+                                            .frame(width: 18, height: 18)
+                                            .frame(maxHeight: .infinity)
+                                            .scaleEffect(connection.shown ? 1 : 0.1)
+                                            .opacity(connection.shown ? 1 : 0)
+                                            .animation(.spring(response: 0.3, dampingFraction: 1, blendDuration: 1).delay(Double(path.count - index - 1) * 0.4), value: connection.shown)
                                     }
                                 }
-                                
-                            } else {
-                                path = []
+                                .padding(.top, 60)
+                                .padding(.bottom, 50)
                             }
-                        }
+                            .opacity(model.connectedPath != nil ? 1 : 0)
+                            .animation(.spring(response: 0.3, dampingFraction: 1, blendDuration: 1), value: model.connectedPath)
+                            .onChange(of: model.connectedPath) { newValue in
+                                if let newValue {
+                                    path = newValue.dropFirst().map { Connection(phoneNumber: $0, shown: false) }
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                        for index in path.indices {
+                                            path[index].shown = true
+                                        }
+                                    }
+                                    
+                                } else {
+                                    path = []
+                                }
+                            }
+                    }
                         
                     Rectangle()
                         .frame(width: 8)
                         .opacity(0)
                 }
                 .ignoresSafeArea()
-                .opacity(model.connectedPath != nil ? 1 : 0)
-                .animation(.spring(response: 0.3, dampingFraction: 1, blendDuration: 1), value: model.connectedPath)
             }
             .background {
                 wavesView
