@@ -96,11 +96,14 @@ struct ContentView: View {
                             let source = model.phoneNumber
                             let dest = multipeerViewModel.connectedPeerPhoneNumber ?? ""
 
+                            let timer = TimeElapsed()
                             let path = try await Networking.getPath(source: source, destination: dest)
-
+                            print("dykstras: \(timer)")
+                            
                             model.connectedPath = path
 
                             let analysis = try await Networking.getAnalysis(phoneNumber: dest)
+                            print("analysis: \(timer)")
 
                             if let analysis {
                                 model.stagingAnalysis = analysis
@@ -110,7 +113,7 @@ struct ContentView: View {
 
                             print("path? \(path)")
                         } catch {
-                            print("Error: \(error)")
+                            print("Error path or analysis: \(error)")
                         }
                     }
                 }
@@ -165,24 +168,23 @@ struct ContentView: View {
 class TimeElapsed: CustomStringConvertible {
     private let startTime: CFAbsoluteTime
     private var endTime: CFAbsoluteTime?
-    
+
     init() {
         startTime = CFAbsoluteTimeGetCurrent()
     }
-    
+
     var description: String {
         time
     }
-    
+
     var time: String {
         let format = String(format: "%.5f", duration)
         let string = "[\(format)s]"
         return string
     }
-    
+
     var duration: Double {
         let endTime = CFAbsoluteTimeGetCurrent()
         return endTime - startTime
     }
 }
-

@@ -63,15 +63,15 @@ extension GraphViewController {
         let color: UIColor = {
             switch level {
             case 0:
-                return UIColor(hex: 0xA148FF)
+                return UIColor(hex: 0x694AF6)
             case 1:
-                return UIColor(hex: 0xC344FF)
+                return UIColor(hex: 0xB548F5)
             case 2:
-                return UIColor(hex: 0xFF4598)
+                return UIColor(hex: 0x009CF4)
             case 3:
-                return UIColor(hex: 0xFF8F48)
+                return UIColor(hex: 0x00C500)
             default:
-                return UIColor(hex: 0x5DCF1A)
+                return UIColor(hex: 0xF57500)
             }
         }()
         
@@ -95,8 +95,12 @@ extension GraphViewController {
                 return 60
             case 1:
                 return 18
-            default:
+            case 2:
+                return 12
+            case 3:
                 return 10
+            default:
+                return 8
             }
         }()
 

@@ -18,6 +18,17 @@ struct Connection {
     var shown: Bool
 }
 
+struct AngleShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        Path { path in
+            path.move(to: CGPoint(x: rect.minX, y: rect.minY))
+            path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
+            path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
+            path.addLine(to: CGPoint(x: rect.minX, y: rect.minY))
+        }
+    }
+}
+
 struct ConnectionView: View {
     @EnvironmentObject var model: ViewModel
     @EnvironmentObject var multipeerViewModel: MultipeerViewModel
@@ -40,6 +51,34 @@ struct ConnectionView: View {
             .background {
                 VStack(spacing: 0) {
                     ZStack {
+                        Color.clear
+                            .overlay {
+                                Rectangle()
+                                    .fill(
+                                        LinearGradient(
+                                            colors: [
+                                                .red,
+                                                .green,
+                                                .blue,
+                                                .white,
+                                                .pink,
+                                                .orange,
+                                            ],
+                                            startPoint: .leading,
+                                            endPoint: .trailing
+                                        )
+                                    )
+                                    .hueRotation(.degrees(animatingRotation ? 360 : 0))
+                                    .animation(.linear(duration: 1.5).repeatForever(autoreverses: false), value: animatingRotation)
+                                    .scaleEffect(1.2)
+                            }
+                            .mask {
+                                AngleShape()
+                            }
+                            .blur(radius: 80)
+                            .opacity(model.isConnecting ? 1 : 0)
+                            .animation(.spring(response: 0.9, dampingFraction: 1, blendDuration: 1), value: model.isConnecting)
+                        
                         ZStack {
                             Color.clear
                                 .overlay(align: .center, to: .leading) {

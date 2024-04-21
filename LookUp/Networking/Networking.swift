@@ -111,6 +111,9 @@ enum Networking {
         
         let (responseData, response) = try await URLSession.shared.data(for: request)
         
+        let string = String(data: responseData, encoding: .utf8)
+        print(string)
+        
         guard let r = response as? HTTPURLResponse, r.statusCode == 200 else {
             throw "Error: \(response)"
         }
