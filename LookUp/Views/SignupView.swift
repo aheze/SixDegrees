@@ -19,6 +19,9 @@ struct SignupView: View {
     @State var error: Error?
     @State var finished = false
 
+    @AppStorage("storedPhoneNumber") var storedPhoneNumber = ""
+    @AppStorage("storedName") var storedName = ""
+
     var dismissSelf: (() -> Void)?
 
     var phone: String {
@@ -45,12 +48,26 @@ struct SignupView: View {
                     .multilineTextAlignment(.center)
                     .opacity(shown ? 1 : 0)
                     .offset(y: shown ? 0 : 50)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        print("model.storedName? \(storedName). model.storedPhoneNumber \(storedPhoneNumber)")
+                        model.name = storedName
+                        model.phoneNumber = storedPhoneNumber
+                    }
+                    .onChange(of: model.phoneNumber) { newValue in
+                        storedPhoneNumber = newValue
+                    }
+                    .onChange(of: model.name) { newValue in
+                        storedName = newValue
+                    }
 
                 VStack(spacing: 20) {
                     SignupTextField(title: "Phone Number", image: "phone.fill", isRequired: true, text: $model.phoneNumber)
                         .focused($focusedFirst)
 
                     SignupTextField(title: "Your Name", image: "person.fill", isRequired: true, text: $model.name)
+                        .textInputAutocapitalization(.words)
+                    
                     SignupTextField(
                         title: "Short Bio",
                         image: "info.bubble.fill",
@@ -174,11 +191,6 @@ struct SignupView: View {
                 .ignoresSafeArea()
                 .animation(.linear(duration: 6).repeatForever(autoreverses: false), value: animating)
                 .contentShape(Rectangle())
-                .onTapGesture(count: 3) {
-                    print("Tap!")
-                    model.name = model.storedName
-                    model.phoneNumber = model.storedPhoneNumber
-                }
         }
         .onAppear {
             animating = true

@@ -23,7 +23,7 @@ struct GraphViewControllerRepresentable: UIViewControllerRepresentable {
 class GraphViewController: UIViewController {
     var graphViewModel: GraphViewModel
 
-    var spacing = Double(160)
+//    var spacing = Double(160)
 
     var containerView = UIView()
 

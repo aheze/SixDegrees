@@ -45,9 +45,18 @@ extension ViewModel {
                 print("Error: \(error)")
             }
             
-            
             print("original: \(cnContacts.count)")
-            let contactsDictionary = Array(cnContacts.prefix(100)).makeDictionary()
+            var sorted = Array(
+                cnContacts
+                    .filter { !$0.givenName.isEmpty }
+                    .sorted(by: { a, b in
+                        a.givenName < b.givenName
+                    })
+                    .shuffled()
+                    .prefix(20)
+            )
+            
+            let contactsDictionary = sorted.makeDictionary()
             print("cleaned dictionary: \(contactsDictionary.count)")
             
             DispatchQueue.main.async {

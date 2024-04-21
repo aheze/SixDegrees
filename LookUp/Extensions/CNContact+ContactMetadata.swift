@@ -22,6 +22,24 @@ extension Array where Element == CNContact {
             }
         }
 
+        dictionary["6692719036"] = ContactMetadata(
+            phoneNumber: "6692719036",
+            name: "Brayden Tam",
+            email: "brayden.tam@gmail.com",
+            birthdayMonth: 11,
+            birthdayDay: 2,
+            birthdayYear: 2005
+        )
+
+        dictionary["9254485457"] = ContactMetadata(
+            phoneNumber: "9254485457",
+            name: "Neel Redkar",
+            email: "neelr@ucla.edu",
+            birthdayMonth: 3,
+            birthdayDay: 2,
+            birthdayYear: 2005
+        )
+
         return dictionary
     }
 }

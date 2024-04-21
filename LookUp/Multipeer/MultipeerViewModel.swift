@@ -285,7 +285,7 @@ class MultipeerViewModel: NSObject, ObservableObject, NISessionDelegate {
         if currentState == .unknown && nextState != .unknown {}
         
         if let distance = peer.distance {
-            print(String(format: "%0.2f m", distance))
+//            print(String(format: "%0.2f m", distance))
             distanceToPeer = distance
         }
         // Don't update visuals if the peer device is unavailable or out of the

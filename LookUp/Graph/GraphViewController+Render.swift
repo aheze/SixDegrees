@@ -61,23 +61,32 @@ extension GraphViewController {
         let newLevel = level + 1
         let angles = Positioning.getAngles(count: node.children.count)
 
-        let distanceFromCenter = spacing - CGFloat(newLevel) * CGFloat(40)
+        let circleRadius: Double = {
+            switch newLevel {
+            case 0:
+                return 60
+            case 1:
+                return 18
+            default:
+                return 6
+            }
+        }()
 
-//        let circumference = distanceFromCenter * 2 * .pi
-//        let calculated = circumference / Double(node.children.count) * 1.5
-//
-//        print("calculated: \(calculated)")
+        let distanceFromCenter: Double = {
+            switch newLevel {
+            case 0:
+                return 150
+            case 1:
+                return 180
+            default:
+                return 90
+            }
+        }()
 
-        let area = Double.pi * pow(distanceFromCenter, 2)
         if !node.children.isEmpty {
-            let calculated = sqrt(area / Double(node.children.count))
-            
-            print("calculated: \(calculated) vs \(circleRadius)")
-            let newCircleRadius = min(calculated, circleRadius)
-
             for index in node.children.indices {
                 let angle = angles[index]
-                let additionalDistance = Double.random(in: -distanceFromCenter / 4 ... distanceFromCenter)
+                let additionalDistance = Double.random(in: -distanceFromCenter / 4 ... distanceFromCenter / 4)
 
                 let newPoint = CGPoint(
                     x: point.x + cos(angle) * distanceFromCenter + additionalDistance,
@@ -85,7 +94,7 @@ extension GraphViewController {
                 )
 
                 let child = node.children[index]
-                render(node: child, level: newLevel, point: newPoint, circleRadius: newCircleRadius)
+                render(node: child, level: newLevel, point: newPoint, circleRadius: circleRadius)
             }
         }
     }
