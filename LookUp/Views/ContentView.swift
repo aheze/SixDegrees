@@ -40,22 +40,25 @@ struct ContentView: View {
 
                     Spacer()
 
-                    if graphViewModel.graph != nil {
-                        Button {
-                            graphViewModel.recenter.send()
-                        } label: {
-                            Image(systemName: "house.fill")
-                                .foregroundColor(.primary)
-                                .opacity(0.75)
-                                .font(.title3)
-                                .frame(width: 50, height: 50)
-                                .background {
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .fill(.regularMaterial)
-                                }
+                    if model.finishedOnboarding {
+                        if graphViewModel.graph != nil {
+                            Button {
+                                graphViewModel.recenter.send()
+                            } label: {
+                                Image(systemName: "house.fill")
+                                    .foregroundColor(.primary)
+                                    .opacity(0.75)
+                                    .font(.title3)
+                                    .frame(width: 50, height: 50)
+                                    .background {
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .fill(.regularMaterial)
+                                    }
+                            }
                         }
                     }
                 }
+                .animation(.spring(), value: model.finishedOnboarding)
             }
         }
         .animation(.spring(response: 0.6, dampingFraction: 0.8, blendDuration: 1), value: model.stagingAnalysis != nil)

@@ -63,7 +63,7 @@ struct SignupView: View {
 
                 VStack(spacing: 20) {
                     SignupTextField(title: "Phone Number", image: "phone.fill", isRequired: true, text: $model.phoneNumber)
-                        .focused($focusedFirst)
+//                        .focused($focusedFirst)
 //                        .opacity(shown ? 1 : 0)
 //                        .animation(.spring().delay(0.3), value: shown)
 

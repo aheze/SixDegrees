@@ -13,6 +13,7 @@ extension GraphViewController {
         model.$isConnecting.sink { [weak self] isConnecting in
             guard let self else { return }
 
+            print("scroll enabled? \(!isConnecting)")
             self.gestureScrollViewController.scrollView.isScrollEnabled = !isConnecting
         }
         .store(in: &cancellables)

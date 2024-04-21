@@ -117,9 +117,9 @@ struct ConnectionView: View {
             .background {
                 wavesView
                     .ignoresSafeArea()
-                    .onChange(of: multipeerViewModel.distanceToPeer) { newValue in
+                    .onChange(of: multipeerViewModel.distanceToPeer != nil) { newValue in
                         
-                        if let newValue {
+                        if newValue {
                             animateWave()
                         }
                     }
@@ -139,7 +139,7 @@ struct ConnectionView: View {
         
         let wave = Wave(zIndex: waves.count)
         
-        let interval = CGFloat(distanceToPeer) * 2.3
+        let interval = max(0.5, CGFloat(distanceToPeer) * 2.3)
         
         withAnimation(.spring(response: interval, dampingFraction: 1, blendDuration: 1)) {
             waves.append(wave)
