@@ -75,8 +75,7 @@ struct ContentView: View {
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background {
-            GraphViewControllerRepresentable(graphViewModel: graphViewModel)
-                .ignoresSafeArea()
+            CanvasView()
         }
         .sheet(isPresented: $showingPermissions) {
             StartupView()
@@ -87,9 +86,33 @@ struct ContentView: View {
         }
         .environmentObject(model)
         .environmentObject(graphViewModel)
+        .environmentObject(multipeerViewModel)
         .onChange(of: model.finishedOnboarding) { newValue in
             if newValue {
                 multipeerViewModel.startup(phoneNumber: model.phoneNumber)
+            }
+        }
+        .onChange(of: multipeerViewModel.distanceToPeer) { newValue in
+            if let newValue {
+                if newValue < 0.2 {
+                    print("CONNECT!")
+                    model.isConnecting = true
+                }
+            }
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+                graphViewModel.gravityStrength = -20
+
+                multipeerViewModel.distanceToPeer = 0.5
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+                    multipeerViewModel.distanceToPeer = 0.3
+
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+                        multipeerViewModel.distanceToPeer = 0.1
+                    }
+                }
             }
         }
     }

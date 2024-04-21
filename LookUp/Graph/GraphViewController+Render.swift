@@ -58,9 +58,10 @@ extension GraphViewController {
 
         renderCircle(
             contactMetadata: node.contactMetadata,
+            level: level,
             point: point,
             circleRadius: circleRadius,
-            color: .red.withAlphaComponent(Double(1) - levelDouble * 0.4)
+            color: .systemPurple.withAlphaComponent(Double(1) - levelDouble * 0.4)
         )
 
         let newLevel = level + 1
@@ -104,7 +105,7 @@ extension GraphViewController {
         }
     }
 
-    func renderCircle(contactMetadata: ContactMetadata, point: CGPoint, circleRadius: Double, color: UIColor) {
+    func renderCircle(contactMetadata: ContactMetadata, level: Int, point: CGPoint, circleRadius: Double, color: UIColor) {
         let shape = CircleNode(contactMetadata: contactMetadata, circleRadius: circleRadius)
         shape.fillColor = color
         shape.strokeColor = .clear
@@ -114,6 +115,11 @@ extension GraphViewController {
         physicsBody.categoryBitMask = CollisionTypes.node.rawValue
 //        physicsBody.collisionBitMask = CollisionTypes.bridge.rawValue
         physicsBody.collisionBitMask = CollisionTypes.node.rawValue
+
+        if level == 0 {
+            physicsBody.isDynamic = false
+        }
+
         shape.physicsBody = physicsBody
         scene.addChild(shape)
 

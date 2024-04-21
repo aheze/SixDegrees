@@ -10,6 +10,12 @@ import SpriteKit
 
 extension GraphViewController {
     func listen() {
+        graphViewModel.$gravityStrength.sink { [weak self] gravityStrength in
+            guard let self else { return }
+            self.scene.physicsWorld.gravity = CGVector(dx: 0, dy: gravityStrength)
+        }
+        .store(in: &cancellables)
+
         gestureScrollViewController.scrolled = { [weak self] offset, scale in
             guard let self else { return }
             self.adjustCamera(offset: offset, scale: scale)
@@ -54,21 +60,6 @@ extension GraphViewController {
                 let node = self.phoneNumberToNode[selectedPhoneNumber]!
                 let convertedPoint = self.spriteView.convert(point, to: self.scene)
                 node.position = convertedPoint
-                
-                
-                
-//                let dx = convertedPoint.x - node.position.x
-//                let dy = convertedPoint.y - node.position.y
-//                node.physicsBody?.applyForce(CGVector(dx: dx, dy: dy))
-
-//                for l in linkToLines.values {
-//                    for n in l {
-//                        n.removeFromParent()
-//                    }
-//                }
-//
-//                scene.physicsWorld.removeAllJoints()
-//                drawLines()
             }
         }
 
@@ -89,15 +80,6 @@ extension GraphViewController {
 
             self.graphViewModel.tappedPhoneNumber = nil
             self.graphViewModel.selectedPhoneNumber = nil
-
-//            for l in linkToLines.values {
-//                for n in l {
-//                    n.removeFromParent()
-//                }
-//            }
-//
-//            scene.physicsWorld.removeAllJoints()
-//            drawLines()
         }
     }
 }

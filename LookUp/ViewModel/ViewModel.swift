@@ -26,6 +26,8 @@ class ViewModel: ObservableObject {
     
     var cancellables = Set<AnyCancellable>()
     
+    @Published var isConnecting = false
+    
     init() {
         DispatchQueue.main.async {
             self.authorizationStatus = CNContactStore.authorizationStatus(for: .contacts)
