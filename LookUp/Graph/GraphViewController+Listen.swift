@@ -28,7 +28,7 @@ extension GraphViewController {
 
                     let scaleUp = SKAction.scale(to: 1.2, duration: 0.2)
                     first.run(scaleUp)
-                    self.graphViewModel.selectedPhoneNumber = first.phoneNumber
+                    self.graphViewModel.selectedPhoneNumber = first.contactMetadata.phoneNumber
                     self.graphViewModel.tappedPhoneNumber = nil
                 }
                 return true
@@ -42,7 +42,7 @@ extension GraphViewController {
             if let first = nodes.first(where: { $0 is CircleNode }) {
                 let first = first as! CircleNode
 
-                self.graphViewModel.tappedPhoneNumber = first.phoneNumber
+                self.graphViewModel.tappedPhoneNumber = first.contactMetadata.phoneNumber
             }
         }
 

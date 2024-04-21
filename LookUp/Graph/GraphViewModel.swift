@@ -17,5 +17,7 @@ class GraphViewModel: ObservableObject {
     @Published var selectedPhoneNumber: String?
     @Published var tappedPhoneNumber: String?
     
+//    @Published var 
+    
     var recenter = PassthroughSubject<Void, Never>()
 }

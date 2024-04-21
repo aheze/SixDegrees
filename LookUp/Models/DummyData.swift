@@ -83,7 +83,16 @@ enum DummyData {
         }
 
         let connections = DummyData.userToConnections[contactMetadata.phoneNumber] ?? []
-        let metadatas = connections.compactMap { DummyData.storage[$0] }
+
+        var metadatas = [ContactMetadata]()
+        for connection in connections {
+            
+            // if they are not signed up, then there's no metadata
+            // in that case just create a new temp metadata
+            if DummyData.storage[connection] != nil {
+                metadatas.append(DummyData.storage[connection]!)
+            }
+        }
 
         for metadata in metadatas {
             // insert a link

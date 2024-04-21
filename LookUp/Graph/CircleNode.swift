@@ -9,18 +9,33 @@
 import SpriteKit
 
 class CircleNode: SKShapeNode {
-    var phoneNumber = ""
+    var contactMetadata = ContactMetadata(phoneNumber: "")
     var circleRadius = CGFloat(20)
 
     override init() {
         super.init()
     }
 
-    convenience init(phoneNumber: String, circleRadius: CGFloat) {
+    convenience init(contactMetadata: ContactMetadata, circleRadius: CGFloat) {
         self.init()
         self.init(circleOfRadius: circleRadius)
-        self.phoneNumber = phoneNumber
+        self.contactMetadata = contactMetadata
         self.circleRadius = circleRadius
+        
+        let initials: String = {
+            let i = contactMetadata.name ?? ""
+            let c = i.components(separatedBy: " ")
+            let string = c.compactMap { $0.first?.uppercased() }.joined(separator: "")
+            return string
+        }()
+        
+        let fontSize = circleRadius * 0.9
+        
+        let phoneNumberNode = SKLabelNode(text: initials)
+        phoneNumberNode.fontName = "SF Pro"
+        phoneNumberNode.fontSize = fontSize
+        phoneNumberNode.position = CGPoint(x: -fontSize * 0.03, y: -fontSize * 0.3)
+        addChild(phoneNumberNode)
     }
 
     @available(*, unavailable)

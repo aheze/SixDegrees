@@ -56,7 +56,12 @@ extension GraphViewController {
     func render(node: Node, level: Int, point: CGPoint, circleRadius: CGFloat) {
         let levelDouble = Double(level)
 
-        renderCircle(phoneNumber: node.contactMetadata.phoneNumber, point: point, circleRadius: circleRadius, color: .red.withAlphaComponent(Double(1) - levelDouble * 0.4))
+        renderCircle(
+            contactMetadata: node.contactMetadata,
+            point: point,
+            circleRadius: circleRadius,
+            color: .red.withAlphaComponent(Double(1) - levelDouble * 0.4)
+        )
 
         let newLevel = level + 1
         let angles = Positioning.getAngles(count: node.children.count)
@@ -99,8 +104,8 @@ extension GraphViewController {
         }
     }
 
-    func renderCircle(phoneNumber: String, point: CGPoint, circleRadius: Double, color: UIColor) {
-        let shape = CircleNode(phoneNumber: phoneNumber, circleRadius: circleRadius)
+    func renderCircle(contactMetadata: ContactMetadata, point: CGPoint, circleRadius: Double, color: UIColor) {
+        let shape = CircleNode(contactMetadata: contactMetadata, circleRadius: circleRadius)
         shape.fillColor = color
         shape.strokeColor = .clear
         shape.position = point
@@ -112,6 +117,6 @@ extension GraphViewController {
         shape.physicsBody = physicsBody
         scene.addChild(shape)
 
-        phoneNumberToNode[phoneNumber] = shape
+        phoneNumberToNode[contactMetadata.phoneNumber] = shape
     }
 }
