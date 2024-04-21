@@ -10,6 +10,13 @@ import SpriteKit
 
 extension GraphViewController {
     func listen() {
+        model.$isConnecting.sink { [weak self] isConnecting in
+            guard let self else { return }
+
+            self.gestureScrollViewController.scrollView.isScrollEnabled = !isConnecting
+        }
+        .store(in: &cancellables)
+
         graphViewModel.$gravityStrength.sink { [weak self] gravityStrength in
             guard let self else { return }
             self.scene.physicsWorld.gravity = CGVector(dx: 0, dy: gravityStrength)

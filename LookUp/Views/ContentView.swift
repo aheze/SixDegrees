@@ -17,35 +17,37 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            Text("LookUp")
-                .bold()
+            Spacer()
 
-            Text("Find connections between people.")
+            VStack {
+                Text("LookUp")
+                    .bold()
 
-            Button("Initiate Graph") {
-                showingPermissions = true
-            }
-            .buttonBorderShape(.capsule)
-            .buttonStyle(.borderedProminent)
+                Text("Find connections between people.")
 
-            Button("Get Graph") {
-                Task {
-                    do {
-                        let graph = try await Networking.getGraph(phoneNumber: "9252149133", targetDepth: 2)
+                Button("Initiate Graph") {
+                    showingPermissions = true
+                }
+                .buttonBorderShape(.capsule)
+                .buttonStyle(.borderedProminent)
 
-                        print("got graph!")
+                Button("Get Graph") {
+                    Task {
+                        do {
+                            let graph = try await Networking.getGraph(phoneNumber: "9252149133", targetDepth: 2)
 
-                        graphViewModel.graph = graph
+                            print("got graph!")
 
-                    } catch {
-                        print("error: \(error)")
+                            graphViewModel.graph = graph
+
+                        } catch {
+                            print("error: \(error)")
+                        }
                     }
                 }
+                .buttonBorderShape(.capsule)
+                .buttonStyle(.borderedProminent)
             }
-            .buttonBorderShape(.capsule)
-            .buttonStyle(.borderedProminent)
-
-            Spacer()
 
             HStack {
                 if
@@ -97,8 +99,10 @@ struct ContentView: View {
                 if newValue < 0.2 {
                     print("CONNECT!")
                     model.isConnecting = true
-                    
-                    graphViewModel.recenter.send()
+
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        graphViewModel.recenter.send()
+                    }
 
                     Task {
                         do {

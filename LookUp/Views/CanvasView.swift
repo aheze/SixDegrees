@@ -9,10 +9,11 @@
 import SwiftUI
 
 struct CanvasView: View {
+    @EnvironmentObject var model: ViewModel
     @EnvironmentObject var graphViewModel: GraphViewModel
     
     var body: some View {
-        GraphViewControllerRepresentable(graphViewModel: graphViewModel)
+        GraphViewControllerRepresentable(model: model, graphViewModel: graphViewModel)
             .background {
                 LinearGradient(
                     colors: [

@@ -11,19 +11,19 @@ import SpriteKit
 import SwiftUI
 
 struct GraphViewControllerRepresentable: UIViewControllerRepresentable {
+    @ObservedObject var model: ViewModel
     @ObservedObject var graphViewModel: GraphViewModel
 
     func makeUIViewController(context: Context) -> GraphViewController {
-        GraphViewController(graphViewModel: graphViewModel)
+        GraphViewController(model: model, graphViewModel: graphViewModel)
     }
 
     func updateUIViewController(_ uiViewController: GraphViewController, context: Context) {}
 }
 
 class GraphViewController: UIViewController {
+    var model: ViewModel
     var graphViewModel: GraphViewModel
-
-//    var spacing = Double(160)
 
     var containerView = UIView()
 
@@ -43,7 +43,8 @@ class GraphViewController: UIViewController {
     var phoneNumberToNode = [String: CircleNode]()
     var linkToLines = [Set<String>: [SKNode]]()
 
-    init(graphViewModel: GraphViewModel) {
+    init(model: ViewModel, graphViewModel: GraphViewModel) {
+        self.model = model
         self.graphViewModel = graphViewModel
         super.init(nibName: nil, bundle: nil)
     }

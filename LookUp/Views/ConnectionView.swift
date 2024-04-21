@@ -29,9 +29,11 @@ struct ConnectionView: View {
         Color.clear
             .background {
                 VStack(spacing: 0) {
-                    Rectangle()
-                        .fill(Color.purple)
+                    LineShape()
+                        .trim(from: 0, to: model.connectedPath != nil ? 1 : 0)
+                        .stroke(Color.purple, lineWidth: 2)
                         .frame(width: 2)
+                        .opacity(model.connectedPath != nil ? 1 : 0)
                         .overlay {
                             VStack {
                                 ForEach(Array(zip(path.indices, path)), id: \.1.phoneNumber) { index, connection in
@@ -49,7 +51,7 @@ struct ConnectionView: View {
                         }
                         .onChange(of: model.connectedPath) { newValue in
                             if let newValue {
-                                path = newValue.map { Connection(phoneNumber: $0, shown: false) }
+                                path = newValue.dropFirst().map { Connection(phoneNumber: $0, shown: false) }
                                 
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                     for index in path.indices {
@@ -132,6 +134,15 @@ struct ConnectionView: View {
                 }
             }
             .frame(width: 400, height: 400)
+        }
+    }
+}
+
+struct LineShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        Path { path in
+            path.move(to: CGPoint(x: rect.midX, y: rect.maxY))
+            path.addLine(to: CGPoint(x: rect.midX, y: rect.minY))
         }
     }
 }
