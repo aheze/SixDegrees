@@ -4,6 +4,7 @@
     "mongodb": "^6.5.0",
     "mongoose": "^8.3.2",
     "nocache": "^4.0.0",
-    "node-dijkstra": "^2.5.0"
+    "node-dijkstra": "^2.5.0",
+    "request": "^2.88.2"
   }
 }

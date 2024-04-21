@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { exists } = require("./userModel");
 const Schema = mongoose.Schema;
 
 const metadataSchema = new Schema({
