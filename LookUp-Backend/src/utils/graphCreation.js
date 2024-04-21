@@ -54,13 +54,14 @@ async function getNode(contactMetadata, targetDepth, currentDepth) {
     }
 
     const user = await User.findOne({phoneNumber: contactMetadata.phoneNumber});
+    //User -> [User]
+    console.log("User" + user);
     if(!user) return
-    let connections = await User.find({phoneNumber: user.contacts});
+    
+    //console.log("Connection: " + connections);
     let numbers = [];
-    connections.map(connection => {
-        for(contact of connection.contacts){
-            if(contact) numbers.push(contact);
-        }
+    user.contacts.map(contact => {
+        if(contact) numbers.push(contact);
     });
     let metadatas = await Metadata.find({phoneNumber: numbers});
     numbers = [];
