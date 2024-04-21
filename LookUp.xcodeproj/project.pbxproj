@@ -449,6 +449,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LookUp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "6 Degrees";
 				INFOPLIST_KEY_NSContactsUsageDescription = "See your social graph!";
 				INFOPLIST_KEY_NSNearbyInteractionAllowOnceUsageDescription = "Discover nearby devices";
 				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = "Discover devices that are close to you";
@@ -481,6 +482,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LookUp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "6 Degrees";
 				INFOPLIST_KEY_NSContactsUsageDescription = "See your social graph!";
 				INFOPLIST_KEY_NSNearbyInteractionAllowOnceUsageDescription = "Discover nearby devices";
 				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = "Discover devices that are close to you";

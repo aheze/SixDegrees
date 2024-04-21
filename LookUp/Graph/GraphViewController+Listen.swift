@@ -15,6 +15,9 @@ extension GraphViewController {
 
             print("scroll enabled? \(!isConnecting)")
             self.gestureScrollViewController.scrollView.isScrollEnabled = !isConnecting
+            
+            self.graphViewModel.selectedPhoneNumber = nil
+            self.graphViewModel.tappedPhoneNumber = nil
         }
         .store(in: &cancellables)
 

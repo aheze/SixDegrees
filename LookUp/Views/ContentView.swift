@@ -17,6 +17,11 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
+            Text("6 Degrees")
+                .fontWeight(.thin)
+                .font(.title2)
+                .padding(.top, 10)
+            
             Spacer()
 
             if let stagingAnalysis = model.stagingAnalysis {

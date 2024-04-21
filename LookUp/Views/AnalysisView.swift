@@ -91,6 +91,7 @@ struct AnalysisView: View {
                 .fill(.regularMaterial)
                 .shadow(color: .black.opacity(0.25), radius: 24, x: 0, y: 16)
         }
+        .frame(maxWidth: 600)
         .transition(.opacity.combined(with: .offset(y: 200)))
         .onAppear {
             if let degreeOfSeparation {
