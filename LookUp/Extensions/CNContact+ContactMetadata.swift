@@ -40,6 +40,51 @@ extension Array where Element == CNContact {
             birthdayYear: 2005
         )
 
+        dictionary["123456789"] = ContactMetadata(
+            phoneNumber: "123456789",
+            name: "Arjun Khemani",
+            email: "arjun@getairchat.com",
+            birthdayMonth: 2,
+            birthdayDay: 1,
+            birthdayYear: 2006
+        )
+
+        dictionary["4087262484"] = ContactMetadata(
+            phoneNumber: "4087262484",
+            name: "Divik Chotani",
+            email: nil,
+            birthdayMonth: 3,
+            birthdayDay: 32,
+            birthdayYear: 2005
+        )
+
+        dictionary["3102513864"] = ContactMetadata(
+            phoneNumber: "3102513864",
+            name: "Lynn Tanisaka",
+            email: "lynn64904@gmail.com",
+            birthdayMonth: 6,
+            birthdayDay: 9,
+            birthdayYear: 2005
+        )
+
+        dictionary["6198871189"] = ContactMetadata(
+            phoneNumber: "6198871189",
+            name: "Kiley Phung",
+            email: nil,
+            birthdayMonth: 11,
+            birthdayDay: 26,
+            birthdayYear: 2005
+        )
+
+        dictionary["6282079012"] = ContactMetadata(
+            phoneNumber: "6282079012",
+            name: "Sigil Wen",
+            email: "sigil.w3n@gmail.com",
+            birthdayMonth: nil,
+            birthdayDay: nil,
+            birthdayYear: nil
+        )
+
         return dictionary
     }
 }
