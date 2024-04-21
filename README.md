@@ -1,4 +1,4 @@
-**Six Degrees GitHub Repository**
+### **Six Degrees GitHub Repository**
 
 Welcome to the Six Degrees GitHub repository! Six Degrees is an innovative iOS app designed to foster meaningful connections between individuals in real-life settings. Here's a breakdown of the branches in this repository:
 
