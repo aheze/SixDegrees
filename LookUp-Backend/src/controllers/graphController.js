@@ -6,7 +6,7 @@ const getGraphPath = async (req, res) => {
     try {
         const path = await getPath(source, destination);
         if(path == null){
-            res.status(200).json({"path":"no path mf"});
+            res.status(200).json({"path":"no path"});
         }
         res.status(200).json({"path":path});
     } catch (error) {
@@ -19,7 +19,7 @@ const getGraph = async (req, res) => {
     try {
         const graph = await generateGraph(phoneNumber, targetDepth);
         if(graph == null){
-            res.status(200).json({"graph":"didnt work bruh"});
+            res.status(200).json({"graph":"no graph"});
         }
         res.status(200).json({"graph":graph});
         links.clear();

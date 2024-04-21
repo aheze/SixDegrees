@@ -31,33 +31,36 @@ const signupUser = async (req, res) => {
         }
         Metadata.createMetadata(ownPhoneNumber, ownName);
         res.status(200).json({ user });
-        if(!email || !bio || !link) return;
+        if(!email || !bio || !links) return;
+        await Promise.all([analysisReq(ownPhoneNumber, ownName, email, bio, links)]);
         console.log("calling AI server");
-        var options = {
-            'method': 'GET',
-            'url': 'http://209.38.175.25:8888/api/generateDescription',
-            'headers': {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              "name": ownName,
-              "email": email,
-              "bio": bio,
-              "links": links
-            })
-          };
-          request(options, function (error, response) {
-            if (error) throw new Error(error);
-            if(!response.body) return;
-            let analysis = JSON.parse(response.body);
-            Analysis.createAnalysis(ownPhoneNumber, analysis.bio, analysis.hobbies)
-            console.log("created analysis");
-          });
-
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 };
+
+const analysisReq = async (ownPhoneNumber, ownName, email, bio, links) => {
+    var options = {
+        'method': 'GET',
+        'url': 'http://209.38.175.25:8888/api/generateDescription',
+        'headers': {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "name": ownName,
+          "email": email,
+          "bio": bio,
+          "links": links
+        })
+      };
+    request(options, function (error, response) {
+        if (error) throw new Error(error);
+        if(!response.body) return;
+        let analysis = JSON.parse(response.body);
+        Analysis.createAnalysis(ownPhoneNumber, analysis.bio, analysis.hobbies)
+        console.log("created analysis");
+    });
+}
 
 const linkUser = async (req, res) => {
     const { sourceUser, destinationUser } = req.body;
