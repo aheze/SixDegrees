@@ -78,7 +78,7 @@ struct ContentView: View {
         .environmentObject(graphViewModel)
         .environmentObject(multipeerViewModel)
         .onChange(of: multipeerViewModel.distanceToPeer) { newValue in
-            guard !model.isConnecting else {
+            guard !model.isConnecting, multipeerViewModel.canAccept else {
                 return
             }
             if let newValue {
@@ -86,30 +86,42 @@ struct ContentView: View {
                     print("CONNECT!")
                     model.isConnecting = true
 
+                    let h = UIImpactFeedbackGenerator(style: .soft)
+                    h.impactOccurred()
+                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         graphViewModel.recenter.send()
                     }
 
-                    Task {
+                    Task.detached {
                         do {
 //                            let dest = "4244096978"
-                            let source = model.phoneNumber
-                            let dest = multipeerViewModel.connectedPeerPhoneNumber ?? ""
+                            let source = await model.phoneNumber
+                            let dest = await multipeerViewModel.connectedPeerPhoneNumber ?? ""
 
                             let timer = TimeElapsed()
                             let path = try await Networking.getPath(source: source, destination: dest)
                             print("dykstras: \(timer)")
-                            
-                            model.connectedPath = path
+
+                            try await Task.sleep(seconds: 2)
+
+                            await { @MainActor in
+                                model.connectedPath = path
+                            }()
 
                             let analysis = try await Networking.getAnalysis(phoneNumber: dest)
                             print("analysis: \(timer)")
 
-                            if let analysis {
-                                model.stagingAnalysis = analysis
-                            } else {
-                                model.stagingAnalysis = Analysis(phoneNumber: dest, name: "Analysis Loading", bio: "", hobbies: [])
-                            }
+                            await { @MainActor in
+                                let h = UIImpactFeedbackGenerator(style: .rigid)
+                                h.impactOccurred()
+
+                                if let analysis {
+                                    model.stagingAnalysis = analysis
+                                } else {
+                                    model.stagingAnalysis = Analysis(phoneNumber: dest, name: "Analysis Loading", bio: "", hobbies: [])
+                                }
+                            }()
 
                             print("path? \(path)")
                         } catch {
@@ -121,13 +133,15 @@ struct ContentView: View {
         }
         .onReceive(model.pullAway) { analysis in
             print("Pulling away.")
-            model.isConnecting = false
-            model.connectedPath = nil
             graphViewModel.addAdditionalAnalysis.send(analysis)
+
+            multipeerViewModel.canAccept = false
             multipeerViewModel.stop()
             multipeerViewModel.distanceToPeer = nil
             multipeerViewModel.connectedPeerPhoneNumber = nil
 
+            model.isConnecting = false
+            model.connectedPath = nil
             withAnimation {
                 model.showingConnections = false
             }
@@ -186,5 +200,12 @@ class TimeElapsed: CustomStringConvertible {
     var duration: Double {
         let endTime = CFAbsoluteTimeGetCurrent()
         return endTime - startTime
+    }
+}
+
+extension Task where Success == Never, Failure == Never {
+    static func sleep(seconds: Double) async throws {
+        let duration = UInt64(seconds * 1_000_000_000)
+        try await Task.sleep(nanoseconds: duration)
     }
 }

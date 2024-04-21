@@ -18,8 +18,8 @@ extension GraphViewController {
             let a = arr[0]
             let b = arr[1]
             
-            let aNode = phoneNumberToNode[a]!
-            let bNode = phoneNumberToNode[b]!
+            guard let aNode = phoneNumberToNode[a] else { continue }
+            guard let bNode = phoneNumberToNode[b] else { continue }
             
             let distance = CGPointDistance(from: aNode.position, to: bNode.position)
             let numberOfComponents = Int(distance / 20)

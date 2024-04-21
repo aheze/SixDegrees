@@ -33,6 +33,8 @@ class MultipeerViewModel: NSObject, ObservableObject, NISessionDelegate {
     
     var phoneNumber: String?
     
+    @Published var canAccept = true
+    
     // nil when no peer
     @Published var distanceToPeer: Float?
     

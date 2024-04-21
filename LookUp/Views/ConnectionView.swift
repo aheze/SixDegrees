@@ -40,6 +40,10 @@ struct ConnectionView: View {
     
     var body: some View {
         let shown: Bool = {
+            if !multipeerViewModel.canAccept {
+                return false
+            }
+            
             if let distanceToPeer = multipeerViewModel.distanceToPeer {
                 return distanceToPeer < 0.3
             }
