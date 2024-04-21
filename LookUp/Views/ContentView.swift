@@ -29,32 +29,35 @@ struct ContentView: View {
 
             Spacer()
 
-            VStack {
-                Text("Debug!")
-
-                GraphDebugView(
-                    graph: DummyData.generateGraph(
-                        phoneNumber: model.ownPhoneNumber,
-                        targetDepth: 3
-                    )
-                )
-
-                if let selectedPhoneNumber = graphViewModel.selectedPhoneNumber {
-                    Text("Selected: \(selectedPhoneNumber)")
-                }
-
-                if let tappedPhoneNumber = graphViewModel.tappedPhoneNumber {
-                    Text("Tapped: \(tappedPhoneNumber)")
-                }
-            }
-            .foregroundColor(.white)
-            .font(.caption2)
-            .padding()
-            .background {
-                RoundedRectangle(cornerRadius: 36)
-                    .fill(.regularMaterial)
-                    .environment(\.colorScheme, .dark)
-            }
+//            VStack {
+//                Text("Debug!")
+//
+//                ScrollView {
+//                    GraphDebugView(
+//                        graph: DummyData.generateGraph(
+//                            phoneNumber: model.ownPhoneNumber,
+//                            targetDepth: 3
+//                        )
+//                    )
+//                }
+//                .frame(height: 250)
+//
+//                if let selectedPhoneNumber = graphViewModel.selectedPhoneNumber {
+//                    Text("Selected: \(selectedPhoneNumber)")
+//                }
+//
+//                if let tappedPhoneNumber = graphViewModel.tappedPhoneNumber {
+//                    Text("Tapped: \(tappedPhoneNumber)")
+//                }
+//            }
+//            .foregroundColor(.white)
+//            .font(.caption2)
+//            .padding()
+//            .background {
+//                RoundedRectangle(cornerRadius: 36)
+//                    .fill(.regularMaterial)
+//                    .environment(\.colorScheme, .dark)
+//            }
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)

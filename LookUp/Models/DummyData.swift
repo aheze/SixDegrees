@@ -10,7 +10,11 @@ import Foundation
 
 enum DummyData {
     static let userToConnections: [String: [String]] = [
-        "9252149133": ["3100000000", "4123123123", "696969"],
+        "9252149133": [
+            "3100000000", "4123123123", "696969",
+            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
+//            "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
+        ],
         "3100000000": ["9252149133", "99999"],
         "123456789": ["9252149133", "3100000000"],
         "4123123123": ["9252149133"],
@@ -24,7 +28,32 @@ enum DummyData {
         "123456789": ContactMetadata(phoneNumber: "123456789", name: "brayden"),
         "4123123123": ContactMetadata(phoneNumber: "4123123123", name: "neel"),
         "99999": ContactMetadata(phoneNumber: "99999", name: "rachel"),
-        "696969": ContactMetadata(phoneNumber: "696969", name: "lynn"),
+        "a": ContactMetadata(phoneNumber: "a", name: "a"),
+        "b": ContactMetadata(phoneNumber: "b", name: "b"),
+        "c": ContactMetadata(phoneNumber: "c", name: "c"),
+        "d": ContactMetadata(phoneNumber: "d", name: "d"),
+        "e": ContactMetadata(phoneNumber: "e", name: "e"),
+        "f": ContactMetadata(phoneNumber: "f", name: "f"),
+        "g": ContactMetadata(phoneNumber: "g", name: "g"),
+        "h": ContactMetadata(phoneNumber: "h", name: "h"),
+        "i": ContactMetadata(phoneNumber: "i", name: "i"),
+        "j": ContactMetadata(phoneNumber: "j", name: "j"),
+        "k": ContactMetadata(phoneNumber: "k", name: "k"),
+        "l": ContactMetadata(phoneNumber: "l", name: "l"),
+        "m": ContactMetadata(phoneNumber: "m", name: "m"),
+        "n": ContactMetadata(phoneNumber: "n", name: "n"),
+        "o": ContactMetadata(phoneNumber: "o", name: "o"),
+        "p": ContactMetadata(phoneNumber: "p", name: "p"),
+        "q": ContactMetadata(phoneNumber: "q", name: "q"),
+        "r": ContactMetadata(phoneNumber: "r", name: "r"),
+        "s": ContactMetadata(phoneNumber: "s", name: "s"),
+        "t": ContactMetadata(phoneNumber: "t", name: "t"),
+        "u": ContactMetadata(phoneNumber: "u", name: "u"),
+        "v": ContactMetadata(phoneNumber: "v", name: "v"),
+        "w": ContactMetadata(phoneNumber: "w", name: "w"),
+        "x": ContactMetadata(phoneNumber: "x", name: "x"),
+        "y": ContactMetadata(phoneNumber: "y", name: "y"),
+        "z": ContactMetadata(phoneNumber: "z", name: "z"),
     ]
 
     static func generateGraph(phoneNumber: String, targetDepth: Int) -> Graph {
@@ -53,8 +82,8 @@ enum DummyData {
             return node
         }
 
-        let connections = DummyData.userToConnections[contactMetadata.phoneNumber]!
-        let metadatas = connections.map { DummyData.storage[$0]! }
+        let connections = DummyData.userToConnections[contactMetadata.phoneNumber] ?? []
+        let metadatas = connections.compactMap { DummyData.storage[$0] }
 
         for metadata in metadatas {
             // insert a link

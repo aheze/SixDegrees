@@ -55,18 +55,20 @@ extension GraphViewController {
                 let convertedPoint = self.spriteView.convert(point, to: self.scene)
                 node.position = convertedPoint
                 
+                
+                
 //                let dx = convertedPoint.x - node.position.x
 //                let dy = convertedPoint.y - node.position.y
 //                node.physicsBody?.applyForce(CGVector(dx: dx, dy: dy))
 
-                for l in linkToLines.values {
-                    for n in l {
-                        n.removeFromParent()
-                    }
-                }
-
-                scene.physicsWorld.removeAllJoints()
-                drawLines()
+//                for l in linkToLines.values {
+//                    for n in l {
+//                        n.removeFromParent()
+//                    }
+//                }
+//
+//                scene.physicsWorld.removeAllJoints()
+//                drawLines()
             }
         }
 
@@ -88,14 +90,14 @@ extension GraphViewController {
             self.graphViewModel.tappedPhoneNumber = nil
             self.graphViewModel.selectedPhoneNumber = nil
 
-            for l in linkToLines.values {
-                for n in l {
-                    n.removeFromParent()
-                }
-            }
-
-            scene.physicsWorld.removeAllJoints()
-            drawLines()
+//            for l in linkToLines.values {
+//                for n in l {
+//                    n.removeFromParent()
+//                }
+//            }
+//
+//            scene.physicsWorld.removeAllJoints()
+//            drawLines()
         }
     }
 }
