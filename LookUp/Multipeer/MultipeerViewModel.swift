@@ -31,19 +31,16 @@ class MultipeerViewModel: NSObject, ObservableObject, NISessionDelegate {
     var sharedTokenWithPeer = false
     var peerDisplayName: String?
     
-    var phoneNumber: String
+    var phoneNumber: String?
     
     // nil when no peer
     @Published var distanceToPeer: Float?
     
     @Published var connectedPeerPhoneNumber: String?
     
-    init(phoneNumber: String) {
+    func startup(phoneNumber: String) {
         self.phoneNumber = phoneNumber
-        super.init()
-    }
-    
-    func startup() {
+        
         // Create the NISession.
         session = NISession()
         
@@ -69,7 +66,7 @@ class MultipeerViewModel: NSObject, ObservableObject, NISessionDelegate {
             }
         } else {
             print("Discovering...")
-            startupMPC()
+            startupMPC(phoneNumber: phoneNumber)
             
             // Set the display state.
             currentDistanceDirectionState = .unknown
@@ -123,7 +120,9 @@ class MultipeerViewModel: NSObject, ObservableObject, NISessionDelegate {
             session.invalidate()
             
             // Restart the sequence to see if the peer comes back.
-            startup()
+            if let phoneNumber {
+                startup(phoneNumber: phoneNumber)
+            }
             
             // Update the app's display.
             print("Peer Ended")
@@ -151,7 +150,9 @@ class MultipeerViewModel: NSObject, ObservableObject, NISessionDelegate {
             session.run(config)
         } else {
             // Create a valid configuration.
-            startup()
+            if let phoneNumber {
+                startup(phoneNumber: phoneNumber)
+            }
         }
     }
     
@@ -168,12 +169,14 @@ class MultipeerViewModel: NSObject, ObservableObject, NISessionDelegate {
         }
         
         // Recreate a valid session.
-        startup()
+        if let phoneNumber {
+            startup(phoneNumber: phoneNumber)
+        }
     }
     
     // MARK: - Discovery token sharing and receiving using MPC.
     
-    func startupMPC() {
+    func startupMPC(phoneNumber: String) {
         if mpc == nil {
 // Prevent Simulator from finding devices.
 #if targetEnvironment(simulator)

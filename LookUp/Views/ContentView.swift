@@ -11,6 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var model = ViewModel()
     @StateObject var graphViewModel = GraphViewModel()
+    @StateObject var multipeerViewModel = MultipeerViewModel()
 
     @State var showingPermissions = false
 
@@ -45,11 +46,37 @@ struct ContentView: View {
             .buttonStyle(.borderedProminent)
 
             Spacer()
+
+            HStack {
+                if
+                    let connectedPeerPhoneNumber = multipeerViewModel.connectedPeerPhoneNumber,
+                    let distanceToPeer = multipeerViewModel.distanceToPeer
+                {
+                    Text("\(connectedPeerPhoneNumber) - \(distanceToPeer)")
+                }
+
+                Spacer()
+
+                Button {
+                    graphViewModel.recenter.send()
+                } label: {
+                    Image(systemName: "house.fill")
+                        .foregroundColor(.primary)
+                        .opacity(0.75)
+                        .font(.title3)
+                        .frame(width: 50, height: 50)
+                        .background {
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(.regularMaterial)
+                        }
+                }
+            }
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background {
-            CanvasView()
+            GraphViewControllerRepresentable(graphViewModel: graphViewModel)
+                .ignoresSafeArea()
         }
         .sheet(isPresented: $showingPermissions) {
             StartupView()
@@ -60,6 +87,11 @@ struct ContentView: View {
         }
         .environmentObject(model)
         .environmentObject(graphViewModel)
+        .onChange(of: model.finishedOnboarding) { newValue in
+            if newValue {
+                multipeerViewModel.startup(phoneNumber: model.phoneNumber)
+            }
+        }
     }
 }
 

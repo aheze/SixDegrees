@@ -18,8 +18,7 @@ struct SignupView: View {
     @State var showingAlert = false
     @State var error: Error?
     @State var finished = false
-    
-    
+
     var dismissSelf: (() -> Void)?
 
     var phone: String {
@@ -102,6 +101,8 @@ struct SignupView: View {
                             finished = true
 
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                model.finishedOnboarding = true
+
                                 dismissSelf?()
                             }
 
@@ -172,6 +173,12 @@ struct SignupView: View {
                 }
                 .ignoresSafeArea()
                 .animation(.linear(duration: 6).repeatForever(autoreverses: false), value: animating)
+                .contentShape(Rectangle())
+                .onTapGesture(count: 3) {
+                    print("Tap!")
+                    model.name = model.storedName
+                    model.phoneNumber = model.storedPhoneNumber
+                }
         }
         .onAppear {
             animating = true
@@ -194,9 +201,6 @@ struct CheckmarkShape: Shape {
         }
     }
 }
-
-
-
 
 struct SignupTextField: View {
     var title: String

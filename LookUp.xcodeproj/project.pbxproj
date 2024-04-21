@@ -38,7 +38,6 @@
 		3CA701232BD47F380063771C /* GraphViewController+Listen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA701222BD47F380063771C /* GraphViewController+Listen.swift */; };
 		3CA701412BD4C5C90063771C /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA701402BD4C5C90063771C /* PermissionsView.swift */; };
 		3CA701432BD4C5E40063771C /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA701422BD4C5E40063771C /* SignupView.swift */; };
-		3CA701452BD4D5870063771C /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA701442BD4D5870063771C /* CanvasView.swift */; };
 		3CA7014A2BD4DC1E0063771C /* MultipeerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA701492BD4DC1E0063771C /* MultipeerViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -76,7 +75,6 @@
 		3CA701222BD47F380063771C /* GraphViewController+Listen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphViewController+Listen.swift"; sourceTree = "<group>"; };
 		3CA701402BD4C5C90063771C /* PermissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsView.swift; sourceTree = "<group>"; };
 		3CA701422BD4C5E40063771C /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
-		3CA701442BD4D5870063771C /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		3CA701492BD4DC1E0063771C /* MultipeerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,7 +138,6 @@
 			isa = PBXGroup;
 			children = (
 				3C433F732BD35CDB007D335F /* ContentView.swift */,
-				3CA701442BD4D5870063771C /* CanvasView.swift */,
 				3C433F832BD36059007D335F /* StartupView.swift */,
 				3CA701422BD4C5E40063771C /* SignupView.swift */,
 				3CA701402BD4C5C90063771C /* PermissionsView.swift */,
@@ -301,7 +298,6 @@
 				3CA701432BD4C5E40063771C /* SignupView.swift in Sources */,
 				3C335DA12BD4451F00BA314F /* GraphViewController+Delegate.swift in Sources */,
 				3C433FAC2BD435C7007D335F /* GestureScrollView.swift in Sources */,
-				3CA701452BD4D5870063771C /* CanvasView.swift in Sources */,
 				3C433F722BD35CDB007D335F /* LookUpApp.swift in Sources */,
 				3C433F882BD360B2007D335F /* Utilities+Toolbar.swift in Sources */,
 				3C433FAA2BD4255C007D335F /* GraphViewController+Setup.swift in Sources */,
@@ -442,6 +438,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LookUp/Info.plist;
 				INFOPLIST_KEY_NSContactsUsageDescription = "See your social graph!";
+				INFOPLIST_KEY_NSNearbyInteractionAllowOnceUsageDescription = "Discover nearby devices";
 				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = "Discover devices that are close to you";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -473,6 +470,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LookUp/Info.plist;
 				INFOPLIST_KEY_NSContactsUsageDescription = "See your social graph!";
+				INFOPLIST_KEY_NSNearbyInteractionAllowOnceUsageDescription = "Discover nearby devices";
 				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = "Discover devices that are close to you";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
