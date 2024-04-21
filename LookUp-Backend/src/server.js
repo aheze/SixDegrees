@@ -6,7 +6,7 @@ const graphRoutes = require("./routes/graphRoutes");
 const app = express();
 
 mongoose
-  .connect("mongodb+srv://lookup:iwanttolookup@cluster0.3sjbfru.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+  .connect("mongodb+srv://lookup:lookup@cluster0.iv5bsvu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
   .then(() => {
     if (process.env.NODE_ENV !== "test") {
       app.listen(80, () => {
