@@ -7,6 +7,6 @@ const router = express.Router();
 router.post("/signup", signupUser);
 router.delete("/clear", clearDB);
 router.post("/link", linkUser);
-router.get("/getAnalysis", getAnalysis);
+router.post("/getAnalysis", getAnalysis);
 
 module.exports = router;
