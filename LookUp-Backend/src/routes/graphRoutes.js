@@ -5,6 +5,6 @@ const { getGraphPath, getGraph } = require("../controllers/graphController");
 const router = express.Router();
 
 router.get("/getPath", getGraphPath);
-router.get("/getGraph", getGraph);
+router.post("/getGraph", getGraph);
 
 module.exports = router;
