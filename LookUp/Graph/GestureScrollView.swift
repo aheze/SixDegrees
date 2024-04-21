@@ -53,7 +53,7 @@ class GestureScrollViewController: UIViewController {
         super.viewDidLayoutSubviews()
 
         scrollView.minimumZoomScale = min(scrollView.bounds.width, scrollView.bounds.height) / scrollableLength
-        scrollView.maximumZoomScale = 8
+        scrollView.maximumZoomScale = 14
         centerContent()
     }
 

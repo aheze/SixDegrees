@@ -45,25 +45,13 @@ extension GraphViewController {
                 node: graph.rootNode,
                 level: 0,
                 point: CGPoint(x: canvasLength / 2, y: canvasLength / 2),
-                circleRadius: 20
+                circleRadius: 60
             )
 
             self.drawLines(graph: graph)
         }
         .store(in: &cancellables)
     }
-
-//
-//    func render() {
-//        render(
-//            node: graphViewModel.graph.rootNode,
-//            level: 0,
-//            point: CGPoint(x: canvasLength / 2, y: canvasLength / 2),
-//            circleRadius: 20
-//        )
-//
-//        drawLines()
-//    }
 
     func render(node: Node, level: Int, point: CGPoint, circleRadius: CGFloat) {
         let levelDouble = Double(level)
@@ -73,23 +61,32 @@ extension GraphViewController {
         let newLevel = level + 1
         let angles = Positioning.getAngles(count: node.children.count)
 
-        let distanceFromCenter = spacing - CGFloat(newLevel) * CGFloat(20)
+        let distanceFromCenter = spacing - CGFloat(newLevel) * CGFloat(40)
 
-        let circumference = distanceFromCenter * 2 * .pi
-        let calculated = circumference / Double(node.children.count) * 0.3
+//        let circumference = distanceFromCenter * 2 * .pi
+//        let calculated = circumference / Double(node.children.count) * 1.5
+//
+//        print("calculated: \(calculated)")
 
-        let circleRadius = min(calculated, 20)
+        let area = Double.pi * pow(distanceFromCenter, 2)
+        if !node.children.isEmpty {
+            let calculated = sqrt(area / Double(node.children.count))
+            
+            print("calculated: \(calculated) vs \(circleRadius)")
+            let newCircleRadius = min(calculated, circleRadius)
 
-        for index in node.children.indices {
-            let angle = angles[index]
+            for index in node.children.indices {
+                let angle = angles[index]
+                let additionalDistance = Double.random(in: -distanceFromCenter / 4 ... distanceFromCenter)
 
-            let newPoint = CGPoint(
-                x: point.x + cos(angle) * distanceFromCenter,
-                y: point.y + sin(angle) * distanceFromCenter
-            )
+                let newPoint = CGPoint(
+                    x: point.x + cos(angle) * distanceFromCenter + additionalDistance,
+                    y: point.y + sin(angle) * distanceFromCenter + additionalDistance
+                )
 
-            let child = node.children[index]
-            render(node: child, level: newLevel, point: newPoint, circleRadius: circleRadius)
+                let child = node.children[index]
+                render(node: child, level: newLevel, point: newPoint, circleRadius: newCircleRadius)
+            }
         }
     }
 

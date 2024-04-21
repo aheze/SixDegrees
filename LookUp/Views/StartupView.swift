@@ -23,9 +23,7 @@ struct StartupView: View {
     var body: some View {
         NavigationStack(path: $path) {
             PermissionsView(finishedPermissions: $finishedPermissions) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                    path.append(PageType.signup)
-                }
+                path.append(PageType.signup)
             }
             .toolbarTitleDisplayMode(.inline)
             .toolbarCloseButton()
@@ -102,12 +100,18 @@ struct PermissionsView: View {
             ) {
                 if model.authorizationStatus == .authorized {
                     finishedPermissions = true
-                    goNext()
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                        goNext()
+                    }
                 } else if model.authorizationStatus == .notDetermined {
                     model.requestAccess {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                             finishedPermissions = true
-                            goNext()
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                                goNext()
+                            }
                         }
                     }
                 } else {
