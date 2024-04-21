@@ -39,6 +39,7 @@
 		3CA701412BD4C5C90063771C /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA701402BD4C5C90063771C /* PermissionsView.swift */; };
 		3CA701432BD4C5E40063771C /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA701422BD4C5E40063771C /* SignupView.swift */; };
 		3CA701452BD4D5870063771C /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA701442BD4D5870063771C /* CanvasView.swift */; };
+		3CA7014A2BD4DC1E0063771C /* MultipeerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA701492BD4DC1E0063771C /* MultipeerViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +77,7 @@
 		3CA701402BD4C5C90063771C /* PermissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsView.swift; sourceTree = "<group>"; };
 		3CA701422BD4C5E40063771C /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		3CA701442BD4D5870063771C /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
+		3CA701492BD4DC1E0063771C /* MultipeerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 			children = (
 				3CA7011B2BD4674F0063771C /* Info.plist */,
 				3C433F712BD35CDB007D335F /* LookUpApp.swift */,
+				3CA701482BD4DC1A0063771C /* Multipeer */,
 				3C433F952BD37BA7007D335F /* Networking */,
 				3C433F8B2BD37709007D335F /* Models */,
 				3C433F892BD376F1007D335F /* ViewModel */,
@@ -191,6 +194,14 @@
 				3CA7011C2BD474470063771C /* CircleNode.swift */,
 			);
 			path = Graph;
+			sourceTree = "<group>";
+		};
+		3CA701482BD4DC1A0063771C /* Multipeer */ = {
+			isa = PBXGroup;
+			children = (
+				3CA701492BD4DC1E0063771C /* MultipeerViewModel.swift */,
+			);
+			path = Multipeer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,6 +295,7 @@
 				3CA7011D2BD474470063771C /* CircleNode.swift in Sources */,
 				3CA701232BD47F380063771C /* GraphViewController+Listen.swift in Sources */,
 				3C433F9B2BD37F86007D335F /* ViewModel+Upload.swift in Sources */,
+				3CA7014A2BD4DC1E0063771C /* MultipeerViewModel.swift in Sources */,
 				3CA7011F2BD475D80063771C /* GraphConstants.swift in Sources */,
 				3CA701412BD4C5C90063771C /* PermissionsView.swift in Sources */,
 				3CA701432BD4C5E40063771C /* SignupView.swift in Sources */,
@@ -430,6 +442,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LookUp/Info.plist;
 				INFOPLIST_KEY_NSContactsUsageDescription = "See your social graph!";
+				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = "Discover devices that are close to you";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -460,6 +473,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LookUp/Info.plist;
 				INFOPLIST_KEY_NSContactsUsageDescription = "See your social graph!";
+				INFOPLIST_KEY_NSNearbyInteractionUsageDescription = "Discover devices that are close to you";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
