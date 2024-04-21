@@ -45,14 +45,14 @@ extension ViewModel {
                 print("Error: \(error)")
             }
             
+            
             print("original: \(cnContacts.count)")
-            let contactsDictionary = cnContacts.makeDictionary()
+            let contactsDictionary = Array(cnContacts.prefix(100)).makeDictionary()
             print("cleaned dictionary: \(contactsDictionary.count)")
             
             DispatchQueue.main.async {
                 self.cnContacts = cnContacts
                 self.contactsDictionary = contactsDictionary
-//                self.upload()
             }
         }
     }

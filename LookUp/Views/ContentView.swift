@@ -26,19 +26,16 @@ struct ContentView: View {
             }
             .buttonBorderShape(.capsule)
             .buttonStyle(.borderedProminent)
-            
-            
+
             Button("Get Graph") {
                 Task {
-                    
                     do {
                         let graph = try await Networking.getGraph(phoneNumber: "9252149133", targetDepth: 2)
-                        
-                        
+
                         print("got graph!")
-                        
+
                         graphViewModel.graph = graph
-                        
+
                     } catch {
                         print("error: \(error)")
                     }
@@ -46,9 +43,29 @@ struct ContentView: View {
             }
             .buttonBorderShape(.capsule)
             .buttonStyle(.borderedProminent)
-            
 
             Spacer()
+        }
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background {
+            CanvasView()
+        }
+        .sheet(isPresented: $showingPermissions) {
+            StartupView()
+                .presentationBackground {
+                    Rectangle()
+                        .fill(.regularMaterial)
+                }
+        }
+        .environmentObject(model)
+        .environmentObject(graphViewModel)
+    }
+}
+
+#Preview {
+    ContentView()
+}
 
 //            VStack {
 //                Text("Debug!")
@@ -79,31 +96,3 @@ struct ContentView: View {
 //                    .fill(.regularMaterial)
 //                    .environment(\.colorScheme, .dark)
 //            }
-        }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background {
-            Color.clear
-//                .fill(
-//                    LinearGradient(colors: [.blue, .green], startPoint: .top, endPoint: .bottom)
-//                        .opacity(0.1)
-//                )
-                .overlay {
-                    GraphViewControllerRepresentable(graphViewModel: graphViewModel)
-                }
-                .ignoresSafeArea()
-        }
-        .sheet(isPresented: $showingPermissions) {
-            StartupView()
-                .presentationBackground {
-                    Rectangle()
-                        .fill(.regularMaterial)
-                }
-        }
-        .environmentObject(model)
-    }
-}
-
-#Preview {
-    ContentView()
-}

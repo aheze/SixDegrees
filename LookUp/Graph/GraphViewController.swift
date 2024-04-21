@@ -74,6 +74,19 @@ class GraphViewController: UIViewController {
         setup()
         listen()
         startRender()
+
+        graphViewModel.recenter
+            .sink { [weak self] in
+                guard let self else { return }
+                let offset = CGPoint(
+                    x: (self.gestureScrollViewController.scrollView.contentSize.width - self.gestureScrollViewController.scrollView.bounds.width) / 2,
+                    y: (self.gestureScrollViewController.scrollView.contentSize.height - self.gestureScrollViewController.scrollView.bounds.height) / 2
+                )
+
+                self.gestureScrollViewController.scrollView.setContentOffset(offset, animated: true)
+                self.gestureScrollViewController.scrollView.zoomScale = 1
+            }
+            .store(in: &cancellables)
     }
 
     override func viewWillLayoutSubviews() {

@@ -6,6 +6,7 @@
 //  Copyright © 2024 Andrew Zheng. All rights reserved.
 //
 
+import Combine
 import SwiftUI
 
 class GraphViewModel: ObservableObject {
@@ -15,4 +16,6 @@ class GraphViewModel: ObservableObject {
     
     @Published var selectedPhoneNumber: String?
     @Published var tappedPhoneNumber: String?
+    
+    var recenter = PassthroughSubject<Void, Never>()
 }
