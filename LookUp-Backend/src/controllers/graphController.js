@@ -11,7 +11,7 @@ const getGraphPath = async (req, res) => {
             return;
         }
         if(path == null){
-            res.status(200).json({"path":path2});
+            res.status(200).json({"path":path2.reverse()});
             return;
         }
         res.status(200).json({"path":path});
