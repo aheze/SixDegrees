@@ -22,6 +22,12 @@ class ViewModel: ObservableObject {
     @Published var cnContacts = [CNContact]()
     @Published var contactsDictionary = [String: ContactMetadata]()
     
+    @Published var phoneNumber = ""
+    @Published var name = ""
+    @Published var bio = ""
+    @Published var email = ""
+    @Published var instagram = ""
+    
     init() {
         DispatchQueue.main.async {
             self.authorizationStatus = CNContactStore.authorizationStatus(for: .contacts)

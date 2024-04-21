@@ -11,27 +11,31 @@ import SwiftUI
 struct SignupView: View {
     @EnvironmentObject var model: ViewModel
 
-    @State var phoneNumber = ""
-    @State var name = ""
-    @State var bio = ""
-    @State var email = ""
-    @State var instagram = ""
-
     @State var shown = false
     @State var animating = false
     @FocusState var focusedFirst
-    
+
     @State var showingAlert = false
+    @State var error: Error?
+    @State var finished = false
+    
+    
+    var dismissSelf: (() -> Void)?
 
     var phone: String {
-        phoneNumber.trimmingCharacters(in: .whitespacesAndNewlines)
+        model.phoneNumber.trimmingCharacters(in: .whitespacesAndNewlines)
     }
-    
+
     var n: String {
-        name.trimmingCharacters(in: .whitespacesAndNewlines)
+        model.name.trimmingCharacters(in: .whitespacesAndNewlines)
     }
-    
+
     var body: some View {
+        let errorPresented: Binding<Bool> = Binding {
+            error != nil
+        } set: { _ in
+            error = nil
+        }
         ScrollView {
             VStack(spacing: 36) {
                 Text("Let's set up\nyour profile.")
@@ -44,22 +48,24 @@ struct SignupView: View {
                     .offset(y: shown ? 0 : 50)
 
                 VStack(spacing: 20) {
-                    SignupTextField(title: "Phone Number", image: "phone.fill", isRequired: true, text: $phoneNumber)
+                    SignupTextField(title: "Phone Number", image: "phone.fill", isRequired: true, text: $model.phoneNumber)
                         .focused($focusedFirst)
 
-                    SignupTextField(title: "Your Name", image: "person.fill", isRequired: true, text: $name)
+                    SignupTextField(title: "Your Name", image: "person.fill", isRequired: true, text: $model.name)
                     SignupTextField(
                         title: "Short Bio",
                         image: "info.bubble.fill",
                         isRequired: false,
                         multiline: true,
-                        text: $bio
+                        text: $model.bio
                     )
-                    SignupTextField(title: "Email", image: "at", isRequired: false, text: $email)
+                    SignupTextField(title: "Email", image: "at", isRequired: false, text: $model.email)
                         .textInputAutocapitalization(.never)
-                    
-                    SignupTextField(title: "Insta", customImage: "InstaLogo", isRequired: false, text: $instagram)
+                        .autocorrectionDisabled()
+
+                    SignupTextField(title: "Insta", customImage: "InstaLogo", isRequired: false, text: $model.instagram)
                         .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
                 }
 
                 Button {
@@ -67,11 +73,10 @@ struct SignupView: View {
                         showingAlert = true
                         return
                     }
-                    
+
                     let insta: String = {
-                        var i = instagram.trimmingCharacters(in: .whitespaces)
+                        var i = model.instagram.trimmingCharacters(in: .whitespaces)
                         if i.hasPrefix("https://") {
-                            
                         } else if i.contains("instagram.com") {
                             i = "https://\(i)"
                         } else if i.hasPrefix("@") {
@@ -79,19 +84,31 @@ struct SignupView: View {
                         } else {
                             i = "https://instagram.com/\(i)"
                         }
-                        
+
                         return i
                     }()
-                    
+
                     Task {
-                        try await Networking.uploadContactsDictionary(
-                            ownPhoneNumber: phone,
-                            ownName: n,
-                            email: email,
-                            bio: bio,
-                            insta: insta,
-                            contactsDictionary: model.contactsDictionary
-                        )
+                        do {
+                            try await Networking.uploadContactsDictionary(
+                                ownPhoneNumber: phone,
+                                ownName: n,
+                                email: model.email.trimmingCharacters(in: .whitespacesAndNewlines),
+                                bio: model.bio.trimmingCharacters(in: .whitespacesAndNewlines),
+                                insta: insta,
+                                contactsDictionary: model.contactsDictionary
+                            )
+
+                            finished = true
+
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                dismissSelf?()
+                            }
+
+                        } catch {
+                            print("Error uploading: \(error)")
+                            self.error = error
+                        }
                     }
                 } label: {
                     Text("Continue")
@@ -106,15 +123,31 @@ struct SignupView: View {
                 }
             }
             .foregroundColor(.white)
+            .opacity(finished ? 0 : 1)
+            .animation(.spring(response: 0.3, dampingFraction: 1, blendDuration: 1), value: finished)
+            .overlay {
+                CheckmarkShape()
+                    .trim(from: 0, to: finished ? 1 : 0)
+                    .stroke(Color.white, style: .init(lineWidth: 10, lineCap: .round, lineJoin: .round))
+                    .frame(width: 86, height: 110)
+                    .shadow(color: .black.opacity(0.25), radius: 16, x: 0, y: 12)
+                    .opacity(finished ? 1 : 0)
+            }
             .padding(.horizontal, 20)
             .padding(.vertical, 24)
             .frame(maxWidth: .infinity)
             .animation(.spring(), value: shown)
+            .animation(.spring(response: 0.5, dampingFraction: 1, blendDuration: 1), value: finished)
         }
         .scrollDismissesKeyboard(.immediately)
         .alert("Name / phone number can't be empty!", isPresented: $showingAlert) {
-            Button("Ok") {
-                
+            Button("Ok") {}
+        }
+        .alert("Server Error", isPresented: errorPresented) {
+            Button("Ok") {}
+        } message: {
+            if let error = self.error {
+                Text("Error: \(error.localizedDescription)")
             }
         }
         .background {
@@ -151,6 +184,19 @@ struct SignupView: View {
         }
     }
 }
+
+struct CheckmarkShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        Path { path in
+            path.move(to: CGPoint(x: rect.minX, y: rect.midY + rect.height * 0.2))
+            path.addLine(to: CGPoint(x: rect.midX - rect.width * 0.1, y: rect.maxY))
+            path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
+        }
+    }
+}
+
+
+
 
 struct SignupTextField: View {
     var title: String

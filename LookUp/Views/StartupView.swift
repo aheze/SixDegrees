@@ -42,7 +42,9 @@ struct StartupView: View {
             .navigationDestination(for: PageType.self) { pageType in
                 switch pageType {
                 case .signup:
-                    SignupView()
+                    SignupView {
+                        dismiss()
+                    }
                 }
             }
         }
