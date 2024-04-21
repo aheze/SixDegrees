@@ -45,15 +45,24 @@ extension GraphViewController {
 
             self.graphViewModel.addAdditionalAnalysis.append(analysis)
 
-            let contactMetadata = ContactMetadata(phoneNumber: analysis.phoneNumber)
+            let contactMetadata = ContactMetadata(phoneNumber: analysis.phoneNumber, name: analysis.name)
 
-            let position = CGPoint(x: canvasLength / 2, y: canvasLength / 2 - 200)
+            let position = CGPoint(x: canvasLength / 2, y: canvasLength / 2 + 200)
 
-            let node = self.renderCircle(contactMetadata: contactMetadata, level: 1, point: position, circleRadius: 120, color: .systemOrange)
+            let node = self.renderCircle(contactMetadata: contactMetadata, level: 1, point: position, circleRadius: 50, color: .systemOrange)
 
             node.setScale(0.05)
             let scaleUp = SKAction.scale(to: 1, duration: 0.6)
             node.run(scaleUp)
+
+            guard let mainNode = self.mainNode else { return }
+            let joint = SKPhysicsJointSpring.joint(
+                withBodyA: node.physicsBody!,
+                bodyB: mainNode.physicsBody!,
+                anchorA: node.position,
+                anchorB: mainNode.position
+            )
+            self.scene.physicsWorld.add(joint)
         }
         .store(in: &cancellables)
 

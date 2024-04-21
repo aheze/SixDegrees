@@ -49,33 +49,46 @@ struct ContentView: View {
 //                .buttonStyle(.borderedProminent)
 //            }
 
-            HStack {
-                if
-                    let connectedPeerPhoneNumber = multipeerViewModel.connectedPeerPhoneNumber,
-                    let distanceToPeer = multipeerViewModel.distanceToPeer
-                {
-                    Text("\(connectedPeerPhoneNumber) - \(distanceToPeer)")
-                }
+            if let stagingAnalysis = model.stagingAnalysis {
+                let degreeOfSeparation: Int? = {
+                    if let connectedPath = model.connectedPath {
+                        return connectedPath.count - 1
+                    }
 
-                Spacer()
+                    return nil
+                }()
 
-                if graphViewModel.graph != nil {
-                    Button {
-                        graphViewModel.recenter.send()
-                    } label: {
-                        Image(systemName: "house.fill")
-                            .foregroundColor(.primary)
-                            .opacity(0.75)
-                            .font(.title3)
-                            .frame(width: 50, height: 50)
-                            .background {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .fill(.regularMaterial)
-                            }
+                AnalysisView(degreeOfSeparation: degreeOfSeparation, analysis: stagingAnalysis)
+            } else {
+                HStack {
+                    if
+                        let connectedPeerPhoneNumber = multipeerViewModel.connectedPeerPhoneNumber,
+                        let distanceToPeer = multipeerViewModel.distanceToPeer
+                    {
+                        Text("\(connectedPeerPhoneNumber) - \(distanceToPeer)")
+                    }
+
+                    Spacer()
+
+                    if graphViewModel.graph != nil {
+                        Button {
+                            graphViewModel.recenter.send()
+                        } label: {
+                            Image(systemName: "house.fill")
+                                .foregroundColor(.primary)
+                                .opacity(0.75)
+                                .font(.title3)
+                                .frame(width: 50, height: 50)
+                                .background {
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(.regularMaterial)
+                                }
+                        }
                     }
                 }
             }
         }
+        .animation(.spring(response: 0.6, dampingFraction: 0.8, blendDuration: 1), value: model.stagingAnalysis != nil)
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background {
@@ -103,10 +116,18 @@ struct ContentView: View {
 
                     Task {
                         do {
-                            let path = try await Networking.getPath(source: "9252149133", destination: "4244096978")
+                            let dest = "4244096978"
 
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                model.connectedPath = path
+                            let path = try await Networking.getPath(source: "9252149133", destination: dest)
+
+                            model.connectedPath = path
+
+                            let analysis = try await Networking.getAnalysis(phoneNumber: dest)
+
+                            if let analysis {
+                                model.stagingAnalysis = analysis
+                            } else {
+                                model.stagingAnalysis = Analysis(phoneNumber: dest, name: "Analysis Loading", bio: "", hobbies: [])
                             }
 
                             print("path? \(path)")
@@ -117,14 +138,26 @@ struct ContentView: View {
                 }
             }
         }
+        .onReceive(model.pullAway) { analysis in
+            model.connectedPath = nil
+            graphViewModel.addAdditionalAnalysis.send(analysis)
+            multipeerViewModel.stop()
+            multipeerViewModel.distanceToPeer = nil
+            multipeerViewModel.connectedPeerPhoneNumber = nil
+        }
+        .onChange(of: multipeerViewModel.distanceToPeer) { distanceToPeer in
+            if distanceToPeer != nil {
+                graphViewModel.gravityStrength = -20
+            } else {
+                graphViewModel.gravityStrength = 0
+            }
+        }
         .onAppear {
             model.phoneNumber = "9252149133"
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 model.finishedOnboarding = true
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
-                    graphViewModel.gravityStrength = -20
 
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
                     multipeerViewModel.distanceToPeer = 0.5
 
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {

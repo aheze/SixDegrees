@@ -19,6 +19,7 @@ class ViewModel: ObservableObject {
     @Published var showingStartup = false
     @Published var finishedOnboarding = false
     
+    
     @Published var phoneNumber = ""
     @Published var name = ""
     @Published var bio = ""
@@ -30,6 +31,9 @@ class ViewModel: ObservableObject {
     @Published var isConnecting = false
     
     @Published var connectedPath: [String]?
+    @Published var stagingAnalysis: Analysis?
+    
+    var pullAway = PassthroughSubject<Analysis, Never>()
     
     init() {
         DispatchQueue.main.async {

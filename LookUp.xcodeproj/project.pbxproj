@@ -32,6 +32,7 @@
 		3C433FAA2BD4255C007D335F /* GraphViewController+Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433FA92BD4255C007D335F /* GraphViewController+Setup.swift */; };
 		3C433FAC2BD435C7007D335F /* GestureScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433FAB2BD435C7007D335F /* GestureScrollView.swift */; };
 		3C433FAE2BD4389B007D335F /* GraphViewController+Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C433FAD2BD4389B007D335F /* GraphViewController+Camera.swift */; };
+		3C8374702BD50DBC00ABB153 /* AnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C83746F2BD50DBC00ABB153 /* AnalysisView.swift */; };
 		3CA7011D2BD474470063771C /* CircleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA7011C2BD474470063771C /* CircleNode.swift */; };
 		3CA7011F2BD475D80063771C /* GraphConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA7011E2BD475D80063771C /* GraphConstants.swift */; };
 		3CA701212BD47DE60063771C /* GraphViewController+Hit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA701202BD47DE60063771C /* GraphViewController+Hit.swift */; };
@@ -70,6 +71,7 @@
 		3C433FA92BD4255C007D335F /* GraphViewController+Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphViewController+Setup.swift"; sourceTree = "<group>"; };
 		3C433FAB2BD435C7007D335F /* GestureScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureScrollView.swift; sourceTree = "<group>"; };
 		3C433FAD2BD4389B007D335F /* GraphViewController+Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphViewController+Camera.swift"; sourceTree = "<group>"; };
+		3C83746F2BD50DBC00ABB153 /* AnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisView.swift; sourceTree = "<group>"; };
 		3CA7011B2BD4674F0063771C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3CA7011C2BD474470063771C /* CircleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleNode.swift; sourceTree = "<group>"; };
 		3CA7011E2BD475D80063771C /* GraphConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphConstants.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				3C433F732BD35CDB007D335F /* ContentView.swift */,
+				3C83746F2BD50DBC00ABB153 /* AnalysisView.swift */,
 				3C433F832BD36059007D335F /* StartupView.swift */,
 				3CA701422BD4C5E40063771C /* SignupView.swift */,
 				3CA701402BD4C5C90063771C /* PermissionsView.swift */,
@@ -290,6 +293,7 @@
 				3CA701212BD47DE60063771C /* GraphViewController+Hit.swift in Sources */,
 				3C433F822BD35DFE007D335F /* ViewModel+Contacts.swift in Sources */,
 				3C433FA32BD3ADB1007D335F /* GraphViewModel.swift in Sources */,
+				3C8374702BD50DBC00ABB153 /* AnalysisView.swift in Sources */,
 				3C433F992BD37C1F007D335F /* ContactDump.swift in Sources */,
 				3C433FA52BD3ADEE007D335F /* GraphViewController.swift in Sources */,
 				3C433F802BD35DE7007D335F /* ViewModel.swift in Sources */,

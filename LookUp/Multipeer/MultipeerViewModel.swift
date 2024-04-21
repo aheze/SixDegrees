@@ -38,6 +38,11 @@ class MultipeerViewModel: NSObject, ObservableObject, NISessionDelegate {
     
     @Published var connectedPeerPhoneNumber: String?
     
+    func stop() {
+        mpc?.invalidate()
+        mpc = nil
+    }
+    
     func startup(phoneNumber: String) {
         self.phoneNumber = phoneNumber
         
