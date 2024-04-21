@@ -1,5 +1,5 @@
 import express from "express";
-import { fetchGemini, BioInput } from "./utils/geminiFetch";
+import { fetchGemini, getSimilarity, BioInput } from "./utils/geminiFetch";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -23,6 +23,15 @@ app.get("/api/generateDescription", async (req, res) => {
   let bioData = await fetchGemini(input);
 
   res.send(bioData);
+});
+
+app.get("/api/similarity", async (req, res) => {
+  const person1 = req.body.person1 as string;
+  const person2 = req.body.person2 as string;
+
+  const similarity = await getSimilarity(person1, person2);
+
+  res.send(similarity);
 });
 
 const PORT = process.env.PORT || 3000;

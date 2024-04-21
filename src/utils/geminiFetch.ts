@@ -1,4 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import similarity from "compute-cosine-similarity";
 import { BioData } from "./userSchema";
 import fetch from "node-fetch";
 import { fetchWebsite } from "./fetchWebsite";
@@ -8,6 +9,7 @@ dotenv.config();
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_KEY || "");
 
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-latest" });
+const embedding_model = genAI.getGenerativeModel({ model: "embedding-001" });
 
 const GLOBAL_PROMPT_EXAMPLE_PARTS = [
   "input: name: Neel Redkar\nemail: neel.redkar@gmail.com\nbio (optional):\n=====\nLinks:\n\nhttps://neelr.dev/\nhttps://www.instagram.com/neelr01/\ntwitter.com/_neelr_\n=====\nDumps:\n",
@@ -119,4 +121,34 @@ const fetchGemini = async (input: BioInput): Promise<BioData> => {
   return bioData;
 };
 
-export { fetchGemini, BioInput };
+const getSimilarity = async (person1: string, person2: string) => {
+  let prompt_content = [
+    `input:
+    take the two people and output a blurb describing how similar they are + common interests
+
+    think spotify wrapped but for people—keep it to ~3 sentences
+
+    person1: ${person1}
+    person2: ${person2}
+    `,
+    "output: ",
+  ];
+
+  const result = await model.generateContent([...prompt_content]);
+  let response = await result.response;
+  let text = response.text();
+
+  const embeddings_person1 = (await embedding_model.embedContent(person1))
+    .embedding.values;
+  const embeddings_person2 = (await embedding_model.embedContent(person2))
+    .embedding.values;
+
+  let sim = similarity(embeddings_person1, embeddings_person2);
+
+  return {
+    similarity: sim,
+    description: text,
+  };
+};
+
+export { fetchGemini, getSimilarity, BioInput };
