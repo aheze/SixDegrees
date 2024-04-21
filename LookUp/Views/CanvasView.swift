@@ -111,7 +111,9 @@ struct CanvasView: View {
                 )
                 .opacity(0.1)
                 .overlay {
-                    ConnectionView()
+                    if model.showingConnections {
+                        ConnectionView()
+                    }
                 }
             }
             .ignoresSafeArea()

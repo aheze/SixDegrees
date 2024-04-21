@@ -29,6 +29,7 @@ class ViewModel: ObservableObject {
     var cancellables = Set<AnyCancellable>()
     
     @Published var isConnecting = false
+    @Published var showingConnections = true
     
     @Published var connectedPath: [String]?
     @Published var stagingAnalysis: Analysis?

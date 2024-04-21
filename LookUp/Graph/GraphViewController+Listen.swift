@@ -52,7 +52,7 @@ extension GraphViewController {
             let node = self.renderCircle(contactMetadata: contactMetadata, level: 1, point: position, circleRadius: 50, color: .systemOrange)
 
             node.setScale(0.05)
-            let scaleUp = SKAction.scale(to: 1, duration: 0.6)
+            let scaleUp = SKAction.scale(to: 1, duration: 0.2)
             node.run(scaleUp)
 
             guard let mainNode = self.mainNode else { return }

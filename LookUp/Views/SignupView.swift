@@ -46,8 +46,8 @@ struct SignupView: View {
                     .opacity(0.9)
                     .blendMode(.plusLighter)
                     .multilineTextAlignment(.center)
-                    .opacity(shown ? 1 : 0)
-                    .offset(y: shown ? 0 : 50)
+//                    .opacity(shown ? 1 : 0)
+//                    .offset(y: shown ? 0 : 50)
                     .contentShape(Rectangle())
                     .onTapGesture {
                         print("model.storedName? \(storedName). model.storedPhoneNumber \(storedPhoneNumber)")
@@ -64,13 +64,13 @@ struct SignupView: View {
                 VStack(spacing: 20) {
                     SignupTextField(title: "Phone Number", image: "phone.fill", isRequired: true, text: $model.phoneNumber)
                         .focused($focusedFirst)
-                        .opacity(shown ? 1 : 0)
-                        .animation(.spring().delay(0.3), value: shown)
+//                        .opacity(shown ? 1 : 0)
+//                        .animation(.spring().delay(0.3), value: shown)
 
                     SignupTextField(title: "Your Name", image: "person.fill", isRequired: true, text: $model.name)
                         .textInputAutocapitalization(.words)
-                        .opacity(shown ? 1 : 0)
-                        .animation(.spring().delay(0.4), value: shown)
+//                        .opacity(shown ? 1 : 0)
+//                        .animation(.spring().delay(0.4), value: shown)
 
                     SignupTextField(
                         title: "Short Bio",
@@ -79,20 +79,20 @@ struct SignupView: View {
                         multiline: true,
                         text: $model.bio
                     )
-                    .opacity(shown ? 1 : 0)
-                    .animation(.spring().delay(0.5), value: shown)
+//                    .opacity(shown ? 1 : 0)
+//                    .animation(.spring().delay(0.5), value: shown)
 
                     SignupTextField(title: "Email", image: "at", isRequired: false, text: $model.email)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
-                        .opacity(shown ? 1 : 0)
-                        .animation(.spring().delay(0.6), value: shown)
+//                        .opacity(shown ? 1 : 0)
+//                        .animation(.spring().delay(0.6), value: shown)
 
                     SignupTextField(title: "Insta", customImage: "InstaLogo", isRequired: false, text: $model.instagram)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
-                        .opacity(shown ? 1 : 0)
-                        .animation(.spring().delay(0.7), value: shown)
+//                        .opacity(shown ? 1 : 0)
+//                        .animation(.spring().delay(0.7), value: shown)
                 }
 
                 Button {
