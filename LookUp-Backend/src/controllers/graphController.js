@@ -5,8 +5,13 @@ const getGraphPath = async (req, res) => {
     const { source, destination } = req.body;
     try {
         const path = await getPath(source, destination);
-        if(path == null){
+        const path2 = await getPath(destination, source);
+        if(path == null && path2 == null){
             res.status(200).json({"path":"no path"});
+            return;
+        }
+        if(path == null){
+            res.status(200).json({"path":path2});
             return;
         }
         res.status(200).json({"path":path});
