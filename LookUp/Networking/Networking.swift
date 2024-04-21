@@ -171,6 +171,7 @@ struct PathContainer: Codable {
 
 struct Analysis: Codable {
     var phoneNumber: String
+    var name: String
     var bio: String
     var hobbies: [String]
 }

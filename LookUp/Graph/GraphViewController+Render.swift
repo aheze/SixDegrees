@@ -108,7 +108,7 @@ extension GraphViewController {
         }
     }
 
-    func renderCircle(contactMetadata: ContactMetadata, level: Int, point: CGPoint, circleRadius: Double, color: UIColor) {
+    @discardableResult func renderCircle(contactMetadata: ContactMetadata, level: Int, point: CGPoint, circleRadius: Double, color: UIColor) -> CircleNode {
         let shape = CircleNode(contactMetadata: contactMetadata, circleRadius: circleRadius)
         shape.fillColor = color
         shape.strokeColor = .clear
@@ -127,5 +127,7 @@ extension GraphViewController {
         scene.addChild(shape)
 
         phoneNumberToNode[contactMetadata.phoneNumber] = shape
+        
+        return shape
     }
 }

@@ -10,14 +10,15 @@ import Combine
 import SwiftUI
 
 class GraphViewModel: ObservableObject {
-//    @Published var graph = Graph(depth: 0, rootNode: Node(contactMetadata: ContactMetadata(phoneNumber: "Phone Number"), connections: []), links: [])
-    
     @Published var graph: Graph?
-    
+
     @Published var selectedPhoneNumber: String?
     @Published var tappedPhoneNumber: String?
-    
+
     @Published var gravityStrength = CGFloat(0)
-    
+
+    @Published var analyses = [Analysis]()
+
     var recenter = PassthroughSubject<Void, Never>()
+    var addAdditionalAnalysis = PassthroughSubject<Analysis, Never>()
 }

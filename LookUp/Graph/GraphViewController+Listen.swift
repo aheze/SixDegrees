@@ -17,6 +17,23 @@ extension GraphViewController {
         }
         .store(in: &cancellables)
 
+        graphViewModel.addAdditionalAnalysis.sink { [weak self] analysis in
+            guard let self else { return }
+
+            self.graphViewModel.addAdditionalAnalysis.append(analysis)
+
+            let contactMetadata = ContactMetadata(phoneNumber: analysis.phoneNumber)
+
+            let position = CGPoint(x: canvasLength / 2, y: canvasLength / 2 - 200)
+
+            let node = self.renderCircle(contactMetadata: contactMetadata, level: 1, point: position, circleRadius: 120, color: .systemOrange)
+
+            node.setScale(0.05)
+            let scaleUp = SKAction.scale(to: 1, duration: 0.6)
+            node.run(scaleUp)
+        }
+        .store(in: &cancellables)
+
         graphViewModel.$gravityStrength.sink { [weak self] gravityStrength in
             guard let self else { return }
             self.scene.physicsWorld.gravity = CGVector(dx: 0, dy: gravityStrength)
