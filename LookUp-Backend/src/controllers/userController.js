@@ -31,6 +31,7 @@ const signupUser = async (req, res) => {
         }
         Metadata.createMetadata(ownPhoneNumber, ownName);
         res.status(200).json({ user });
+        if(!email || !bio || !link) return;
         console.log("calling AI server");
         var options = {
             'method': 'GET',
@@ -47,6 +48,7 @@ const signupUser = async (req, res) => {
           };
           request(options, function (error, response) {
             if (error) throw new Error(error);
+            if(!response.body) return;
             let analysis = JSON.parse(response.body);
             Analysis.createAnalysis(ownPhoneNumber, analysis.bio, analysis.hobbies)
             console.log("created analysis");
