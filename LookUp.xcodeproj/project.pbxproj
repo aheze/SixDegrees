@@ -36,6 +36,8 @@
 		3CA7011F2BD475D80063771C /* GraphConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA7011E2BD475D80063771C /* GraphConstants.swift */; };
 		3CA701212BD47DE60063771C /* GraphViewController+Hit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA701202BD47DE60063771C /* GraphViewController+Hit.swift */; };
 		3CA701232BD47F380063771C /* GraphViewController+Listen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA701222BD47F380063771C /* GraphViewController+Listen.swift */; };
+		3CA701412BD4C5C90063771C /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA701402BD4C5C90063771C /* PermissionsView.swift */; };
+		3CA701432BD4C5E40063771C /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA701422BD4C5E40063771C /* SignupView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +72,8 @@
 		3CA7011E2BD475D80063771C /* GraphConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphConstants.swift; sourceTree = "<group>"; };
 		3CA701202BD47DE60063771C /* GraphViewController+Hit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphViewController+Hit.swift"; sourceTree = "<group>"; };
 		3CA701222BD47F380063771C /* GraphViewController+Listen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphViewController+Listen.swift"; sourceTree = "<group>"; };
+		3CA701402BD4C5C90063771C /* PermissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsView.swift; sourceTree = "<group>"; };
+		3CA701422BD4C5E40063771C /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +136,8 @@
 			children = (
 				3C433F732BD35CDB007D335F /* ContentView.swift */,
 				3C433F832BD36059007D335F /* StartupView.swift */,
+				3CA701422BD4C5E40063771C /* SignupView.swift */,
+				3CA701402BD4C5C90063771C /* PermissionsView.swift */,
 				3C433FA02BD3A44F007D335F /* GraphDebugView.swift */,
 			);
 			path = Views;
@@ -276,6 +282,8 @@
 				3CA701232BD47F380063771C /* GraphViewController+Listen.swift in Sources */,
 				3C433F9B2BD37F86007D335F /* ViewModel+Upload.swift in Sources */,
 				3CA7011F2BD475D80063771C /* GraphConstants.swift in Sources */,
+				3CA701412BD4C5C90063771C /* PermissionsView.swift in Sources */,
+				3CA701432BD4C5E40063771C /* SignupView.swift in Sources */,
 				3C335DA12BD4451F00BA314F /* GraphViewController+Delegate.swift in Sources */,
 				3C433FAC2BD435C7007D335F /* GestureScrollView.swift in Sources */,
 				3C433F722BD35CDB007D335F /* LookUpApp.swift in Sources */,

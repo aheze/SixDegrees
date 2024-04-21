@@ -29,10 +29,20 @@ enum NetworkingError: Error, LocalizedError {
 enum Networking {
     static let baseURL = URL(string: "http://146.190.167.1:80")!
 
-    static func uploadContactsDictionary(ownPhoneNumber: String, ownName: String, contactsDictionary: [String: ContactMetadata]) async throws {
+    static func uploadContactsDictionary(
+        ownPhoneNumber: String,
+        ownName: String,
+        email: String,
+        bio: String,
+        insta: String,
+        contactsDictionary: [String: ContactMetadata]
+    ) async throws {
         let dump = ContactDump(
             ownPhoneNumber: ownPhoneNumber,
             ownName: ownName,
+            email: email,
+            bio: bio,
+            links: [insta],
             contactsDictionary: contactsDictionary
         )
 
@@ -44,7 +54,7 @@ enum Networking {
             throw NetworkingError.couldNotGetString
         }
         
-//        print(string)
+        print(string)
 
         var request = URLRequest(url: baseURL.appendingPathComponent("/user/signup"))
         request.httpMethod = "POST"

@@ -95,7 +95,6 @@ struct ContentView: View {
         }
         .sheet(isPresented: $showingPermissions) {
             StartupView()
-                .presentationDetents([.medium, .large])
                 .presentationBackground {
                     Rectangle()
                         .fill(.regularMaterial)

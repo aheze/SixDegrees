@@ -52,7 +52,7 @@ extension ViewModel {
             DispatchQueue.main.async {
                 self.cnContacts = cnContacts
                 self.contactsDictionary = contactsDictionary
-                self.upload()
+//                self.upload()
             }
         }
     }

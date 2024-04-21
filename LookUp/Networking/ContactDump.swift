@@ -12,6 +12,9 @@ struct ContactDump: Codable {
     // my self
     var ownPhoneNumber: String
     var ownName: String
+    var email: String
+    var bio: String
+    var links: [String]
     
     // everyone else
     // phone Number: ContactMetadata

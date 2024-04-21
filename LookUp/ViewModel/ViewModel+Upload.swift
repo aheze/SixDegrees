@@ -9,17 +9,17 @@
 import Foundation
 
 extension ViewModel {
-    func upload() {
-        let ownPhoneNumber = self.ownPhoneNumber
-        let ownName = self.ownName
-        let contactsDictionary = self.contactsDictionary
-        
-        Task.detached {
-            try await Networking.uploadContactsDictionary(
-                ownPhoneNumber: ownPhoneNumber,
-                ownName: ownName,
-                contactsDictionary: contactsDictionary
-            )
-        }
-    }
+//    func upload() {
+//        let ownPhoneNumber = self.ownPhoneNumber
+//        let ownName = self.ownName
+//        let contactsDictionary = self.contactsDictionary
+//        
+//        Task.detached {
+//            try await Networking.uploadContactsDictionary(
+//                ownPhoneNumber: ownPhoneNumber,
+//                ownName: ownName,
+//                contactsDictionary: contactsDictionary
+//            )
+//        }
+//    }
 }
