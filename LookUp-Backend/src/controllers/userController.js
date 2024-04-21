@@ -78,7 +78,7 @@ const linkUser = async (req, res) => {
 const getAnalysis = async (req, res) => {
     const { phoneNumber } = req.body;
     try {
-        const analysis = Analysis.findOne({phoneNumber: phoneNumber});
+        const analysis = await Analysis.findOne({phoneNumber: phoneNumber});
         if(!analysis) {
             res.status(200).json({"analysis" : "none"});
             return;
