@@ -169,20 +169,20 @@ struct SignupView: View {
             }
         }
         .background {
-            Color.blue
+            Color.purple
                 .overlay {
                     Circle()
                         .fill(.clear)
                         .frame(width: 500, height: 500)
                         .overlay(align: .topTrailing, to: .center) {
                             Circle()
-                                .fill(Color.teal)
+                                .fill(Color.pink)
                                 .frame(width: 250, height: 250)
                                 .blur(radius: 100)
                         }
                         .overlay(align: .bottomLeading, to: .center) {
                             Circle()
-                                .fill(Color.green)
+                                .fill(Color.yellow)
                                 .frame(width: 350, height: 350)
                                 .blur(radius: 200)
                         }
@@ -195,7 +195,7 @@ struct SignupView: View {
         .onAppear {
             animating = true
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                 shown = true
 
                 focusedFirst = true

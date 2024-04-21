@@ -16,6 +16,7 @@ class ViewModel: ObservableObject {
     @Published var cnContacts = [CNContact]()
     @Published var contactsDictionary = [String: ContactMetadata]()
     
+    @Published var showingStartup = false
     @Published var finishedOnboarding = false
     
     @Published var phoneNumber = ""

@@ -19,35 +19,35 @@ struct ContentView: View {
         VStack {
             Spacer()
 
-            VStack {
-                Text("LookUp")
-                    .bold()
-
-                Text("Find connections between people.")
-
-                Button("Initiate Graph") {
-                    showingPermissions = true
-                }
-                .buttonBorderShape(.capsule)
-                .buttonStyle(.borderedProminent)
-
-                Button("Get Graph") {
-                    Task {
-                        do {
-                            let graph = try await Networking.getGraph(phoneNumber: "9252149133", targetDepth: 2)
-
-                            print("got graph!")
-
-                            graphViewModel.graph = graph
-
-                        } catch {
-                            print("error: \(error)")
-                        }
-                    }
-                }
-                .buttonBorderShape(.capsule)
-                .buttonStyle(.borderedProminent)
-            }
+//            VStack {
+//                Text("LookUp")
+//                    .bold()
+//
+//                Text("Find connections between people.")
+//
+//                Button("Initiate Graph") {
+//                    showingPermissions = true
+//                }
+//                .buttonBorderShape(.capsule)
+//                .buttonStyle(.borderedProminent)
+//
+//                Button("Get Graph") {
+//                    Task {
+//                        do {
+//                            let graph = try await Networking.getGraph(phoneNumber: "9252149133", targetDepth: 2)
+//
+//                            print("got graph!")
+//
+//                            graphViewModel.graph = graph
+//
+//                        } catch {
+//                            print("error: \(error)")
+//                        }
+//                    }
+//                }
+//                .buttonBorderShape(.capsule)
+//                .buttonStyle(.borderedProminent)
+//            }
 
             HStack {
                 if
@@ -59,18 +59,20 @@ struct ContentView: View {
 
                 Spacer()
 
-                Button {
-                    graphViewModel.recenter.send()
-                } label: {
-                    Image(systemName: "house.fill")
-                        .foregroundColor(.primary)
-                        .opacity(0.75)
-                        .font(.title3)
-                        .frame(width: 50, height: 50)
-                        .background {
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(.regularMaterial)
-                        }
+                if graphViewModel.graph != nil {
+                    Button {
+                        graphViewModel.recenter.send()
+                    } label: {
+                        Image(systemName: "house.fill")
+                            .foregroundColor(.primary)
+                            .opacity(0.75)
+                            .font(.title3)
+                            .frame(width: 50, height: 50)
+                            .background {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(.regularMaterial)
+                            }
+                    }
                 }
             }
         }
@@ -79,7 +81,7 @@ struct ContentView: View {
         .background {
             CanvasView()
         }
-        .sheet(isPresented: $showingPermissions) {
+        .sheet(isPresented: $model.showingStartup) {
             StartupView()
                 .presentationBackground {
                     Rectangle()
@@ -129,19 +131,19 @@ struct ContentView: View {
 //                }
 //            }
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
-                graphViewModel.gravityStrength = -20
-
-                multipeerViewModel.distanceToPeer = 0.5
-
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
-                    multipeerViewModel.distanceToPeer = 0.3
-
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.9) {
-                        multipeerViewModel.distanceToPeer = 0.1
-                    }
-                }
-            }
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+//                graphViewModel.gravityStrength = -20
+//
+//                multipeerViewModel.distanceToPeer = 0.5
+//
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+//                    multipeerViewModel.distanceToPeer = 0.3
+//
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.9) {
+//                        multipeerViewModel.distanceToPeer = 0.1
+//                    }
+//                }
+//            }
         }
     }
 }

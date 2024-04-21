@@ -37,9 +37,12 @@ extension GraphViewController {
 
         graphViewModel.$graph.sink { [weak self] graph in
             guard let self else { return }
+            
             self.phoneNumberToNode = [:]
             self.scene.removeAllChildren()
             self.scene.physicsWorld.removeAllJoints()
+            
+            guard let graph else { return }
 
             self.render(
                 node: graph.rootNode,

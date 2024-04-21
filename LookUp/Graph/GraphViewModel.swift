@@ -12,7 +12,7 @@ import SwiftUI
 class GraphViewModel: ObservableObject {
 //    @Published var graph = Graph(depth: 0, rootNode: Node(contactMetadata: ContactMetadata(phoneNumber: "Phone Number"), connections: []), links: [])
     
-    @Published var graph = DummyData.generateGraph(phoneNumber: "9252149133", targetDepth: 3)
+    @Published var graph: Graph?
     
     @Published var selectedPhoneNumber: String?
     @Published var tappedPhoneNumber: String?

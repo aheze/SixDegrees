@@ -46,8 +46,8 @@ struct ConnectionView: View {
                                         .animation(.spring(response: 0.3, dampingFraction: 1, blendDuration: 1).delay(Double(path.count - index - 1) * 0.4), value: connection.shown)
                                 }
                             }
-                            .padding(.top, 50)
-                            .padding(.bottom, 30)
+                            .padding(.top, 60)
+                            .padding(.bottom, 50)
                         }
                         .onChange(of: model.connectedPath) { newValue in
                             if let newValue {
