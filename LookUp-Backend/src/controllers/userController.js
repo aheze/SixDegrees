@@ -38,6 +38,17 @@ const signupUser = async (req, res) => {
     }
 };
 
+const getUser = async (req, res) => {
+    const { phoneNumber } = req.body;
+    try {
+        const user = await Metadata.findOne({phoneNumber: phoneNumber})
+        if(!user) res.status(200).json({"user": "not found"})
+        res.status(200).json({ "user": user });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 const analysisReq = async (ownPhoneNumber, ownName, email, bio, links) => {
     let user = await Analysis.findOne({phoneNumber: ownPhoneNumber});
     if(user) {
@@ -113,4 +124,4 @@ const clearDB = async (req, res) => {
 }
 
 
-module.exports = { signupUser, clearDB, linkUser, getAnalysis };
+module.exports = { signupUser, clearDB, linkUser, getAnalysis, getUser };

@@ -56,7 +56,7 @@ async function getNode(contactMetadata, targetDepth, currentDepth) {
     const user = await User.findOne({phoneNumber: contactMetadata.phoneNumber});
     //User -> [User]
     console.log("User" + user);
-    if(!user) return
+    if(!user) return node;
     
     //console.log("Connection: " + connections);
     let numbers = [];
@@ -81,7 +81,7 @@ async function getNode(contactMetadata, targetDepth, currentDepth) {
             targetDepth,
             currentDepth + 1,
         );
-        if(child) node.children.push(child);
+        node.children.push(child);
     }
     return node;
 }
