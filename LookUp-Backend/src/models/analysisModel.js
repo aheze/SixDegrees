@@ -9,6 +9,9 @@ const analysisModel = new Schema({
     lowercase: true,
     trim: true,
   },
+  name: {
+    type: String
+  },
   bio: {
     type: String
   },
@@ -17,7 +20,7 @@ const analysisModel = new Schema({
   },
 });
 
-analysisModel.statics.createAnalysis = async function (phoneNumber, bio, hobbies) {
+analysisModel.statics.createAnalysis = async function (phoneNumber, name, bio, hobbies) {
   if (!phoneNumber) {
     throw Error("All fields must be filled");
   }
@@ -25,7 +28,7 @@ analysisModel.statics.createAnalysis = async function (phoneNumber, bio, hobbies
   if (existsInDB) {
     return existsInDB;
   }
-  const analysis = await this.create({ phoneNumber, bio, hobbies });
+  const analysis = await this.create({ phoneNumber, name, bio, hobbies });
   return analysis;
 };
 

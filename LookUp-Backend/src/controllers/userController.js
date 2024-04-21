@@ -57,7 +57,7 @@ const analysisReq = async (ownPhoneNumber, ownName, email, bio, links) => {
         if (error) throw new Error(error);
         if(!response.body) return;
         let analysis = JSON.parse(response.body);
-        Analysis.createAnalysis(ownPhoneNumber, analysis.bio, analysis.hobbies)
+        Analysis.createAnalysis(ownPhoneNumber, ownName, analysis.bio, analysis.hobbies)
         console.log("created analysis");
     });
 }
