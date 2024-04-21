@@ -84,7 +84,7 @@ class GraphViewController: UIViewController {
                 )
 
                 self.gestureScrollViewController.scrollView.setContentOffset(offset, animated: true)
-                self.gestureScrollViewController.scrollView.zoomScale = 1
+                self.gestureScrollViewController.scrollView.setZoomScale(1, animated: true)
             }
             .store(in: &cancellables)
     }
