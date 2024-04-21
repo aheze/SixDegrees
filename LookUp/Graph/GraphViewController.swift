@@ -73,7 +73,7 @@ class GraphViewController: UIViewController {
 
         setup()
         listen()
-        render()
+        startRender()
     }
 
     override func viewWillLayoutSubviews() {

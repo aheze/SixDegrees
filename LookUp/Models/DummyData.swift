@@ -75,7 +75,7 @@ enum DummyData {
 
     // generates a node
     static func getNode(contactMetadata: ContactMetadata, targetDepth: Int, currentDepth: Int, visitedPhoneNumbers: inout Set<String>, links: inout Set<Set<String>>) -> Node {
-        var node = Node(contactMetadata: contactMetadata, connections: [])
+        var node = Node(contactMetadata: contactMetadata, children: [])
         visitedPhoneNumbers.insert(contactMetadata.phoneNumber)
 
         if currentDepth >= targetDepth {
@@ -102,7 +102,7 @@ enum DummyData {
                 visitedPhoneNumbers: &visitedPhoneNumbers,
                 links: &links
             )
-            node.connections.append(child)
+            node.children.append(child)
         }
 
         return node

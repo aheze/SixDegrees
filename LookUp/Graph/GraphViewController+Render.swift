@@ -31,16 +31,39 @@ enum Positioning {
 }
 
 extension GraphViewController {
-    func render() {
-        render(
-            node: graphViewModel.graph.rootNode,
-            level: 0,
-            point: CGPoint(x: canvasLength / 2, y: canvasLength / 2),
-            circleRadius: 20
-        )
+    func startRender() {
+//        scene.removeAllChildren()
+//        scene.physicsWorld.removeAllJoints()
 
-        drawLines()
+        graphViewModel.$graph.sink { [weak self] graph in
+            guard let self else { return }
+            self.phoneNumberToNode = [:]
+            self.scene.removeAllChildren()
+            self.scene.physicsWorld.removeAllJoints()
+
+            self.render(
+                node: graph.rootNode,
+                level: 0,
+                point: CGPoint(x: canvasLength / 2, y: canvasLength / 2),
+                circleRadius: 20
+            )
+
+            self.drawLines(graph: graph)
+        }
+        .store(in: &cancellables)
     }
+
+//
+//    func render() {
+//        render(
+//            node: graphViewModel.graph.rootNode,
+//            level: 0,
+//            point: CGPoint(x: canvasLength / 2, y: canvasLength / 2),
+//            circleRadius: 20
+//        )
+//
+//        drawLines()
+//    }
 
     func render(node: Node, level: Int, point: CGPoint, circleRadius: CGFloat) {
         let levelDouble = Double(level)
@@ -48,16 +71,16 @@ extension GraphViewController {
         renderCircle(phoneNumber: node.contactMetadata.phoneNumber, point: point, circleRadius: circleRadius, color: .red.withAlphaComponent(Double(1) - levelDouble * 0.4))
 
         let newLevel = level + 1
-        let angles = Positioning.getAngles(count: node.connections.count)
+        let angles = Positioning.getAngles(count: node.children.count)
 
         let distanceFromCenter = spacing - CGFloat(newLevel) * CGFloat(20)
 
         let circumference = distanceFromCenter * 2 * .pi
-        let calculated = circumference / Double(node.connections.count) * 0.3
+        let calculated = circumference / Double(node.children.count) * 0.3
 
         let circleRadius = min(calculated, 20)
 
-        for index in node.connections.indices {
+        for index in node.children.indices {
             let angle = angles[index]
 
             let newPoint = CGPoint(
@@ -65,7 +88,7 @@ extension GraphViewController {
                 y: point.y + sin(angle) * distanceFromCenter
             )
 
-            let child = node.connections[index]
+            let child = node.children[index]
             render(node: child, level: newLevel, point: newPoint, circleRadius: circleRadius)
         }
     }

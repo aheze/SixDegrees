@@ -40,7 +40,7 @@ struct NodeDebugView: View {
             .border(.yellow)
             
             HStack(alignment: .top, spacing: 5) {
-                ForEach(node.connections, id: \.contactMetadata.phoneNumber) { node in
+                ForEach(node.children, id: \.contactMetadata.phoneNumber) { node in
                     NodeDebugView(node: node)
                 }
             }

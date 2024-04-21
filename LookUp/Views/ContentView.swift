@@ -26,6 +26,27 @@ struct ContentView: View {
             }
             .buttonBorderShape(.capsule)
             .buttonStyle(.borderedProminent)
+            
+            
+            Button("Get Graph") {
+                Task {
+                    
+                    do {
+                        let graph = try await Networking.getGraph(phoneNumber: "9252149133", targetDepth: 2)
+                        
+                        
+                        print("got graph!")
+                        
+                        graphViewModel.graph = graph
+                        
+                    } catch {
+                        print("error: \(error)")
+                    }
+                }
+            }
+            .buttonBorderShape(.capsule)
+            .buttonStyle(.borderedProminent)
+            
 
             Spacer()
 
