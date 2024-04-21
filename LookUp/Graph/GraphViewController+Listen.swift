@@ -125,6 +125,17 @@ extension GraphViewController {
 
             if let tappedPhoneNumber = self.graphViewModel.tappedPhoneNumber {
                 print("Tapped: \(tappedPhoneNumber)")
+
+                guard let node = self.phoneNumberToNode[tappedPhoneNumber] else {
+                    return
+                }
+
+                self.model.stagingAnalysis = Analysis(
+                    phoneNumber: tappedPhoneNumber,
+                    name: node.contactMetadata.name ?? "No Name",
+                    bio: "\(node.contactMetadata.email ?? "")",
+                    hobbies: []
+                )
             }
 
             if let selectedPhoneNumber = self.graphViewModel.selectedPhoneNumber {

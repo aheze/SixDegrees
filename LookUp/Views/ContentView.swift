@@ -161,3 +161,28 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+
+class TimeElapsed: CustomStringConvertible {
+    private let startTime: CFAbsoluteTime
+    private var endTime: CFAbsoluteTime?
+    
+    init() {
+        startTime = CFAbsoluteTimeGetCurrent()
+    }
+    
+    var description: String {
+        time
+    }
+    
+    var time: String {
+        let format = String(format: "%.5f", duration)
+        let string = "[\(format)s]"
+        return string
+    }
+    
+    var duration: Double {
+        let endTime = CFAbsoluteTimeGetCurrent()
+        return endTime - startTime
+    }
+}
+

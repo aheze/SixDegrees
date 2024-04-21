@@ -28,6 +28,14 @@ struct ConnectionView: View {
     @State var animatingRotation = false
     
     var body: some View {
+        let shown: Bool = {
+            if let distanceToPeer = multipeerViewModel.distanceToPeer {
+                return distanceToPeer < 0.3
+            }
+            
+            return false
+        }()
+        
         Color.clear
             .background {
                 VStack(spacing: 0) {
@@ -67,8 +75,8 @@ struct ConnectionView: View {
                         .onAppear {
                             animatingRotation = true
                         }
-                        .opacity(multipeerViewModel.distanceToPeer != nil ? 1 : 0)
-                        .animation(.spring(response: 0.5, dampingFraction: 1, blendDuration: 1), value: multipeerViewModel.distanceToPeer != nil)
+                        .opacity(shown ? 1 : 0)
+                        .animation(.spring(response: 0.5, dampingFraction: 1, blendDuration: 1), value: shown)
                         
                         LineShape()
                             .trim(from: 0, to: model.connectedPath != nil ? 1 : 0)
@@ -117,7 +125,7 @@ struct ConnectionView: View {
             .background {
                 wavesView
                     .ignoresSafeArea()
-                    .onChange(of: multipeerViewModel.distanceToPeer != nil) { newValue in
+                    .onChange(of: shown) { newValue in
                         
                         if newValue {
                             animateWave()

@@ -41,9 +41,11 @@ struct AnalysisView: View {
                 
                 if showingText {
                     Button {
-                        model.stagingAnalysis = nil
-                        model.pullAway.send(analysis)
+                        if degreeOfSeparation != nil {
+                            model.pullAway.send(analysis)
+                        }
                         
+                        model.stagingAnalysis = nil
                     } label: {
                         Image(systemName: "xmark")
                             .foregroundColor(.primary)
@@ -79,6 +81,7 @@ struct AnalysisView: View {
             .frame(height: showingText ? nil : 0, alignment: .top)
             .opacity(showingTextActual ? 1 : 0)
         }
+        .compositingGroup()
         .padding(.horizontal, 20)
         .padding(.vertical, 20)
         .frame(maxWidth: .infinity)
