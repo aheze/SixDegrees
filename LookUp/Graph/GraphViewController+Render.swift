@@ -60,12 +60,27 @@ extension GraphViewController {
     func render(node: Node, level: Int, point: CGPoint, circleRadius: CGFloat) {
         let levelDouble = Double(level)
 
+        let color: UIColor = {
+            switch level {
+            case 0:
+                return UIColor(hex: 0xA148FF)
+            case 1:
+                return UIColor(hex: 0xC344FF)
+            case 2:
+                return UIColor(hex: 0xFF4598)
+            case 3:
+                return UIColor(hex: 0xFF8F48)
+            default:
+                return UIColor(hex: 0x5DCF1A)
+            }
+        }()
+        
         let n = renderCircle(
             contactMetadata: node.contactMetadata,
             level: level,
             point: point,
             circleRadius: circleRadius,
-            color: .systemPurple.withAlphaComponent(Double(1) - levelDouble * 0.4)
+            color: color.withAlphaComponent(Double(1) - levelDouble * 0.05)
         )
         if level == 0 {
             mainNode = n
@@ -81,7 +96,7 @@ extension GraphViewController {
             case 1:
                 return 18
             default:
-                return 6
+                return 10
             }
         }()
 

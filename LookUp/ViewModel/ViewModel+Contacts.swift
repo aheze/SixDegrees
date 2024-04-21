@@ -57,7 +57,7 @@ extension ViewModel {
             )
             
             let contactsDictionary = sorted.makeDictionary()
-            print("cleaned dictionary: \(contactsDictionary.count)")
+//            print("cleaned dictionary: \(contactsDictionary.count) .. \(contactsDictionary)")
             
             DispatchQueue.main.async {
                 self.cnContacts = cnContacts
