@@ -73,7 +73,10 @@ class MultipeerViewModel: NSObject, ObservableObject, NISessionDelegate {
             }
         } else {
             print("Discovering...")
-            startupMPC(phoneNumber: phoneNumber)
+            
+            if !ProcessInfo.processInfo.isiOSAppOnMac {
+                startupMPC(phoneNumber: phoneNumber)
+            }
             
             // Set the display state.
             currentDistanceDirectionState = .unknown

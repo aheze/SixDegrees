@@ -17,10 +17,17 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            Text("6 Degrees")
-                .fontWeight(.thin)
-                .font(.title2)
-                .padding(.top, 10)
+            if ProcessInfo.processInfo.isiOSAppOnMac {
+                Text("6 Degrees")
+                    .fontWeight(.thin)
+                    .font(.system(size: 60))
+                    .padding(.top, 10)
+            } else {
+                Text("6 Degrees")
+                    .fontWeight(.thin)
+                    .font(.title2)
+                    .padding(.top, 10)
+            }
             
             Spacer()
 
