@@ -2,6 +2,10 @@
 
 Welcome to the Six Degrees GitHub repository! Six Degrees is an innovative iOS app designed to foster meaningful connections between individuals in real-life settings. This project was initially named Look Up (since we want users to look up from their phones...lol), but we chose to rename it to Six Degrees. Here's a breakdown of the branches in this repository:
 
+YouTube: https://www.youtube.com/watch?v=t20wJIAw-j8
+
+Devpost: https://devpost.com/software/lookup-gjhi7o
+
 ### Branches
 
 - **main**: The main branch contains the frontend codebase of the Six Degrees iOS application. Written in SwiftUI and rendered with Metal shaders, this branch houses the intuitive and minimalistic user interface tailored for iOS devices. It also includes the integration of Apple's Ultra Wideband chip for precise proximity awareness between users.
